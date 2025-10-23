@@ -1,0 +1,143 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "tailwindcss";
+@import "slick-carousel/slick/slick.css";
+@import "slick-carousel/slick/slick-theme.css";
+@layer base {
+  :root {
+    --primary-green: #ADD0B3;
+    --primary-blue: #afcbe5;
+    --secondary-green: #A0D99F;
+    --secondary-blue: #A0B7DE;
+    --green-500: #ADD0B3;
+    --blue-500: #89a7d6;
+    --animation-duration: 0.8s;
+    --animation-ease: ease-out;
+    --text-gray-500: #6B7280;
+    --text-gray-600: #4B5563;
+  }
+
+  html, body, #__next {
+    position: relative;
+  }
+
+  body {
+    @apply bg-white m-0 p-0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+
+  * {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Buttons and utilities copied from frontend */
+.dynamic-btn {
+  color: #fff;
+  border: 2px solid transparent;
+  transition: all 0.3s ease-in-out;
+}
+
+.dynamic-btn:hover,
+.dynamic-btn:active {
+  background: #fff !important;
+  color: var(--btn-color) !important;
+  border-color: var(--btn-color) !important;
+}
+
+.g-button {
+  background: linear-gradient(to bottom, var(--primary-green), var(--primary-blue));
+  color: #ffffff;
+  border: 2px solid transparent;
+  transition: all 0.4s ease-in-out;
+}
+
+.g-button:hover {
+  background: #ffffff !important;
+  color: var(--primary-green) !important;
+  border: 2px solid var(--primary-green) !important;
+}
+
+.g-button-outline {
+  color: var(--primary-green);
+  border: 2px solid var(--primary-green);
+  background-color: #ffffff;
+  transition: all 0.4s ease-in-out;
+}
+
+.g-button-outline:hover {
+  background: var(--primary-green);
+  color: #ffffff;
+}
+
+.g-button:active, .g-button--active {
+  background: #ffffff !important;
+  color: var(--primary-green) !important;
+  border: 2px solid var(--primary-green) !important;
+}
+
+.g-button-outline:active {
+  background: var(--primary-green);
+  color: #ffffff;
+}
+
+.section-container {
+  @apply py-18 px-4 sm:px-6 lg:px-4 max-w-7xl mx-auto;
+}
+
+.section-title {
+  @apply text-3xl md:text-4xl lg:text-5xl font-semibold text-[var(--text-gray-500)];
+}
+
+.card-shadow {
+  @apply shadow-[-8px_8px_20px_rgba(0,0,0,0.25)];
+}
+
+.hover-shadow {
+  @apply hover:shadow-[-12px_12px_24px_rgba(107,114,128,0.45)];
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideLeft {
+  from { transform: translateX(-80px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+footer {
+  font-family: 'Segoe UI', 'Roboto', sans-serif;
+}
+
+footer h4 {
+  font-weight: bold;
+}
+
+footer a:hover {
+  color: black;
+  transition: color 0.3s ease-in-out;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-pulse {
+  animation: blink 0.8s step-end infinite;
+}
+
+.card-shadow {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+  border-radius: 1rem;
+}

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.clathraenergies.fr/sitemap.xml
+Host: https://www.clathraenergies.fr
