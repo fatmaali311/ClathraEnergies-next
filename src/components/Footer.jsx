@@ -8,15 +8,15 @@ import { FaPhone, FaLocationDot } from 'react-icons/fa6'
 
 export default function Footer({ config = {}, images = {} }) {
   // Defensive: ensure config is an object and configObj exists
+  if (!config || typeof config !== 'object') config = {}
   const safeConfig = config || {}
   const configObj = (safeConfig && typeof safeConfig === 'object' && safeConfig.configObj) ? safeConfig.configObj : {}
-  
+
   const mergedConfig = { ...configObj, ...safeConfig }
 
   const mainColor = mergedConfig.mainColor || mergedConfig.main_color || '#111'
   const workingHours = mergedConfig.workingHours || mergedConfig.working_hours || []
 
-  // تنسيق الوقت
   const formatTime = (t) => {
     if (!t) return ''
     const s = t.toString().trim()
@@ -77,8 +77,9 @@ export default function Footer({ config = {}, images = {} }) {
             variants={fadeLeft(0.2)}
           >
             {(() => {
-              const videos = mergedConfig.videos || config.videos || null
+              const videos = mergedConfig?.videos || config?.videos || {}
               const mainVideo = videos?.main_video || videos?.mainVideo || videos?.main || null
+
               let videoSrc = null
               if (mainVideo) {
                 if (mainVideo.startsWith('http://') || mainVideo.startsWith('https://')) videoSrc = mainVideo
@@ -92,9 +93,9 @@ export default function Footer({ config = {}, images = {} }) {
             })()}
           </motion.div>
 
-        
+
           <div className="md:col-span-2 md:flex md:justify-between lg:col-span-2 lg:flex lg:justify-between pl-0 md:pl-32 lg:pl-4">
-     
+
             <motion.div
               className="space-y-3 mt-6 flex-1"
               initial="hidden"
@@ -138,7 +139,7 @@ export default function Footer({ config = {}, images = {} }) {
               )}
             </motion.div>
 
-       
+
             <motion.div
               className="space-y-3 mt-6 flex-1"
               initial="hidden"
@@ -186,7 +187,7 @@ export default function Footer({ config = {}, images = {} }) {
           </div>
         </div>
 
-       
+
         <motion.nav
           className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl mt-8 sm:mt-10"
           initial="hidden"
@@ -259,7 +260,7 @@ export default function Footer({ config = {}, images = {} }) {
         </motion.div>
       </footer>
 
-      {/* ✅ حقوق النشر */}
+   
       <motion.div
         className="text-center mt-4 mb-6 text-sm sm:text-base md:text-md lg:text-lg font-normal text-gray-600 hover:text-gray-800 transition-colors duration-300"
         initial="hidden"
