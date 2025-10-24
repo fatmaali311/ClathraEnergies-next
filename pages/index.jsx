@@ -33,23 +33,23 @@ export default function Home({ config, page, services }) {
       <Navbar config={cfg} images={config?.images} />
 
       <main>
-  <HeroSection hero={pageObj.hero_section || {}} images={page?.images || config?.images || {}} theme={cfg} />
+        <HeroSection hero={pageObj.hero_section || {}} images={page?.images || config?.images || {}} theme={cfg} />
 
-  {/* content container with top spacing; BorderLines placed inside so it begins after the hero and ends before footer */}
-  <div className="relative pt-12">
-    <BorderLines position="right" />
-    {/* Use the same inner container classes used in the Navbar so left edges align exactly */}
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-4">
-      <WhoWeAre section={pageObj.who_we_are_section || {}} images={page?.images || config?.images || {}} />
+        {/* content container with top spacing; BorderLines placed inside so it begins after the hero and ends before footer */}
+        <div className="relative pt-12">
+          <BorderLines position="right" />
+          {/* Use the same inner container classes used in the Navbar so left edges align exactly */}
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-4">
+            <WhoWeAre section={pageObj.who_we_are_section || {}} images={page?.images || config?.images || {}} />
 
-      <FeaturesSection features={pageObj.features_section || []} images={page?.images || config?.images || {}}  />
-      {/* Services section from API (frontend-style) */}
-      <ServicesSection services={servicesList} />
-    </div>
-  </div>
+            <FeaturesSection features={Array.isArray(pageObj.features_section) ? pageObj.features_section : []} />
+            <ServicesSection services={Array.isArray(servicesList) ? servicesList : []} />
 
-    {/* CTA is full-bleed, render outside the constrained container */}
-    <CTASection cta={pageObj.cta_section || {}} images={page?.images || config?.images || {}} />
+          </div>
+        </div>
+
+        {/* CTA is full-bleed, render outside the constrained container */}
+        <CTASection cta={pageObj.cta_section || {}} images={page?.images || config?.images || {}} />
       </main>
 
       <Footer config={config} images={config?.images} />
