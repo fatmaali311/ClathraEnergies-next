@@ -85,11 +85,11 @@
 }
 
 .section-container {
-  @apply py-18 px-4 sm:px-6 lg:px-4 max-w-7xl mx-auto;
+  @apply py-16 px-4 sm:px-6 lg:px-4 max-w-7xl mx-auto;
 }
 
 .section-title {
-  @apply text-3xl md:text-4xl lg:text-5xl font-semibold text-[var(--text-gray-500)];
+  @apply text-3xl md:text-4xl lg:text-5xl font-semibold text-[var(--text-gray-500)] ;
 }
 
 .card-shadow {

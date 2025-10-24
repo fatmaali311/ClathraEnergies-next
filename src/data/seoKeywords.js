@@ -1,4 +1,5 @@
 const keywords = [
+  'clathraenergies',
   'Biogas',
   'Bio Energy',
   'Biogas upgrading',

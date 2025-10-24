@@ -28,7 +28,7 @@ export default function ServicesPage({ config, page, servicesData }) {
 
         <div className="relative pt-12">
           <BorderLines position="left" />
-          <div className="container">
+          <div className="md:pl-10 ">
             <ServicesCards services={servicesData?.services || []} />
           </div>
         </div>
