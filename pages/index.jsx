@@ -1,6 +1,5 @@
 import Head from 'next/head'
-import Navbar from '../src/components/Navbar'
-import Footer from '../src/components/Footer'
+import MainLayout from '../src/components/layout/MainLayout'
 import HeroSection from '../src/components/home/HeroSection'
 import BorderLines from '../src/components/common/BorderLines'
 import WhoWeAre from '../src/components/home/WhoWeAre'
@@ -11,6 +10,7 @@ import { motion } from 'framer-motion'
 import { fadeUp, containerVariants, listItem, cardSlideUp, viewportSettings } from '../src/utils/animations'
 import SEO from '../src/components/SEO'
 import defaultKeywords from '../src/data/seoKeywords'
+import { processImageUrls } from '../src/utils/imageUtils'
 
 export default function Home({ config, page, services }) {
   const cfg = config?.configObj || {}
@@ -20,7 +20,7 @@ export default function Home({ config, page, services }) {
   const servicesList = services?.services || services || []
 
   return (
-    <div>
+    <MainLayout config={config} page={page}>
       <SEO
         title={`Home`}
         description={pageObj.hero_section?.sub_title || cfg.name}
@@ -30,9 +30,7 @@ export default function Home({ config, page, services }) {
         config={cfg}
       />
 
-      <Navbar config={cfg} images={config?.images} />
-
-      <main>
+      <div>
         <HeroSection hero={pageObj.hero_section || {}} images={page?.images || config?.images || {}} theme={cfg} />
 
         {/* content container with top spacing; BorderLines placed inside so it begins after the hero and ends before footer */}
@@ -54,10 +52,8 @@ export default function Home({ config, page, services }) {
 
         {/* CTA is full-bleed, render outside the constrained container */}
         <CTASection cta={pageObj.cta_section || {}} images={page?.images || config?.images || {}} />
-      </main>
-
-      <Footer config={config} images={config?.images} />
-    </div>
+      </div>
+    </MainLayout>
   )
 }
 
@@ -69,11 +65,28 @@ export async function getServerSideProps() {
     fetch(`${API_BASE}/pages/home`).then(r => r.json()).catch(() => null),
   ])
 
+  // Process all images to ensure they use API domain
+  const config = processImageUrls(configRes)
+  const page = processImageUrls(pageRes)
+  const servicesRes = await fetch(`${API_BASE}/services?limit=10&page=1`).then(r => r.json()).catch(() => ({ services: [] }))
+  
+  // Process services data to ensure all images use API domain
+  const services = servicesRes?.services?.map(svc => {
+    // Process service images
+    if (svc.data?.images) {
+      svc.data.images = Object.keys(svc.data.images).reduce((acc, key) => {
+        acc[key] = svc.data.images[key];
+        return acc;
+      }, {});
+    }
+    return processImageUrls(svc);
+  }) || [];
+
   return {
     props: {
-      config: configRes,
-      page: pageRes,
-      services: await fetch(`${API_BASE}/services?limit=10&page=1`).then(r => r.json()).catch(() => ({ services: [] })),
+      config,
+      page,
+      services: { services }
     },
   }
 }

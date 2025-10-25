@@ -1,6 +1,5 @@
 import Head from 'next/head'
-import Navbar from '../src/components/Navbar'
-import Footer from '../src/components/Footer'
+import MainLayout from '../src/components/layout/MainLayout'
 import ContactHero from '../src/components/contact/ContactHero'
 import ContactFormFormik from '../src/components/contact/ContactFormFormik'
 import ContactMap from '../src/components/contact/ContactMap'
@@ -12,13 +11,14 @@ import { fadeUp, slideUp, viewportSettings, cardSlideUp } from '../src/utils/ani
 import WorkingHours from '../src/components/common/WorkingHours'
 import { MdEmail } from 'react-icons/md'
 import { FaPhone, FaLocationDot } from 'react-icons/fa6'
+import { getImageUrl, processImageUrls } from '../src/utils/imageUtils'
 
 export default function ContactPage({ config, page }) {
   const cfg = config?.configObj || {}
   const pageObj = page?.pageObj || {}
 
   return (
-    <div>
+    <MainLayout config={config} page={page}>
       <SEO
         title={`Contact`}
         description={pageObj.hero_section?.sub_title || cfg.name}
@@ -28,9 +28,7 @@ export default function ContactPage({ config, page }) {
         config={cfg}
       />
 
-      <Navbar config={cfg} images={config?.images} useSecondaryLogo={true} />
-
-      <main>
+      <div>
         <ContactHero hero={pageObj.hero_section || {}} images={page?.images || config?.images || {}} />
 
         <div className="relative">
@@ -61,7 +59,7 @@ export default function ContactPage({ config, page }) {
               >
                 <div className="flex flex-col items-center mt-12">
                   {config?.images?.secondary_logo ? (
-                    <img src={config.images.secondary_logo} alt={cfg.name || 'logo'} className="w-58 h-58 lg:w-88 lg:h-88 md:w-68 md:h-68 object-contain" />
+                    <img src={getImageUrl(config.images.secondary_logo)} alt={cfg.name || 'logo'} className="w-58 h-58 lg:w-88 lg:h-88 md:w-68 md:h-68 object-contain" />
                   ) : (
                     <h3 className="text-2xl font-bold">{cfg.name || 'ClathraEnergies'}</h3>
                   )}
@@ -143,10 +141,8 @@ export default function ContactPage({ config, page }) {
           </div>
         </div>
 
-      </main>
-
-      <Footer config={config} images={config?.images} />
-    </div>
+      </div>
+    </MainLayout>
   )
 }
 
@@ -158,10 +154,14 @@ export async function getServerSideProps() {
     fetch(`${API_BASE}/pages/contact-us`).then(r => r.json()).catch(() => null),
   ])
 
+  // Process images to ensure they use API domain
+  const config = processImageUrls(configRes)
+  const page = processImageUrls(pageRes)
+
   return {
     props: {
-      config: configRes,
-      page: pageRes,
+      config,
+      page,
     },
   }
 }

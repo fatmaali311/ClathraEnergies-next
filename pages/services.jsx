@@ -1,6 +1,5 @@
 import Head from 'next/head'
-import Navbar from '../src/components/Navbar'
-import Footer from '../src/components/Footer'
+import MainLayout from '../src/components/layout/MainLayout'
 import ServicesHero from '../src/components/services/ServicesHero'
 import ServicesCards from '../src/components/services/ServicesCards'
 import SEO from '../src/components/SEO'
@@ -12,7 +11,7 @@ export default function ServicesPage({ config, page, servicesData }) {
   const cfg = config?.configObj || {}
 
   return (
-    <div>
+    <MainLayout config={config} page={page}>
       <SEO
         title={`Services`}
         description={page?.pageObj?.hero_section?.sub_title || cfg.name}
@@ -22,9 +21,7 @@ export default function ServicesPage({ config, page, servicesData }) {
         config={cfg}
       />
 
-      <Navbar config={cfg} images={config?.images} />
-
-      <main>
+      <div>
         <ServicesHero hero={page?.pageObj?.hero_section || { title: 'Services' }} images={page?.images || config?.images || {}} />
 
         <div className="relative pt-12">
@@ -34,10 +31,8 @@ export default function ServicesPage({ config, page, servicesData }) {
           </div>
         </div>
 
-      </main>
-
-       <Footer config={config} images={config?.images} />
-    </div>
+      </div>
+    </MainLayout>
   )
 }
 
