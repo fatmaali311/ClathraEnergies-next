@@ -1,9 +1,10 @@
 import React from 'react'
 import { motion } from 'framer-motion'
+import { getImageUrl } from '../../utils/imageUtils'
 import { slideUp } from '../../utils/animations'
 
 export default function ContactHero({ hero = {}, images = {} }) {
-  const bg = images.contact_hero_image || ''
+  const bg = getImageUrl(images.contact_hero_image || '')
 
   return (
     <section

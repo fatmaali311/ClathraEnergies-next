@@ -100,7 +100,11 @@ export default function Careers({ config, page, positions }) {
         config={cfg}
       />
 
-      <Navbar config={cfg} images={config?.images} />
+
+      <Navbar config={cfg} images={config?.images} useSecondaryLogo={true} />
+
+
+
 
       <main>
         {/* Hero Section */}

@@ -1,10 +1,11 @@
 import Image from 'next/image'
+import { getImageUrl } from '../../utils/imageUtils'
 import GButton from '../GButton'
 import { motion } from 'framer-motion'
 import { slideLeft, slideRight, viewportSettings } from '../../utils/animations'
 
 export default function WhoWeAre({ section = {}, images = {} }) {
-  const img = images.home_about_image || ''
+  const img = getImageUrl(images.home_about_image || '')
 
   return (
     <section className="relative bg-white" aria-labelledby="who-we-are-title">

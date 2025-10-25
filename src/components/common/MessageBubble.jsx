@@ -1,5 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
+import { getImageUrl } from '../../utils/imageUtils'
 
 // MessageBubble matches the Vite frontend's bubble visual (rounded 40px, p-8, tail)
 export default function MessageBubble({ question, answer, bgColor = 'var(--primary-blue)', tail = 'left', icon, isTyping = false, show = true }) {
@@ -21,7 +22,7 @@ export default function MessageBubble({ question, answer, bgColor = 'var(--prima
         <div className="flex items-center gap-3 ml-1">
           <h2 className="text-lg sm:text-xl md:text-2xl font-bold">{question}</h2>
           {icon && (
-            <motion.img src={icon} alt="icon" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ duration: 0.25, delay: 0.2 }} className="w-10 h-10 object-contain" />
+            <motion.img src={getImageUrl(icon)} alt="icon" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ duration: 0.25, delay: 0.2 }} className="w-10 h-10 object-contain" />
           )}
         </div>
         <p className="text-white/95 mt-3">{answer}{isTyping && <span className="inline-block animate-pulse w-2 h-4 bg-white ml-1 align-text-top" />}</p>

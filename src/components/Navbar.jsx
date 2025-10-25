@@ -5,6 +5,7 @@ import { HiMenu, HiX } from 'react-icons/hi'
 import { motion, AnimatePresence } from 'framer-motion'
 import { menuVariants, itemVariants } from '../utils/animations'
 import GButton from './GButton'
+import { getImageUrl } from '../utils/imageUtils'
 import { navLinks as defaultNavLinks } from '../data/navLinks'
 
 export default function Navbar({ config = {}, images = {}, navLinks = null }) {
@@ -19,7 +20,7 @@ export default function Navbar({ config = {}, images = {}, navLinks = null }) {
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-4 py-4 flex items-center justify-between">
         <a href="/" className="transition-transform duration-300 hover:scale-105">
           {images?.main_logo ? (
-            <img src={images.main_logo} alt={config.name || 'logo'} className="h-16 md:h-20" />
+            <img src={getImageUrl(images.main_logo)} alt={config.name || 'logo'} className="h-16 md:h-20" />
           ) : (
             <span className="site-name text-[var(--primary-green)]">{config.name || 'Site'}</span>
           )}

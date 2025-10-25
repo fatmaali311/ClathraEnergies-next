@@ -1,6 +1,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { containerVariants, itemVariants, viewportSettings } from '../../utils/animations'
+import { getImageUrl } from '../../utils/imageUtils'
 
 export default function FeaturesSection({ features = [], images = {} }) {
   return (
@@ -21,7 +22,7 @@ export default function FeaturesSection({ features = [], images = {} }) {
         >
           {features.map((feature, index) => {
             const iconKey = `home_feature_icon${index + 1}`
-            const iconSrc = images[iconKey]
+            const iconSrc = getImageUrl(images[iconKey])
 
             return (
               <motion.div

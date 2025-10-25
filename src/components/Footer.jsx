@@ -2,6 +2,7 @@ import { FaLinkedin, FaSquareXTwitter, FaInstagram, FaFacebookF, FaYoutube, FaWh
 import { motion } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import { fadeUp, fadeLeft, fadeRight, viewportSettings } from '../utils/animations'
+import { getImageUrl } from '../utils/imageUtils'
 import { navLinks as localNavLinks } from '../data/navLinks'
 import { MdEmail } from 'react-icons/md'
 import { FaPhone, FaLocationDot } from 'react-icons/fa6'
@@ -82,11 +83,12 @@ export default function Footer({ config = {}, images = {} }) {
 
               let videoSrc = null
               if (mainVideo) {
+                // ensure video uses API domain
                 if (mainVideo.startsWith('http://') || mainVideo.startsWith('https://')) videoSrc = mainVideo
-                else videoSrc = mainVideo.startsWith('/') ? `${window.location.origin}${mainVideo}` : `${window.location.origin}/${mainVideo}`
+                else videoSrc = getImageUrl(mainVideo)
               }
               return videoSrc ? (
-                <FooterVideo src={videoSrc} poster={images.main_logo || mergedConfig.images?.main_logo || ''} />
+                <FooterVideo src={videoSrc} poster={getImageUrl(images.main_logo || mergedConfig.images?.main_logo || '')} />
               ) : (
                 <div className="w-40 sm:w-48 md:w-56 lg:w-64 h-40 sm:h-48 md:h-56 lg:h-64 rounded-full bg-white/30" />
               )

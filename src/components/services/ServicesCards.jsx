@@ -8,6 +8,7 @@ import {
   listItem,
 } from "../../utils/animations";
 import CustomButton from "../common/CustomButton";
+import { getImageUrl } from '../../utils/imageUtils'
 
 export default function ServicesCards({ services = [] }) {
   if (!services?.length) return null;
@@ -96,7 +97,7 @@ export default function ServicesCards({ services = [] }) {
               >
                 {(obj.details || []).map((box, j) => {
                   const points = box.points ? Object.values(box.points) : [];
-                  const iconUrl = images[box.icon] || "";
+                  const iconUrl = getImageUrl(images[box.icon] || "");
                   const isLastOdd =
                     (obj.details || []).length % 2 !== 0 &&
                     j === (obj.details || []).length - 1;

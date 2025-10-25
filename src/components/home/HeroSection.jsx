@@ -2,10 +2,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { slideLeft, slideUp, viewportSettings, cardSlideUp } from '../../utils/animations'
+import { getImageUrl } from '../../utils/imageUtils'
 
 export default function HeroSection({ hero = {}, images = {}, theme = {} }) {
   const buttons = hero.buttons || []
-  const bg = images.home_hero_image || ''
+  const bg = getImageUrl(images.home_hero_image || '')
 
   return (
     <section

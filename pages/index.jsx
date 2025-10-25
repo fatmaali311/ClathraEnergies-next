@@ -39,11 +39,14 @@ export default function Home({ config, page, services }) {
         <div className="relative pt-12">
           <BorderLines position="right" />
           {/* Use the same inner container classes used in the Navbar so left edges align exactly */}
-       
-            <div className="md:pr-10 ">
-              <WhoWeAre section={pageObj.who_we_are_section || {}} images={page?.images || config?.images || {}} />
 
-            <FeaturesSection features={Array.isArray(pageObj.features_section) ? pageObj.features_section : []} />
+          <div className="md:pr-10 ">
+            <WhoWeAre section={pageObj.who_we_are_section || {}} images={page?.images || config?.images || {}} />
+
+            <FeaturesSection
+              features={Array.isArray(pageObj.features_section) ? pageObj.features_section : []}
+              images={page?.images || config?.images || {}}
+            />
             <ServicesSection services={Array.isArray(servicesList) ? servicesList : []} />
 
           </div>

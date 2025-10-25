@@ -1,13 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import PhoneInput from 'react-phone-input-2'
-// نحتاج لإضافة ملف CSS الخاص بـ react-phone-input-2 لتحكم أفضل في التصميم
 import 'react-phone-input-2/lib/style.css' 
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css' 
 import BorderLines from '../common/BorderLines'
 
-// حجم الملف الأقصى
 const MAX_FILE_SIZE = 4 * 1024 * 1024 // 4 MB for CV and cover letter
 const MAX_OTHER_FILE_SIZE = 8 * 1024 * 1024 // 8 MB for other files
   const primaryTextColor = 'text-gray-900'
@@ -134,15 +132,12 @@ export default function ApplicationForm({ formConfig = {}, positions = [], color
   }
 
   const removeFile = (sectionKey) => {
-    // 1. إزالة الملف من حالة الملفات
     setFiles((s) => ({ ...s, [sectionKey]: null }))
     
-    // 2. مسح قيمة حقل الإدخال في الـ DOM لمنع إرسال الملف القديم
+    // Clear the DOM input value to avoid resubmitting the old file
     if (inputRefs.current[sectionKey]) {
       inputRefs.current[sectionKey].value = null
     }
-
-    // 3. إعادة تعيين الخطأ إذا كان الحقل مطلوبًا
     const sect = fileSections.find((s) => s.key === sectionKey)
     if (sect?.required) setErrors((s) => ({ ...s, [sectionKey]: 'This field is required.' }))
   }
@@ -190,7 +185,7 @@ export default function ApplicationForm({ formConfig = {}, positions = [], color
   const onSubmit = async (e) => {
     e.preventDefault()
     
-    // **1. رسالة الخطأ للـ Validation**
+    // 1. Validation error
     if (!validateForm()) { 
       toast.error('Please fix the errors in the form.'); 
       return 
@@ -221,20 +216,20 @@ export default function ApplicationForm({ formConfig = {}, positions = [], color
       const res = await fetch(`${API_BASE}/applications/create`, { method: 'POST', body: fd })
       
       if (res.ok) {
-        // **2. رسالة النجاح**
+        // 2. Success message
         toast.success('Form submitted successfully! Application sent.')
         setForm({ firstName: '', lastName: '', email: '', phone: '', availableFrom: '', location: '', expectedSalary: '', positionId: '' })
         setFiles({ cv: null, coverLetter: null, employmentRef: null, certificate: null, other: null })
         setErrors({ firstName: '', lastName: '', email: '', phone: '', cv: '', coverLetter: '', availableFrom: '', location: '' })
       } else {
-        // **3. رسالة الخطأ من الـ API**
+        // 3. API error message
         const err = await res.json().catch(() => null)
         console.error('Application error', res.status, err)
         toast.error(err?.message || `Submission failed: ${res.status}`)
       }
     } catch (err) {
       console.error(err)
-      // **4. رسالة خطأ عامة (فشل الشبكة)**
+      // 4. General error (network failure)
       toast.error('Failed to submit application. Please check your network connection.')
     }
   }
@@ -247,7 +242,7 @@ export default function ApplicationForm({ formConfig = {}, positions = [], color
    <BorderLines position="left" />
     <div className="relative min-h-screen">
      
-      {/* تم تقليل الـ padding العلوي لرفع النموذج */}
+  {/* top padding reduced to raise the form */}
       <div className="max-w-4xl mx-auto px-6 pt-4 pb-12 text-xl relative z-10">
        
 {/* Header Section */}
@@ -277,7 +272,6 @@ export default function ApplicationForm({ formConfig = {}, positions = [], color
 
         <form onSubmit={onSubmit} className="space-y-8">
           
-          {/* حقل الاسم */}
           <div>
             <hr className="mb-6 border-gray-200" />
             <label className="block text-lg font-medium text-gray-700 mb-2">{labelFor(['name_field_title','full_name_title','name'],'NAME')} <span className="text-black">*</span></label>
@@ -293,14 +287,14 @@ export default function ApplicationForm({ formConfig = {}, positions = [], color
             </div>
           </div>
 
-          {/* حقل الإيميل */}
+          {/* Email field */}
           <div>
             <label className="block text-lg font-medium text-gray-700 mb-2">{labelFor(['email_field_title','email_title','email'],'EMAIL')} <span className="text-black">*</span></label>
             <input name="email" value={form.email} onChange={handleInputChange} placeholder="youremail@domain.com" className={`w-full px-4 py-3 bg-white rounded border ${errors.email ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-2 focus:ring-gray-300 text-xl`} />
             {errors.email && <p className="text-red-500 text-base mt-1">{errors.email}</p>}
           </div>
 
-          {/* حقل الهاتف (المُعدّل) */}
+          {/* Phone field (customized) */}
           <div className="custom-phone-input-wrapper">
             <label className="block text-lg font-medium text-gray-700 mb-2">{labelFor(['phone_title','phone'],'PHONE')} <span className="text-black">*</span></label>
             <div className={`rounded border ${errors.phone ? 'border-red-500' : 'border-gray-300'} focus-within:ring-2 focus-within:ring-gray-300`}>
@@ -336,7 +330,7 @@ export default function ApplicationForm({ formConfig = {}, positions = [], color
             {errors.phone && <p className="text-red-500 text-base mt-1">{errors.phone}</p>}
           </div>
 
-          {/* حقول متفرقة */}
+          {/* Misc fields */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label className="block text-lg font-medium text-gray-700 mb-2">{labelFor(['available_from_title','availableFrom_title','available_from','available_from_title'],'AVAILABLE FROM')} <span className="text-black">*</span></label>
@@ -355,7 +349,7 @@ export default function ApplicationForm({ formConfig = {}, positions = [], color
             <input name="expectedSalary" value={form.expectedSalary} onChange={handleInputChange} placeholder="" className="w-full px-4 py-3 bg-white rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-300 text-xl" />
           </div>
 
-          {/* قسم الوثائق */}
+          {/* Documents section */}
           <div>
             <h3 className="text-3xl font-semibold mb-4">{labelFor(['documents_section_title','documents_title','documents_section'],'DOCUMENTS')}</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

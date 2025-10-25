@@ -1,9 +1,10 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { slideUp } from '../../utils/animations'
+import { getImageUrl } from '../../utils/imageUtils'
 
 export default function ServicesHero({ hero = {}, images = {} }) {
-  const bg = images.services_hero_image || ''
+  const bg = getImageUrl(images.services_hero_image || '')
 
   return (
     <section

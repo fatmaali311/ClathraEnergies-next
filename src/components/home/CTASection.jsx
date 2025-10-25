@@ -2,10 +2,11 @@ import GButton from '../GButton'
 import BorderLines from '../common/BorderLines'
 import { motion } from 'framer-motion'
 import { viewportSettings } from '../../utils/animations'
+import { getImageUrl } from '../../utils/imageUtils'
 
 export default function CTASection({ cta = {}, images = {} }) {
   const title = cta.title || 'Get Free Consultation'
-  const bg = images.home_cta_image || ''
+  const bg = getImageUrl(images.home_cta_image || '')
   return (
     <section
       className="relative bg-no-repeat bg-[center_90%] bg-cover mb-12 min-h-[180px] md:h-[220px] flex items-center justify-center w-full min-w-full overflow-hidden"

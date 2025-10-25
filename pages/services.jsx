@@ -4,6 +4,7 @@ import Footer from '../src/components/Footer'
 import ServicesHero from '../src/components/services/ServicesHero'
 import ServicesCards from '../src/components/services/ServicesCards'
 import SEO from '../src/components/SEO'
+import { processImageUrls } from '../src/utils/imageUtils'
 import defaultKeywords from '../src/data/seoKeywords'
 import BorderLines from '../src/components/common/BorderLines'
 
@@ -49,11 +50,16 @@ export async function getServerSideProps(context) {
     fetch(`${API_BASE}/services?limit=10&page=1`).then(r => r.json()).catch(() => ({ services: [] })),
   ])
 
+  // Ensure all images point to API
+  const config = processImageUrls(configRes)
+  const page = processImageUrls(pageRes)
+  const servicesData = servicesRes && servicesRes.services ? { services: servicesRes.services.map(svc => processImageUrls(svc)) } : { services: [] }
+
   return {
     props: {
-      config: configRes,
-      page: pageRes,
-      servicesData: servicesRes,
+      config,
+      page,
+      servicesData,
     },
   }
 }
