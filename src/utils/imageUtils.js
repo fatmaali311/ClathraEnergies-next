@@ -12,7 +12,7 @@ export const getImageUrl = (url) => {
   }
 
   // Get the API base URL from env, fallback to production URL
-  const apiBase = process.env.NEXT_PUBLIC_API_URL || process.env.API_BASE_URL || 'https://api.clathraenergies.fr';
+  const apiBase = process.env.API_BASE_URL || 'https://api.clathraenergies.fr';
 
   // Remove any existing domain
   const path = url.replace(/^https?:\/\/[^\/]+/, '');

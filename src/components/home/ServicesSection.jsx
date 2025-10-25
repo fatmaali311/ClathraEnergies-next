@@ -6,6 +6,7 @@ import {
   viewportSettings,
 } from "../../utils/animations";
 import CustomButton from "../../components/common/CustomButton";
+import { getImageUrl } from "../../utils/imageUtils";
 
 // Normalize backend services data
 function normalizeServices(services = []) {
@@ -18,7 +19,7 @@ function normalizeServices(services = []) {
     return {
       number: idx + 1,
       title: svc.title || obj.title || `Service ${idx + 1}`,
-      image: images["service-image"] || Object.values(images)[0] || "",
+      image: getImageUrl(images["service-image"] || Object.values(images)[0] || ""),
       slug: svc.title?.toLowerCase().replace(/\s+/g, "-") || svc._id,
       mainColor,
       titleColor,
