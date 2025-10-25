@@ -87,7 +87,7 @@ export default function Footer({ config = {}, images = {} }) {
                 if (mainVideo.startsWith('http://') || mainVideo.startsWith('https://')) videoSrc = mainVideo
                 else videoSrc = getImageUrl(mainVideo)
               }
-              const fallbackLogo = getImageUrl(images.main_logo || mergedConfig.images?.main_logo || '')
+              const fallbackLogo = getImageUrl(images.secondary_logo || mergedConfig.images?.secondary_logo || '')
               return videoSrc ? (
                 <FooterVideo src={videoSrc} poster={fallbackLogo} fallbackLogo={fallbackLogo} />
               ) : (
