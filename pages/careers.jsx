@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import SEO from '../src/components/SEO'
-import Navbar from '../src/components/Navbar'
-import Footer from '../src/components/Footer'
+import MainLayout from '../src/components/layout/MainLayout'
 import BorderLines from '../src/components/common/BorderLines'
 import { motion } from 'framer-motion'
 import { fadeUp, slideUp, viewportSettings } from '../src/utils/animations'
 import Link from 'next/link'
+import { getImageUrl, processImageUrls } from '../src/utils/imageUtils'
 
 // Import the separated components
 import PositionCard from '../src/components/careers/PositionCard'
@@ -90,7 +90,7 @@ export default function Careers({ config, page, positions }) {
 
 
   return (
-    <div>
+    <MainLayout config={config} page={page}>
       <SEO
         title={`Careers`}
         description={pageObj.hero_section?.sub_title || cfg.name}
@@ -101,16 +101,12 @@ export default function Careers({ config, page, positions }) {
       />
 
 
-      <Navbar config={cfg} images={config?.images} useSecondaryLogo={true} />
-
-
-
 
       <main>
         {/* Hero Section */}
         <section
           className="relative flex flex-col items-center justify-center text-center h-[200px] sm:h-[250px] md:h-[300px] lg:h-[400px] w-full bg-cover bg-[center]"
-          style={{ backgroundImage: `url(${images?.career_hero_image || ''})` }}
+          style={{ backgroundImage: `url(${getImageUrl(images?.career_hero_image || '')})` }}
         >
           {/* Using dynamic colors for gradient overlay */}
           <div className="absolute inset-0" style={{ background: `linear-gradient(to left, ${mainColor}d9, ${mainColor}bf, ${secondaryColor}b3)` }} />
@@ -201,14 +197,13 @@ export default function Careers({ config, page, positions }) {
           </section>
         </div>
       </main>
- <Footer config={config} images={config?.images} />
-    </div>
+    </MainLayout>
   )
 }
 
 // --- getServerSideProps remains unchanged ---
 export async function getServerSideProps() {
-  const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3000'
+  const API_BASE = process.env.API_BASE_URL  || 'http://localhost:3000'
   try {
     const [configRes, pageRes, positionsRes] = await Promise.all([
       fetch(`${API_BASE}/config`).then(r => r.json()).catch(() => null),
@@ -216,12 +211,27 @@ export async function getServerSideProps() {
       fetch(`${API_BASE}/positions?limit=100&page=1`).then(r => r.json()).catch(() => null),
     ])
 
-    const positions = positionsRes?.data?.data || positionsRes?.data || positionsRes || []
-    
-    // Ensure data is structured correctly for page prop
-    const pageData = pageRes?.pageObj ? pageRes : { pageObj: pageRes, images: pageRes?.images } || null
+    // Normalize config and page images to use API domain
+    const config = processImageUrls(configRes)
+    const rawPage = pageRes?.pageObj ? pageRes : { pageObj: pageRes, images: pageRes?.images } || null
+    const pageProcessed = processImageUrls(rawPage)
 
-    return { props: { config: configRes, page: pageData, positions: positions.data || positions } }
+    // Normalize positions shape and process images inside each position
+    const rawPositions = positionsRes?.data?.data || positionsRes?.data || positionsRes || []
+    const positionsArray = Array.isArray(rawPositions) ? rawPositions : (rawPositions.items || [])
+
+    const positions = (positionsArray || []).map(p => {
+      // ensure nested images use API domain
+      if (p?.data?.images) {
+        p.data.images = Object.keys(p.data.images).reduce((acc, key) => {
+          acc[key] = p.data.images[key] ? getImageUrl(p.data.images[key]) : ''
+          return acc
+        }, {})
+      }
+      return processImageUrls(p)
+    })
+
+    return { props: { config, page: pageProcessed, positions } }
   } catch (err) {
     console.error(err)
     return { props: { config: null, page: null, positions: [] } }
