@@ -8,7 +8,7 @@ export default function ContactHero({ hero = {}, images = {} }) {
 
   return (
     <section
-      className="relative flex items-center justify-center  h-[200px] md:h-[250px] lg:h-[300px] w-full bg-cover bg-[60%_30%]"
+      className="relative z-10 flex items-center justify-center h-[280px] w-full bg-cover bg-center bg-no-repeat"
       style={{ backgroundImage: `url(${bg})` }}
     >
       <div className="absolute inset-0 bg-gradient-to-l from-[var(--primary-green)]/85 via-[var(--primary-green)]/75 to-[var(--primary-blue)]/70" />
