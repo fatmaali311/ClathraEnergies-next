@@ -56,7 +56,7 @@ export default function PositionCard({ p, mainColor = 'var(--primary-green)' }) 
       <button
         onClick={() => setOpen(!open)}
         aria-expanded={open}
-        className="mt-3 text-base font-semibold text-gray-700 inline-flex items-center gap-2 hover:text-[var(--primary-blue)] transition-colors"
+        className="mt-3 text-base font-semibold text-gray-700 inline-flex items-center gap-2 hover:text-[var(--primary-green)] transition-colors"
       >
         <span>{open ? 'Hide details' : 'Show more details'}</span>
         <IoChevronDown
