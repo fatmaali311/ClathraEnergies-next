@@ -87,8 +87,9 @@ export default function Footer({ config = {}, images = {} }) {
                 if (mainVideo.startsWith('http://') || mainVideo.startsWith('https://')) videoSrc = mainVideo
                 else videoSrc = getImageUrl(mainVideo)
               }
+              const fallbackLogo = getImageUrl(images.main_logo || mergedConfig.images?.main_logo || '')
               return videoSrc ? (
-                <FooterVideo src={videoSrc} poster={getImageUrl(images.main_logo || mergedConfig.images?.main_logo || '')} />
+                <FooterVideo src={videoSrc} poster={fallbackLogo} fallbackLogo={fallbackLogo} />
               ) : (
                 <div className="w-40 sm:w-48 md:w-56 lg:w-64 h-40 sm:h-48 md:h-56 lg:h-64 rounded-full bg-white/30" />
               )
@@ -277,8 +278,9 @@ export default function Footer({ config = {}, images = {} }) {
   )
 }
 
-function FooterVideo({ src, poster }) {
+function FooterVideo({ src, poster, fallbackLogo }) {
   const [error, setError] = useState(null)
+  const [showFallback, setShowFallback] = useState(false)
 
   const getType = (url) => {
     if (!url) return 'video/mp4'
@@ -287,6 +289,20 @@ function FooterVideo({ src, poster }) {
     if (u.endsWith('.ogg') || u.endsWith('.ogv')) return 'video/ogg'
     if (u.endsWith('.mp4') || u.endsWith('.m4v')) return 'video/mp4'
     return 'video/mp4'
+  }
+
+  // If there's no src or video failed, show the fallback logo image
+  if (!src || showFallback) {
+    const logoSrc = fallbackLogo || poster || ''
+    return (
+      <div className="relative">
+        <img
+          src={logoSrc}
+          alt="logo"
+          className="w-40 sm:w-48 md:w-56 lg:w-64 h-40 sm:h-48 md:h-56 lg:h-64 rounded-full object-contain bg-white"
+        />
+      </div>
+    )
   }
 
   return (
@@ -299,7 +315,10 @@ function FooterVideo({ src, poster }) {
         preload="auto"
         poster={poster || ''}
         className="w-40 sm:w-48 md:w-56 lg:w-64 h-40 sm:h-48 md:h-56 lg:h-64 rounded-full object-cover"
-        onError={() => setError('Video failed to load')}
+        onError={() => {
+          setError('Video failed to load')
+          setShowFallback(true)
+        }}
         onLoadedData={() => setError(null)}
       >
         <source src={src} type={getType(src)} />
