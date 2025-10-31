@@ -413,19 +413,57 @@ export default function ApplicationForm({ formConfig = {}, positions = [], color
             </div>
           </div>
 
-          <div className="flex items-center justify-between w-full pt-4">
-            <button type="submit" className="text-white px-12 py-4 rounded-lg font-bold disabled:opacity-60 text-xl shadow-lg transition-transform hover:scale-[1.01]" style={{ backgroundColor: baseColor }}>
-              {pageFormConfig.submit_button_title || 'Send application'}
-            </button>
+        {/* Buttons Section */}
+<div className="flex flex-col sm:flex-row items-center justify-between w-full pt-4 gap-4 sm:gap-6">
+  <button
+    type="submit"
+    className="w-full sm:w-auto text-white px-8 sm:px-12 py-4 rounded-lg font-bold disabled:opacity-60 text-lg sm:text-xl shadow-lg transition-transform hover:scale-[1.02] active:scale-[0.98]"
+    style={{ backgroundColor: baseColor }}
+  >
+    {pageFormConfig.submit_button_title || 'Send application'}
+  </button>
 
-            <button type="button" onClick={() => {
-              setForm({ firstName: '', lastName: '', email: '', phone: '', availableFrom: '', location: '', expectedSalary: '', positionId: '' })
-              setFiles({ cv: null, coverLetter: null, employmentRef: null, certificate: null, other: null })
-              setErrors({ firstName: '', lastName: '', email: '', phone: '', cv: '', coverLetter: '', availableFrom: '', location: '' })
-              Object.values(inputRefs.current).forEach((el) => { if (el) el.value = null })
-              toast.info('Form has been reset.')
-            }} className="bg-gray-200 text-gray-700 px-8 py-4 rounded font-medium text-lg hover:bg-gray-300 transition-colors">Cancel</button>
-          </div>
+  <button
+    type="button"
+    onClick={() => {
+      setForm({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        availableFrom: '',
+        location: '',
+        expectedSalary: '',
+        positionId: '',
+      })
+      setFiles({
+        cv: null,
+        coverLetter: null,
+        employmentRef: null,
+        certificate: null,
+        other: null,
+      })
+      setErrors({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        cv: '',
+        coverLetter: '',
+        availableFrom: '',
+        location: '',
+      })
+      Object.values(inputRefs.current).forEach((el) => {
+        if (el) el.value = null
+      })
+      toast.info('Form has been reset.')
+    }}
+    className="w-full sm:w-auto bg-gray-200 text-gray-700 px-8 sm:px-12 py-4 rounded-lg font-medium text-lg sm:text-xl hover:bg-gray-300 transition-colors shadow-md"
+  >
+    Cancel
+  </button>
+</div>
+
         </form>
       </div>
     </div>
