@@ -11,6 +11,8 @@ import { fadeUp, containerVariants, listItem, cardSlideUp, viewportSettings } fr
 import SEO from '../src/components/SEO'
 import defaultKeywords from '../src/data/seoKeywords'
 import { processImageUrls } from '../src/utils/imageUtils'
+import PartnersSection from '../src/components/home/PartnersSection'
+
 
 export default function Home({ config, page, services }) {
   const cfg = config?.configObj || {}
@@ -45,11 +47,13 @@ export default function Home({ config, page, services }) {
               features={Array.isArray(pageObj.features_section) ? pageObj.features_section : []}
               images={page?.images || config?.images || {}}
             />
+          
             <ServicesSection services={Array.isArray(servicesList) ? servicesList : []} />
+             <PartnersSection images={page?.images || config?.images || {}} theme={cfg} />
 
           </div>
         </div>
-
+      
         {/* CTA is full-bleed, render outside the constrained container */}
         <CTASection cta={pageObj.cta_section || {}} images={page?.images || config?.images || {}} />
       </div>
