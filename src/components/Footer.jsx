@@ -99,16 +99,20 @@ export default function Footer({ config = {}, images = {} }) {
 
           <div className="md:col-span-2 md:flex md:justify-between lg:col-span-2 lg:flex lg:justify-between pl-0 md:pl-32 lg:pl-4">
 
-            <motion.div
-              className="space-y-3 mt-6 flex-1"
-              initial="hidden"
-              whileInView="visible"
-              viewport={viewportSettings}
-              variants={fadeUp(0.4)}
-            >
-              <h4 className="font-bold mb-3 text-xl sm:text-2xl md:text-3xl">Working Hours</h4>
-              {workingHours.length > 0 ? (
-                workingHours.map((wh, i) => {
+            {workingHours && workingHours.length > 0 ? (
+              <motion.div
+                className="space-y-3 mt-6 flex-1"
+                initial="hidden"
+                whileInView="visible"
+                viewport={viewportSettings}
+                variants={fadeUp(0.4)}
+              >
+                {mergedConfig.working_title ? (
+                  <h4 className="font-bold mb-3 text-xl sm:text-2xl md:text-3xl">
+                    {mergedConfig.working_title}
+                  </h4>
+                ) : null}
+                {workingHours.map((wh, i) => {
                   const rawDayFrom = wh.dayFrom || wh.day || wh.day_from || wh.from_day || ''
                   const rawDayTo = wh.dayTo || wh.day_to || wh.to_day || ''
                   const dayFrom = (rawDayFrom || '').trim()
@@ -132,61 +136,74 @@ export default function Footer({ config = {}, images = {} }) {
                       ) : null}
 
                       {timeLine ? (
-                        <div className="mt-1 text-base font-normal text-center md:text-left">{timeLine}</div>
+                        <div className="mt-1 text-base font-normal text-center md:text-left">
+                          {timeLine}
+                        </div>
                       ) : null}
                     </div>
                   )
-                })
-              ) : (
-                <p>No working hours provided</p>
-              )}
-            </motion.div>
+                })}
+              </motion.div>
+            ) : null}
 
 
-            <motion.div
-              className="space-y-3 mt-6 flex-1"
-              initial="hidden"
-              whileInView="visible"
-              viewport={viewportSettings}
-              variants={fadeRight(0.6)}
-            >
-              <h4 className="font-bold mb-3 text-xl sm:text-2xl md:text-3xl">
-                {mergedConfig.contactInfo?.name || 'Get In Touch'}
-              </h4>
+            {(mergedConfig.contactInfo?.details?.email ||
+              mergedConfig.contactInfo?.details?.phone ||
+              mergedConfig.contactInfo?.details?.address) && (
+              <motion.div
+                className="space-y-3 mt-6 flex-1"
+                initial="hidden"
+                whileInView="visible"
+                viewport={viewportSettings}
+                variants={fadeRight(0.6)}
+              >
+                {(mergedConfig.contactInfo?.title || mergedConfig.contactInfo?.name) && (
+                  <h4 className="font-bold mb-3 text-xl sm:text-2xl md:text-3xl">
+                    {mergedConfig.contactInfo?.title || mergedConfig.contactInfo?.name}
+                  </h4>
+                )}
+                {mergedConfig.contactInfo?.details?.email && (
+                  <a
+                    href={`mailto:${mergedConfig.contactInfo.details.email}`}
+                    className="flex items-center justify-center md:justify-start gap-2 hover:text-black transition-colors text-base sm:text-lg font-normal"
+                  >
+                    <MdEmail className="text-xl sm:text-2xl" />
+                    <span>{mergedConfig.contactInfo.details.email}</span>
+                  </a>
+                )}
 
-              {mergedConfig.contactInfo?.details?.email && (
-                <a
-                  href={`mailto:${mergedConfig.contactInfo.details.email}`}
-                  className="flex items-center justify-center md:justify-start gap-2 hover:text-black transition-colors text-base sm:text-lg font-normal"
-                >
-                  <MdEmail className="text-xl sm:text-2xl" />
-                  <span>{mergedConfig.contactInfo.details.email}</span>
-                </a>
-              )}
+                {mergedConfig.contactInfo?.details?.phone && (
+                  <a
+                    href={`tel:${mergedConfig.contactInfo.details.phone.replace(/\s+/g, '')}`}
+                    className="flex items-center justify-center md:justify-start gap-2 hover:text-black transition-colors text-base sm:text-lg font-normal"
+                  >
+                    <FaPhone className="text-xl sm:text-2xl" />
+                    <span>{mergedConfig.contactInfo.details.phone}</span>
+                  </a>
+                )}
 
-              {mergedConfig.contactInfo?.details?.phone && (
-                <a
-                  href={`tel:${mergedConfig.contactInfo.details.phone.replace(/\s+/g, '')}`}
-                  className="flex items-center justify-center md:justify-start gap-2 hover:text-black transition-colors text-base sm:text-lg font-normal"
-                >
-                  <FaPhone className="text-xl sm:text-2xl" />
-                  <span>{mergedConfig.contactInfo.details.phone}</span>
-                </a>
-              )}
-
-              {mergedConfig.contactInfo?.details?.address && (
-                <p className="flex items-start justify-center md:justify-start gap-2 text-base sm:text-lg font-normal">
-                  <FaLocationDot className="text-xl sm:text-2xl mt-1" />
-                  <span>
-                    {mergedConfig.contactInfo.details.address.street}
-                    <br />
-                    {mergedConfig.contactInfo.details.address.city}
-                    <br />
-                    {mergedConfig.contactInfo.details.address.country}
-                  </span>
-                </p>
-              )}
-            </motion.div>
+                {mergedConfig.contactInfo?.details?.address?.street && (
+                  <p className="flex items-start justify-center md:justify-start gap-2 text-base sm:text-lg font-normal">
+                    <FaLocationDot className="text-xl sm:text-2xl mt-1" />
+                    <span>
+                      {mergedConfig.contactInfo.details.address.street}
+                      {mergedConfig.contactInfo.details.address.city && (
+                        <>
+                          <br />
+                          {mergedConfig.contactInfo.details.address.city}
+                        </>
+                      )}
+                      {mergedConfig.contactInfo.details.address.country && (
+                        <>
+                          <br />
+                          {mergedConfig.contactInfo.details.address.country}
+                        </>
+                      )}
+                    </span>
+                  </p>
+                )}
+              </motion.div>
+            )}
           </div>
         </div>
 

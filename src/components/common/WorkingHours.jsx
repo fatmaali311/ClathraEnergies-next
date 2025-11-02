@@ -37,15 +37,16 @@ export function formatTimeRange(rangeStr) {
   return formatTime(rangeStr)
 }
 
-export default function WorkingHours({ hours = [], size = 'normal' }) {
-  if (!hours || !hours.length) return <p>No working hours provided</p>
+export default function WorkingHours({ hours = [], title, size = 'normal' }) {
+  // Don't render anything if there's no data
+  if (!hours || !Array.isArray(hours) || hours.length === 0) return null;
 
   const headingClass = size === 'small' ? 'font-semibold text-lg mb-3' : 'font-semibold text-xl mb-3'
   const itemClass = size === 'small' ? 'text-sm sm:text-base font-normal' : 'text-base sm:text-lg font-normal'
 
   return (
     <div>
-      <h4 className={headingClass}>Working Hours</h4>
+      {title ? <h4 className={headingClass}>{title}</h4> : null}
       {hours.map((wh, i) => {
         const rawDayFrom = wh.dayFrom || wh.day || wh.day_from || wh.from_day || wh.fromDay || ''
         const rawDayTo = wh.dayTo || wh.toDay || wh.day_to || wh.to_day || wh.toDay || ''

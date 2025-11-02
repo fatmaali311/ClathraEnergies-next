@@ -66,12 +66,19 @@ export default function ContactPage({ config, page }) {
                 </div>
 
                 <div className="mt-2 flex flex-col md:flex-row md:justify-center md:gap-28 lg:gap-0 lg:flex lg:justify-between items-center md:items-start text-center md:text-left">
-                  <div className="mb-4 md:mb-10">
-                    <WorkingHours hours={(cfg.workingHours || cfg.working_hours || [])} />
-                  </div>
+                  {cfg.workingHours && cfg.workingHours.length > 0 && (
+                    <div className="mb-4 md:mb-10">
+                      <WorkingHours 
+                        hours={cfg.workingHours} 
+                        title={cfg.working_title}
+                      />
+                    </div>
+                  )}
 
                   <div className="flex flex-col items-center md:items-start">
-                    <h4 className="font-semibold text-lg mb-3">Get In Touch</h4>
+                    {((cfg.contactInfo && (cfg.contactInfo.title || cfg.contactInfo.name)) || cfg.contact_info?.title) && (
+                      <h4 className="font-semibold text-lg mb-3">{cfg.contactInfo?.title || cfg.contact_info?.title || cfg.contactInfo?.name}</h4>
+                    )}
                     <ul className="space-y-3">
                       {/* Email */}
                       {cfg.contactInfo?.details?.email || cfg.contact_info?.email ? (
