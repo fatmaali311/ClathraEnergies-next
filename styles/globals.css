@@ -6,16 +6,10 @@
 @import "slick-carousel/slick/slick-theme.css";
 @layer base {
   :root {
-    --primary-green: #ADD0B3;
-    --primary-blue: #afcbe5;
-    --secondary-green: #A0D99F;
-    --secondary-blue: #A0B7DE;
-    --green-500: #ADD0B3;
-    --blue-500: #89a7d6;
+ 
     --animation-duration: 0.8s;
     --animation-ease: ease-out;
-    --text-gray-500: #6B7280;
-    --text-gray-600: #4B5563;
+  
   }
 
   html, body, #__next {
