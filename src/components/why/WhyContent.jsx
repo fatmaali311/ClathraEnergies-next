@@ -35,22 +35,26 @@ const WhyContent = ({ page = {}, images = {} }) => {
 
           <div className="flex-1 flex flex-col items-center justify-center text-center px-2 md:px-8">
             <p className="font-semibold text-lg sm:text-xl md:text-2xl mb-1 leading-tight"
-               style={{ color: "var(--title-color)" }}>
+              style={{ color: "var(--title-color)" }}>
               {stats.methane_text || '100–170 Nm³ methane / m³'}
             </p>
 
             <div className="flex items-center justify-center w-full mt-2 relative">
-              <div className="flex-grow h-1 bg-[var(--subtitle-color)] relative max-w-[220px] sm:max-w-[280px] md:max-w-full rounded-full">
-                <span className="absolute top-1/2 -translate-y-1/2 right-0 translate-x-1/2 
-                 w-3 h-3 border-t-[4px] border-r-[4px] 
-                 border-[var(--subtitle-color)] rotate-45" />
-
-
+              <div
+                className="flex-grow h-1 relative max-w-[220px] sm:max-w-[280px] md:max-w-full rounded-full"
+                style={{ backgroundColor: "var(--subtitle-color)" }}
+              >
+                <span
+                  className="absolute top-1/2 -translate-y-1/2 right-0 translate-x-1/2 w-3 h-3 border-t-[4px] border-r-[4px] rotate-45"
+                  style={{ borderColor: "var(--subtitle-color)" }}
+                />
               </div>
+
+
             </div>
 
             <p className="font-medium text-lg sm:text-xl md:text-2xl mt-2"
-               style={{ color: "var(--title-color)" }}>
+              style={{ color: "var(--title-color)" }}>
               {stats.brand_text || 'ClathraEnergies™'}
             </p>
           </div>
@@ -80,11 +84,11 @@ const WhyContent = ({ page = {}, images = {} }) => {
                        flex flex-col items-center justify-center w-full"
           >
             <div className="grid grid-cols-2 gap-8 md:gap-16 w-full place-items-center">
-              
+
               {/* Left Temp */}
               <div className="flex flex-col items-center w-full">
                 <span className="font-semibold text-base md:text-lg mb-4 text-center translate-x-10"
-                      style={{ color: "var(--subtitle-color)" }}>
+                  style={{ color: "var(--subtitle-color)" }}>
                   {temps.left_label || 'ClathraEnergies™'}
                 </span>
 
@@ -98,7 +102,7 @@ const WhyContent = ({ page = {}, images = {} }) => {
                       className="w-16 md:w-20 h-56 md:h-64 object-contain"
                       alt="hot thermometer" />
                     <span className="mt-3 text-base md:text-lg font-medium"
-                          style={{ color: "var(--subtitle-color)" }}>
+                      style={{ color: "var(--subtitle-color)" }}>
                       {temps.left_temp || '-20°C'}
                     </span>
                   </div>
@@ -108,7 +112,7 @@ const WhyContent = ({ page = {}, images = {} }) => {
               {/* Right Temp */}
               <div className="flex flex-col items-center w-full">
                 <span className="font-semibold text-base md:text-lg mb-4 text-center translate-x-10 md:translate-x-12"
-                      style={{ color: "var(--subtitle-color)" }}>
+                  style={{ color: "var(--subtitle-color)" }}>
                   {temps.right_label || 'BML'}
                 </span>
 
@@ -122,7 +126,7 @@ const WhyContent = ({ page = {}, images = {} }) => {
                       className="w-16 md:w-20 h-56 md:h-64 object-contain"
                       alt="cold thermometer" />
                     <span className="mt-3 text-base md:text-lg font-medium"
-                          style={{ color: "var(--subtitle-color)" }}>
+                      style={{ color: "var(--subtitle-color)" }}>
                       {temps.right_temp || '-162°C'}
                     </span>
                   </div>
@@ -145,7 +149,7 @@ const WhyContent = ({ page = {}, images = {} }) => {
               alt="safe" />
 
             <p className="mt-6 font-medium text-xl md:text-2xl text-center"
-               style={{ color: "var(--subtitle-color)" }}>
+              style={{ color: "var(--subtitle-color)" }}>
               {safe.title || 'Safe and Green Technology'}
             </p>
           </motion.div>
@@ -174,19 +178,21 @@ const WhyContent = ({ page = {}, images = {} }) => {
 
           <div className="flex items-center justify-center w-full md:w-1/2 mt-8 md:mt-0 space-x-6">
             <div className="flex flex-col items-start space-y-3 text-lg md:text-2xl font-medium"
-                 style={{ color: "var(--subtitle-color)" }}>
+              style={{ color: "var(--subtitle-color)" }}>
               <p>{econ.capex_text || '25 - 50 % CAPEX'}</p>
               <p>{econ.opex_text || '18 - 25 % OPEX'}</p>
             </div>
 
             <div className="flex flex-col items-center ml-4 md:ml-6">
-              <div className="h-20 md:h-24 w-1 bg-[var(--subtitle-color)] relative rounded-full">
-             <span className="absolute bottom-0 translate-y-1/2 left-1/2 -translate-x-1/2 
-                 w-3 h-3 border-b-[4px] border-r-[4px] 
-                 border-[var(--subtitle-color)] rotate-45" />
-
-
+              <div className="h-20 md:h-24 w-1 relative rounded-full"
+                style={{ backgroundColor: "var(--subtitle-color)" }}>
+                <span
+                  className="absolute bottom-0 translate-y-1/2 left-1/2 -translate-x-1/2 
+               w-3 h-3 border-b-[4px] border-r-[4px] rotate-45"
+                  style={{ borderColor: "var(--subtitle-color)" }}
+                />
               </div>
+
             </div>
           </div>
         </motion.div>

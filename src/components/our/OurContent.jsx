@@ -53,7 +53,7 @@ const OurContent = ({ page = {}, images = {} }) => {
   })
 
   return (
-    <section className="w-full py-14 md:py-20 flex flex-col items-center bg-white">
+<section className="w-full pb-14 md:pb-20 flex flex-col items-center bg-white">
       <div className="w-full">
         
         {/* DESKTOP/TABLET */}
