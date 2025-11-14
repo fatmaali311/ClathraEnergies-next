@@ -41,14 +41,15 @@ const WhyContent = ({ page = {}, images = {} }) => {
 
             <div className="flex items-center justify-center w-full mt-2 relative">
               <div
-                className="flex-grow h-1 relative max-w-[220px] sm:max-w-[280px] md:max-w-full rounded-full"
+                className="flex-grow min-h-[3px] relative rounded-full z-0"
                 style={{ backgroundColor: "var(--subtitle-color)" }}
               >
                 <span
-                  className="absolute top-1/2 -translate-y-1/2 right-0 translate-x-1/2 w-3 h-3 border-t-[4px] border-r-[4px] rotate-45"
+                  className="absolute top-1/2 -translate-y-1/2 right-0 translate-x-1/2 w-3 h-3 border-t-[4px] border-r-[4px] rotate-45 z-10"
                   style={{ borderColor: "var(--subtitle-color)" }}
                 />
               </div>
+
 
 
             </div>
