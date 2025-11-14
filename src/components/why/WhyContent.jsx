@@ -40,19 +40,19 @@ const WhyContent = ({ page = {}, images = {} }) => {
               {stats.methane_text || '100–170 Nm³ methane / m³'}
             </p>
 
+
             <div className="flex items-center justify-center w-full mt-2 relative">
-              {/* LINE: Set to var(--subtitle-color) */}
               <div
-                className="flex-grow min-h-[3px] relative rounded-full z-0"
-                style={{ backgroundColor: "var(--subtitle-color)" }}
+                className="flex-grow min-h-[3px] w-2/3 relative rounded-full z-0"
+                style={{ backgroundColor: "#6B7280" }} // gray-500
               >
-                {/* ARROW: Set to var(--subtitle-color) */}
                 <span
                   className="absolute top-1/2 -translate-y-1/2 right-0 translate-x-1/2 w-3 h-3 border-t-[4px] border-r-[4px] rotate-45 z-10"
-                  style={{ borderColor: "var(--subtitle-color)" }}
+                  style={{ borderColor: "#6B7280" }} // gray-500
                 />
               </div>
             </div>
+
 
             {/* TEXT: Set to var(--title-color) */}
             <p className="font-medium text-lg sm:text-xl md:text-2xl mt-2"
@@ -191,19 +191,17 @@ const WhyContent = ({ page = {}, images = {} }) => {
               <p>{econ.opex_text || '18 - 25 % OPEX'}</p>
             </div>
 
-            <div className="flex flex-col items-center ml-4 md:ml-6">
-              {/* LINE: Set to var(--subtitle-color) */}
-              <div className="h-20 md:h-24 w-1 relative rounded-full"
-                style={{ backgroundColor: "var(--subtitle-color)" }}>
-                {/* ARROW: Set to var(--subtitle-color) */}
-                <span
-                  className="absolute bottom-0 translate-y-1/2 left-1/2 -translate-x-1/2 
-                w-3 h-3 border-b-[4px] border-r-[4px] rotate-45"
-                  style={{ borderColor: "var(--subtitle-color)" }}
-                />
-              </div>
+          <div className="flex flex-col items-center ml-4 md:ml-6">
+  <div className="h-20 md:h-24 w-1 relative rounded-full"
+       style={{ backgroundColor: "#6B7280" }}> {/* gray-500 */}
+    <span
+      className="absolute bottom-0 translate-y-1/2 left-1/2 -translate-x-1/2 
+                 w-3 h-3 border-b-[4px] border-r-[4px] rotate-45"
+      style={{ borderColor: "#6B7280" }} // gray-500
+    />
+  </div>
+</div>
 
-            </div>
           </div>
         </motion.div>
 
