@@ -7,12 +7,13 @@ export const getImageUrl = (url) => {
   if (!url) return '';
 
   // If it's already an absolute URL pointing to our API, return as is
-  if (url.startsWith('https://api.clathraenergies.fr')) {
+  if (url.startsWith('https://api.clathraenergies.fr') || url.startsWith('http://')) {
     return url;
   }
 
-  // Get the API base URL from env, fallback to production URL
-  const apiBase = process.env.API_BASE_URL || 'https://api.clathraenergies.fr';
+  // Use NEXT_PUBLIC_API_BASE_URL which is available on both server and client (prevents hydration mismatch)
+  // Fallback to production URL if not set
+  const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://api.clathraenergies.fr';
 
   // Remove any existing domain
   const path = url.replace(/^https?:\/\/[^\/]+/, '');
