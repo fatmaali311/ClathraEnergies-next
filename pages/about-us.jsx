@@ -6,20 +6,11 @@ import { fadeUp, viewportSettings, containerVariants, cardVariants } from '../sr
 import SEO from '../src/components/SEO'
 import defaultKeywords from '../src/data/seoKeywords'
 import BorderLines from '../src/components/common/BorderLines'
+import { getImageUrl } from '../src/utils/imageUtils'
 
 export default function About({ config, page, apiBase }) {
   const cfg = config?.configObj || {}
   const pageObj = page?.pageObj || {}
-  const resolveImage = (img) => {
-    if (!img) return ''
-    // Accept several shapes: string path/url, or object with url/path
-    const src = typeof img === 'string' ? img : img.url || img.path || img.src || img.file || ''
-    if (!src) return ''
-    if (src.startsWith('http') || src.startsWith('data:')) return src
-    // Ensure leading slash
-    const path = src.startsWith('/') ? src : `/${src}`
-    return (apiBase || '') + path
-  }
   // Merge images from config and page so callers can find named images like
   // about_detail_icon_1 or objective_icon_1 (page may include these keys)
   const pageImages = { ...(config?.images || {}), ...(page?.images || {}) }
@@ -38,8 +29,10 @@ export default function About({ config, page, apiBase }) {
       <main>
         {/* Hero (mirrors frontend AboutHero) */}
         <section
-          className="relative flex items-center justify-center h-[300px] md:h-[300px] lg:h-[400px] w-full bg-cover bg-[right_center]"
-          style={{ backgroundImage: `url(${resolveImage((pageObj.hero_section && pageObj.hero_section.image) || pageImages?.about_hero_image || config?.images?.about_hero_image)})` }}
+          className="relative flex items-center justify-center 
+     min-h-[350px] md:min-h-[400px] lg:min-h-[500px]
+     w-full bg-center bg-no-repeat bg-cover md:bg-cover"
+          style={{ backgroundImage: `url(${getImageUrl((pageObj.hero_section && pageObj.hero_section.image) || pageImages?.about_hero_image || config?.images?.about_hero_image)})` }}
         >
           <div className="absolute inset-0 bg-gradient-to-l from-[var(--primary-green)]/55 via-[var(--primary-green)]/45 to-[var(--primary-blue)]/40" />
           <motion.div initial="hidden" animate="show" variants={fadeUp} className="relative z-10 text-center px-4 max-w-3xl">
@@ -47,7 +40,7 @@ export default function About({ config, page, apiBase }) {
             <p className="text-white/90 text-sm md:text-lg leading-relaxed mx-auto ">{pageObj.hero_section?.sub_title}</p>
           </motion.div>
         </section>
-   
+
 
         <div className="relative">
           <BorderLines position="left" />
@@ -76,7 +69,7 @@ export default function About({ config, page, apiBase }) {
                     const useClass = colorVal && !colorVal.startsWith('#')
                     const cardStyle = !useClass && colorVal ? { backgroundColor: colorVal } : {}
                     const impliedIconKey = `about_detail_icon_${i + 1}`
-                    const iconSrc = resolveImage(d.icon || d.image || pageImages[impliedIconKey])
+                    const iconSrc = getImageUrl(d.icon || d.image || pageImages[impliedIconKey])
 
                     return (
                       <motion.div
