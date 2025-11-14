@@ -25,6 +25,8 @@ export default function App({ Component, pageProps }) {
   const cfg = pageProps?.config?.configObj || pageProps?.config || null;
   const images = pageProps?.config?.images || {}; // ✅ fixed undefined reference
   const favicon = images.main_logo || ''; // ✅ fallback favicon
+  // Extract hero gradient opacity from config or use default (55%)
+  const heroGradientOpacity = cfg?.heroGradientOpacity || cfg?.hero_gradient_opacity || 0.55;
 
   useEffect(() => {
     applyConfigColors(cfg);
@@ -37,8 +39,11 @@ export default function App({ Component, pageProps }) {
         '--primary-blue': cfg.secondaryColor || cfg.secondary_color || '#afcbe5',
         '--title-color': cfg.titleColor || '#333333',
         '--subtitle-color': cfg.subtitleColor || '#777777',
+        '--hero-gradient-opacity': heroGradientOpacity,
       }
-    : {};
+    : {
+        '--hero-gradient-opacity': heroGradientOpacity,
+      };
 
   return (
     <div style={rootStyle}>

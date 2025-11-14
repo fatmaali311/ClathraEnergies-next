@@ -12,7 +12,7 @@ export default function ServicesHero({ hero = {}, images = {} }) {
       style={{ backgroundImage: `url(${bg})` }}
     >
       {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-l from-[var(--primary-green)]/55 via-[var(--primary-green)]/45 to-[var(--primary-blue)]/40" />
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(to left, var(--primary-green), var(--primary-green), var(--primary-blue))', opacity: 'var(--hero-gradient-opacity)' }} />
 
       {/* Content */}
          <motion.div

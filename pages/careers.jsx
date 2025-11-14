@@ -108,8 +108,8 @@ export default function Careers({ config, page, positions }) {
           className="relative flex flex-col items-center justify-center text-center h-[200px] sm:h-[250px] md:h-[300px] lg:h-[400px] w-full bg-cover bg-[center]"
           style={{ backgroundImage: `url(${getImageUrl(images?.career_hero_image || '')})` }}
         >
-          {/* Using dynamic colors for gradient overlay */}
-          <div className="absolute inset-0" style={{ background: `linear-gradient(to left, ${mainColor}d9, ${mainColor}bf, ${secondaryColor}b3)` }} />
+          {/* Using dynamic colors and opacity from CSS variables */}
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(to left, var(--primary-green), var(--primary-green), var(--primary-blue))', opacity: 'var(--hero-gradient-opacity)' }} />
           <motion.h1 variants={slideUp} initial="hidden" whileInView="show" viewport={viewportSettings} className="relative text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-4">
             {pageObj.hero_section?.title || 'Careers'}
           </motion.h1>

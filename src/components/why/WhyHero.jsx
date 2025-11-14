@@ -15,7 +15,13 @@ const WhyHero = ({ hero = {}, images = {}, config = {} }) => {
       className="relative flex items-center justify-center h-[220px] md:h-[280px] lg:h-[320px] w-full bg-cover bg-center"
       style={{ backgroundImage: `url(${bg})` }}
     >
-      <div className="absolute inset-0 bg-gradient-to-l from-[var(--primary-green)]/60 via-[var(--primary-green)]/50 to-[var(--primary-blue)]/45" />
+
+      {/* ⭐ Gradient with dynamic opacity from CSS variable */}
+      <div
+        className="absolute inset-0"
+        style={{ background: 'linear-gradient(to left, var(--primary-green), var(--primary-green), var(--primary-blue))', opacity: 'var(--hero-gradient-opacity)' }}
+      />
+
       <motion.div className="relative z-10 text-center px-4">
         <motion.h2
           variants={fadeUp()}
@@ -23,8 +29,12 @@ const WhyHero = ({ hero = {}, images = {}, config = {} }) => {
         >
           {hero.title || 'Why ClathraEnergies Technology?'}
         </motion.h2>
+
         {hero.sub_title && (
-          <motion.p variants={fadeIn} className="mt-3 text-white/90 text-sm md:text-lg leading-relaxed mx-auto" >
+          <motion.p
+            variants={fadeIn}
+            className="mt-3 text-white/90 text-sm md:text-lg leading-relaxed mx-auto"
+          >
             {hero.sub_title}
           </motion.p>
         )}
