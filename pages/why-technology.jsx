@@ -1,8 +1,10 @@
 import React from 'react';
 import MainLayout from '../src/components/layout/MainLayout'
 import SEO from '../src/components/SEO'
+import BorderLines from '../src/components/common/BorderLines'
 import WhyHero from '../src/components/why/WhyHero'
 import WhyContent from '../src/components/why/WhyContent'
+import { processImageUrls } from '../src/utils/imageUtils'
 
 export default function WhyTechnology({ config, page, apiBase }) {
   const cfg = config?.configObj || {}
@@ -21,7 +23,13 @@ export default function WhyTechnology({ config, page, apiBase }) {
       />
 
       <WhyHero hero={pageObj.hero_section || {}} images={images} config={cfg} />
-      <WhyContent page={pageObj} images={images} />
+
+      <div className="relative pt-12">
+        <BorderLines position="right" />
+        <div className="md:pr-10">
+          <WhyContent page={pageObj} images={images} />
+        </div>
+      </div>
     </MainLayout>
   )
 }
@@ -34,10 +42,14 @@ export async function getServerSideProps() {
     fetch(`${API_BASE}/pages/why-technology`).then(r => r.json()).catch(() => null),
   ])
 
+  // Process image URLs to ensure they have full paths
+  const config = processImageUrls(configRes)
+  const page = processImageUrls(pageRes)
+
   return {
     props: {
-      config: configRes,
-      page: pageRes,
+      config,
+      page,
       apiBase: API_BASE,
     },
   }

@@ -1,8 +1,10 @@
 import React from 'react'
 import MainLayout from '../src/components/layout/MainLayout'
 import SEO from '../src/components/SEO'
+import BorderLines from '../src/components/common/BorderLines'
 import OurHero from '../src/components/our/OurHero'
 import OurContent from '../src/components/our/OurContent'
+import { processImageUrls } from '../src/utils/imageUtils'
 
 export default function OurTechnology({ config, page, apiBase }) {
   const cfg = config?.configObj || {}
@@ -21,7 +23,13 @@ export default function OurTechnology({ config, page, apiBase }) {
       />
 
       <OurHero hero={pageObj.hero_section || {}} images={images} config={config} />
-      <OurContent page={pageObj} images={images} config={config} />
+
+      <div className="relative pt-12">
+        <BorderLines position="right" />
+        <div className="md:pr-10">
+          <OurContent page={pageObj} images={images} config={config} />
+        </div>
+      </div>
     </MainLayout>
   )
 }
@@ -34,10 +42,14 @@ export async function getServerSideProps() {
     fetch(`${API_BASE}/pages/our-technology`).then(r => r.json()).catch(() => null),
   ])
 
+  // Process image URLs to ensure they have full paths
+  const config = processImageUrls(configRes)
+  const page = processImageUrls(pageRes)
+
   return {
     props: {
-      config: configRes,
-      page: pageRes,
+      config,
+      page,
       apiBase: API_BASE,
     },
   }

@@ -85,7 +85,7 @@ const OurContent = ({ page = {}, images = {}, config = {} }) => {
                 src={logoImage}
                 alt="ClathraEnergies Logo"
                 className="absolute w-40 h-40 lg:w-56 lg:h-56 object-contain md:translate-y-6 md:translate-x-2
-                  lg:translate-y-10 lg:translate-x-3"
+                  lg:translate-y-8 lg:translate-x-3"
               />
             )}
           </div>

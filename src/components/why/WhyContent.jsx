@@ -1,6 +1,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { fadeUp, zoomIn, viewportSettings } from '../../utils/animations'
+import { getImageUrl } from '../../utils/imageUtils'
 
 const WhyContent = ({ page = {}, images = {} }) => {
   const stats = page.stats_section || {}
@@ -8,7 +9,7 @@ const WhyContent = ({ page = {}, images = {} }) => {
   const safe = page.safe_section || {}
   const econ = page.economics_section || {}
 
-  const getImage = (key) => images?.[key] || ''
+  const getImage = (key) => getImageUrl(images?.[key] || '')
 
   return (
     <section className="w-full py-14 md:py-20 flex flex-col items-center bg-white">
@@ -39,9 +40,12 @@ const WhyContent = ({ page = {}, images = {} }) => {
             </p>
 
             <div className="flex items-center justify-center w-full mt-2 relative">
-              <div className="flex-grow h-0.5 bg-[var(--subtitle-color)] relative max-w-[220px] sm:max-w-[280px] md:max-w-full">
-                <span className="absolute -right-0 -top-1 w-2 h-2 border-t-2 border-r-2 
-                                 border-[var(--subtitle-color)] transform rotate-45 translate-x-1/2" />
+              <div className="flex-grow h-1 bg-[var(--subtitle-color)] relative max-w-[220px] sm:max-w-[280px] md:max-w-full rounded-full">
+                <span className="absolute top-1/2 -translate-y-1/2 right-0 translate-x-1/2 
+                 w-3 h-3 border-t-[4px] border-r-[4px] 
+                 border-[var(--subtitle-color)] rotate-45" />
+
+
               </div>
             </div>
 
@@ -176,10 +180,12 @@ const WhyContent = ({ page = {}, images = {} }) => {
             </div>
 
             <div className="flex flex-col items-center ml-4 md:ml-6">
-              <div className="h-20 md:h-24 w-0.5 bg-[var(--subtitle-color)] relative rounded-full">
-                <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 
-                                 w-2 h-2 border-t-2 border-r-2 border-[var(--subtitle-color)] 
-                                 transform rotate-[135deg]" />
+              <div className="h-20 md:h-24 w-1 bg-[var(--subtitle-color)] relative rounded-full">
+             <span className="absolute bottom-0 translate-y-1/2 left-1/2 -translate-x-1/2 
+                 w-3 h-3 border-b-[4px] border-r-[4px] 
+                 border-[var(--subtitle-color)] rotate-45" />
+
+
               </div>
             </div>
           </div>
