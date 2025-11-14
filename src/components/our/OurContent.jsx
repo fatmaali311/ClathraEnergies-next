@@ -12,18 +12,37 @@ const OurContent = ({ page = {}, images = {}, config = {} }) => {
   // Animation Variants
   const fadeInUpLocal = fadeInUp
   const stepVar = stepVariant(0.35)
-  const rotateVar = rotateVariant(20)
+
+  // Define new positions for large screens (lg)
+  // We'll use 18% instead of the original 10% and 13% for the horizontal positioning
+  const LG_OUTER_HORIZONTAL = ' lg:left-[12%]'
+  const LG_INNER_HORIZONTAL = 'lg:left-[0%]'
+  const LG_OUTER_RIGHT = 'lg:right-[10%]'
+  const LG_INNER_RIGHT = 'lg:right-[-4%]'
 
   // Map steps to positions and colors for desktop layout
   const stepsWithPositions = steps.map((step, index) => {
-    const positions = [
-      'md:top-[14%] md:left-[10%]',
-      'md:top-[42%] md:left-[0%]',
-      'md:bottom-[10%] md:left-[13%]',
-      'md:bottom-[10%] md:right-[13%]',
-      'md:top-[42%] md:right-[0%]',
-      'md:top-[14%] md:right-[10%]',
+    // These are the original positions for MD (tablet) screens.
+    // NOTE: Tailwind applies the largest breakpoint utility that matches, so we use 'md:' here.
+    const mdPositions = [
+      'md:top-[14%] md:left-[10%]', // top-left (Outer)
+      'md:top-[42%] md:left-[0%]',  // mid-left (Inner)
+      'md:bottom-[10%] md:left-[13%]', // bottom-left (Outer)
+      'md:bottom-[10%] md:right-[13%]', // bottom-right (Outer)
+      'md:top-[42%] md:right-[0%]', // mid-right (Inner)
+      'md:top-[14%] md:right-[10%]', // top-right (Outer)
     ]
+    
+    // Define the LG (desktop) overrides for outer steps (1, 3, 4, 6)
+    const lgPositions = [
+      `lg:top-[14%] ${LG_OUTER_HORIZONTAL}`,  // top-left (Outer)
+      `lg:top-[42%] ${LG_INNER_HORIZONTAL}`,   // mid-left (Inner - no change needed, but included for clarity)
+      `lg:bottom-[10%] ${LG_OUTER_HORIZONTAL}`, // bottom-left (Outer)
+      `lg:bottom-[10%] ${LG_OUTER_RIGHT}`,  // bottom-right (Outer)
+      `lg:top-[42%] ${LG_INNER_RIGHT}`,   // mid-right (Inner - no change needed)
+      `lg:top-[14%] ${LG_OUTER_RIGHT}`,   // top-right (Outer)
+    ]
+
     const colors = [
       'bg-[var(--primary-green)]',
       'bg-[var(--primary-green)]',
@@ -32,9 +51,14 @@ const OurContent = ({ page = {}, images = {}, config = {} }) => {
       'bg-[var(--primary-blue)]',
       'bg-[var(--primary-blue)]',
     ]
+    
+    // Combine MD and LG positions, with LG overriding MD
+    const combinedPositions = `${mdPositions[index] || mdPositions[0]} ${lgPositions[index] || ''}`
+
     return {
       ...step,
-      pos: positions[index] || positions[0],
+      // Use the combined string
+      pos: combinedPositions, 
       color: colors[index] || colors[0],
     }
   })
@@ -44,16 +68,14 @@ const OurContent = ({ page = {}, images = {}, config = {} }) => {
       <div className="w-full">
         {/* DESKTOP/TABLET VIEW */}
         <div className="hidden md:flex relative w-full max-w-5xl mx-auto h-[600px] lg:h-[820px] items-center justify-center">
-          {/* Cycle + Logo Wrapper (Perfect Circle) */}
-          <div className="absolute flex items-center justify-center rounded-full overflow-hidden">
-            {/* Rotating Cycle */}
+          {/* Cycle + Logo Wrapper */}
+          <div className="absolute flex items-center justify-center">
+            {/* Cycle Image (Non-Rotating, object-contain) */}
             {cycleImage && (
-              <motion.img
+              <img
                 src={cycleImage}
                 alt="Biogas Cycle Diagram"
-                variants={rotateVar}
-                animate="animate"
-                className="w-[380px] h-[380px] lg:w-[600px] lg:h-[600px] object-cover"
+                className="w-[380px] h-[380px] lg:w-[600px] lg:h-[600px] object-contain"
               />
             )}
 
@@ -62,7 +84,8 @@ const OurContent = ({ page = {}, images = {}, config = {} }) => {
               <img
                 src={logoImage}
                 alt="ClathraEnergies Logo"
-                className="absolute w-40 h-40 lg:w-56 lg:h-56 object-contain"
+                className="absolute w-40 h-40 lg:w-56 lg:h-56 object-contain md:translate-y-6 md:translate-x-2
+                  lg:translate-y-10 lg:translate-x-3"
               />
             )}
           </div>
@@ -75,6 +98,7 @@ const OurContent = ({ page = {}, images = {}, config = {} }) => {
               variants={stepVar}
               initial="hidden"
               animate="visible"
+              // step.pos now contains both md: and lg: classes
               className={`absolute ${step.pos} flex items-center gap-3 max-w-[180px] lg:max-w-[230px]`}
             >
               {/* Circle */}
@@ -93,16 +117,14 @@ const OurContent = ({ page = {}, images = {}, config = {} }) => {
         </div>
 
         {/* MOBILE VIEW */}
-        <div className="md:hidden mt-4 mb-16 px-4">
-          {/* Mobile Cycle */}
-          <div className="relative flex items-center justify-center w-60 h-60 mb-8 mx-auto rounded-full overflow-hidden">
+        <div className="md:hidden mt-2 mb-16 px-4">
+
+          <div className="relative flex items-center justify-center w-72 h-72 mb-8 mx-auto">
             {cycleImage && (
-              <motion.img
+              <img
                 src={cycleImage}
                 alt="Biogas Cycle Diagram"
-                variants={rotateVar}
-                animate="animate"
-                className="absolute inset-0 w-full h-full object-cover"
+                className="absolute inset-0 w-full h-full object-contain"
               />
             )}
 
@@ -110,12 +132,11 @@ const OurContent = ({ page = {}, images = {}, config = {} }) => {
               <img
                 src={logoImage}
                 alt="ClathraEnergies Logo"
-                className="absolute w-24 h-24 object-contain"
+                className="absolute w-28 h-28 object-contain translate-y-5 translate-x-1"
               />
             )}
           </div>
 
-          {/* Steps */}
           <div className="space-y-4 max-w-xs mx-auto">
             {steps.map((step, index) => (
               <motion.div
