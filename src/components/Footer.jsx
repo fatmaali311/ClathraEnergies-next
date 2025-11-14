@@ -78,18 +78,32 @@ export default function Footer({ config = {}, images = {} }) {
             variants={fadeLeft(0.2)}
           >
             {(() => {
-              const videos = mergedConfig?.videos || config?.videos || {}
-              const mainVideo = videos?.main_video || videos?.mainVideo || videos?.main || null
+              // Check for video first in the separate videos object
+              const videosObj = config?.videos || {}
+              const imagesObj = config?.images || images || {}
+              
+              const mainVideo = videosObj?.main_video || videosObj?.mainVideo || null
+              const mainImage = imagesObj?.main_video || imagesObj?.mainImage || null
 
-              let videoSrc = null
+              let mediaSrc = null
+              let mediaType = null
+
               if (mainVideo) {
                 // ensure video uses API domain
-                if (mainVideo.startsWith('http://') || mainVideo.startsWith('https://')) videoSrc = mainVideo
-                else videoSrc = getImageUrl(mainVideo)
+                if (mainVideo.startsWith('http://') || mainVideo.startsWith('https://')) mediaSrc = mainVideo
+                else mediaSrc = getImageUrl(mainVideo)
+                mediaType = 'video'
+              } else if (mainImage) {
+                // fallback to image if no video
+                if (mainImage.startsWith('http://') || mainImage.startsWith('https://')) mediaSrc = mainImage
+                else mediaSrc = getImageUrl(mainImage)
+                mediaType = 'image'
               }
-              const fallbackLogo = getImageUrl(images.secondary_logo || mergedConfig.images?.secondary_logo || '')
-              return videoSrc ? (
-                <FooterVideo src={videoSrc} poster={fallbackLogo} fallbackLogo={fallbackLogo} />
+
+              const fallbackLogo = getImageUrl(imagesObj?.secondary_logo || mergedConfig.images?.secondary_logo || '')
+              
+              return mediaSrc ? (
+                <FooterMedia src={mediaSrc} type={mediaType} poster={fallbackLogo} fallbackLogo={fallbackLogo} />
               ) : (
                 <div className="w-40 sm:w-48 md:w-56 lg:w-64 h-40 sm:h-48 md:h-56 lg:h-64 rounded-full bg-white/30" />
               )
@@ -295,11 +309,11 @@ export default function Footer({ config = {}, images = {} }) {
   )
 }
 
-function FooterVideo({ src, poster, fallbackLogo }) {
+function FooterMedia({ src, type, poster, fallbackLogo }) {
   const [error, setError] = useState(null)
   const [showFallback, setShowFallback] = useState(false)
 
-  const getType = (url) => {
+  const getVideoType = (url) => {
     if (!url) return 'video/mp4'
     const u = url.split('?')[0].toLowerCase()
     if (u.endsWith('.webm')) return 'video/webm'
@@ -308,7 +322,7 @@ function FooterVideo({ src, poster, fallbackLogo }) {
     return 'video/mp4'
   }
 
-  // If there's no src or video failed, show the fallback logo image
+  // If there's no src or media failed, show the fallback logo image
   if (!src || showFallback) {
     const logoSrc = fallbackLogo || poster || ''
     return (
@@ -322,31 +336,54 @@ function FooterVideo({ src, poster, fallbackLogo }) {
     )
   }
 
+  // Render video if type is video
+  if (type === 'video') {
+    return (
+      <div className="relative">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          poster={poster || ''}
+          className="w-40 sm:w-48 md:w-56 lg:w-64 h-40 sm:h-48 md:h-56 lg:h-64 rounded-full object-cover"
+          onError={() => {
+            setError('Video failed to load')
+            setShowFallback(true)
+          }}
+          onLoadedData={() => setError(null)}
+        >
+          <source src={src} type={getVideoType(src)} />
+        </video>
+
+        {error && (
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
+            <div className="bg-white/90 text-sm text-black p-3 rounded">{error}</div>
+            <a className="mt-2 text-xs underline text-white" href={src} target="_blank" rel="noopener noreferrer">
+              Open video in new tab
+            </a>
+          </div>
+        )}
+      </div>
+    )
+  }
+
+  // Render image if type is image
   return (
     <div className="relative">
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-        poster={poster || ''}
-        className="w-40 sm:w-48 md:w-56 lg:w-64 h-40 sm:h-48 md:h-56 lg:h-64 rounded-full object-cover"
+      <img
+        src={src}
+        alt="footer-media"
+        className="w-40 sm:w-48 md:w-56 lg:w-64 h-40 sm:h-48 md:h-56 lg:h-64 rounded-full object-cover "
         onError={() => {
-          setError('Video failed to load')
+          setError('Image failed to load')
           setShowFallback(true)
         }}
-        onLoadedData={() => setError(null)}
-      >
-        <source src={src} type={getType(src)} />
-      </video>
-
+      />
       {error && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
+        <div className="absolute inset-0 flex items-center justify-center text-center p-4">
           <div className="bg-white/90 text-sm text-black p-3 rounded">{error}</div>
-          <a className="mt-2 text-xs underline text-white" href={src} target="_blank" rel="noopener noreferrer">
-            Open video in new tab
-          </a>
         </div>
       )}
     </div>

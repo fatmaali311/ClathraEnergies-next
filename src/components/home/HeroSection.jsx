@@ -13,7 +13,7 @@ export default function HeroSection({ hero = {}, images = {}, theme = {} }) {
       className="relative min-h-[90vh] bg-cover flex items-center w-full bg-center"
       style={{ backgroundImage: `url(${bg})`, backgroundPosition: 'center 60%', backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}
     >
-      <div className="absolute inset-0 bg-gradient-to-l from-[var(--primary-green)]/85 via-[var(--primary-green)]/75 to-[var(--primary-blue)]/70" />
+      <div className="absolute inset-0 bg-gradient-to-l from-[var(--primary-green)]/55 via-[var(--primary-green)]/45 to-[var(--primary-blue)]/40" />
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white font-sans text-center lg:text-left">
         <motion.h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal leading-tight tracking-tight max-w-3xl mx-auto lg:mx-0" variants={slideLeft} initial="hidden" whileInView="show" viewport={viewportSettings}>{hero.title}</motion.h1>
         <motion.p className="mt-6 sm:mt-8 text-lg sm:text-2xl font-normal leading-relaxed max-w-4xl text-white/95 mx-auto lg:mx-0" variants={slideUp} initial="hidden" whileInView="show" transition={{ delay: 0.2 }} viewport={viewportSettings}>{hero.sub_title}</motion.p>

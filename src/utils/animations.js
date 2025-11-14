@@ -117,3 +117,29 @@ export const zoomIn = {
   hidden: { opacity: 0, scale: 0.8 },
   visible: { opacity: 1, scale: 1, transition: { duration: 0.6 } },
 };
+
+export const fadeInUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
+};
+
+export const stepVariant = (delay = 0.35) => ({
+  hidden: { opacity: 0, scale: 0.8, y: 20 },
+  visible: (i) => ({
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: { duration: 0.6, delay: i * delay },
+  }),
+});
+
+export const rotateVariant = (duration = 20) => ({
+  animate: {
+    rotate: 360,
+    transition: {
+      duration,
+      repeat: Infinity,
+      ease: 'linear',
+    },
+  },
+});

@@ -3,8 +3,8 @@ import { motion } from 'framer-motion'
 import { fadeIn, fadeUp, viewportSettings } from '../../utils/animations'
 import { getImageUrl } from '../../utils/imageUtils'
 
-const WhyHero = ({ hero = {}, images = {}, config = {} }) => {
-  const bg = getImageUrl(images?.why_hero_image || '')
+const OurHero = ({ hero = {}, images = {}, config = {} }) => {
+  const bg = getImageUrl(images?.our_hero_image || '')
 
   return (
     <motion.section
@@ -21,10 +21,10 @@ const WhyHero = ({ hero = {}, images = {}, config = {} }) => {
           variants={fadeUp()}
           className="text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-wide"
         >
-          {hero.title || 'Why ClathraEnergies Technology?'}
+          {hero.title || 'Our Technology'}
         </motion.h2>
         {hero.sub_title && (
-          <motion.p variants={fadeIn} className="mt-3 text-white/90 text-sm md:text-lg leading-relaxed mx-auto" >
+          <motion.p variants={fadeIn} className="mt-3 text-white/90 text-sm md:text-lg leading-relaxed mx-auto" style={{ color: 'var(--subtitle-color)' }}>
             {hero.sub_title}
           </motion.p>
         )}
@@ -33,4 +33,4 @@ const WhyHero = ({ hero = {}, images = {}, config = {} }) => {
   )
 }
 
-export default WhyHero
+export default OurHero

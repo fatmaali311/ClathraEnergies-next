@@ -1,6 +1,5 @@
 import Head from 'next/head'
-import Navbar from '../src/components/Navbar'
-import Footer from '../src/components/Footer'
+import MainLayout from '../src/components/layout/MainLayout'
 import StrategicObjectives from '../src/components/about/StrategicObjectives'
 import { motion } from 'framer-motion'
 import { fadeUp, viewportSettings, containerVariants, cardVariants } from '../src/utils/animations'
@@ -26,7 +25,7 @@ export default function About({ config, page, apiBase }) {
   const pageImages = { ...(config?.images || {}), ...(page?.images || {}) }
 
   return (
-    <div>
+    <MainLayout config={config} page={page}>
       <SEO
         title={`About`}
         description={pageObj.company_purpose?.sub_title || cfg.name}
@@ -35,7 +34,6 @@ export default function About({ config, page, apiBase }) {
         image={pageImages?.about_hero_image || config?.images?.main_logo}
         config={cfg}
       />
-      <Navbar config={cfg} images={config?.images} />
 
       <main>
         {/* Hero (mirrors frontend AboutHero) */}
@@ -43,12 +41,13 @@ export default function About({ config, page, apiBase }) {
           className="relative flex items-center justify-center h-[300px] md:h-[300px] lg:h-[400px] w-full bg-cover bg-[right_center]"
           style={{ backgroundImage: `url(${resolveImage((pageObj.hero_section && pageObj.hero_section.image) || pageImages?.about_hero_image || config?.images?.about_hero_image)})` }}
         >
-          <div className="absolute inset-0 bg-gradient-to-l from-[var(--primary-green)]/85 via-[var(--primary-green)]/75 to-[var(--primary-blue)]/70" />
+          <div className="absolute inset-0 bg-gradient-to-l from-[var(--primary-green)]/55 via-[var(--primary-green)]/45 to-[var(--primary-blue)]/40" />
           <motion.div initial="hidden" animate="show" variants={fadeUp} className="relative z-10 text-center px-4 max-w-3xl">
             <h1 className="text-white text-3xl md:text-5xl font-bold mb-4" >{pageObj.hero_section?.title || pageObj.title || cfg.name}</h1>
             <p className="text-white/90 text-sm md:text-lg leading-relaxed mx-auto ">{pageObj.hero_section?.sub_title}</p>
           </motion.div>
         </section>
+   
 
         <div className="relative">
           <BorderLines position="left" />
@@ -114,11 +113,8 @@ export default function About({ config, page, apiBase }) {
           </div>
         </div>
 
-
       </main>
-
-      <Footer config={config} images={config?.images} />
-    </div>
+    </MainLayout>
   )
 }
 

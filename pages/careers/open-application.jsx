@@ -1,17 +1,24 @@
 import React from 'react'
+import MainLayout from '../../src/components/layout/MainLayout'
 import SEO from '../../src/components/SEO'
-import Navbar from '../../src/components/Navbar'
-import Footer from '../../src/components/Footer'
 import ApplicationForm from '../../src/components/careers/ApplicationForm'
+import defaultKeywords from '../../src/data/seoKeywords'
 
 export default function OpenApplication({ config, page, positions }) {
   const cfg = config?.configObj || {}
+  const pageObj = page?.pageObj || {}
   const images = page?.images || config?.images || {}
 
   return (
-    <div>
-      <SEO title={`Open Application`} description={page?.pageObj?.hero_section?.sub_title || cfg.name} config={cfg} />
-      <Navbar config={cfg} images={config?.images} />
+    <MainLayout config={config} page={page}>
+      <SEO 
+        title={`Open Application - Careers`}
+        description={pageObj.hero_section?.sub_title || `Apply for open positions at ${cfg.name}`}
+        keywords={(page?.meta?.keywords || config?.configObj?.metaKeywords || defaultKeywords)}
+        url={`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/careers/open-application`}
+        image={images?.main_logo || config?.images?.main_logo}
+        config={cfg}
+      />
       <main>
         <section className="py-12">
           <div className="max-w-6xl mx-auto px-4">
@@ -19,8 +26,7 @@ export default function OpenApplication({ config, page, positions }) {
           </div>
         </section>
       </main>
-       <Footer config={config} images={config?.images} />
-    </div>
+    </MainLayout>
   )
 }
 
