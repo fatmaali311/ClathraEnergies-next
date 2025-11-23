@@ -15,59 +15,69 @@ const WhyContent = ({ page = {}, images = {} }) => {
     <section className="w-full py-14 md:py-20 flex flex-col items-center bg-white">
       <div className="w-full max-w-6xl flex flex-col gap-12 px-4 md:px-6 lg:px-8">
 
-        {/* ------------------ TOP BOX ------------------ */}
+        {/* ------------------ TOP BOX (STATS) ------------------ */}
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={viewportSettings}
           variants={fadeUp()}
-          className="bg-white shadow-[8px_8px_20px_rgba(0,0,0,0.15)] 
-                    p-5 sm:p-6 md:p-12 flex flex-col md:flex-row items-center 
-                    justify-between border-2 border-[var(--primary-green)] border-r-[var(--primary-blue)] 
-                    gap-6 md:gap-0"
+          className="bg-white shadow-[8px_8px_20px_rgba(0,0,0,0.15)]
+                     p-5 sm:p-6 md:p-12 flex flex-col items-center 
+                     justify-between border-2 border-[var(--primary-green)] border-r-[var(--primary-blue)]
+                     gap-6" 
         >
-          <motion.img
-            src={getImage('why_ball_left')}
-            alt="ball left"
-            className="w-24 h-24 sm:w-28 sm:h-28 md:w-36 md:h-36 object-contain"
-            variants={zoomIn}
-          />
-
-          <div className="flex-1 flex flex-col items-center justify-center text-center px-2 md:px-8">
-            {/* TEXT: Set to var(--title-color) */}
-            <p className="font-semibold text-lg sm:text-xl md:text-2xl mb-1 leading-tight"
-              style={{ color: "var(--title-color)" }}>
-              {stats.methane_text || '100–170 Nm³ methane / m³'}
-            </p>
-
-
-            <div className="flex items-center justify-center w-full mt-2 relative">
-              <div
-                className="flex-grow min-h-[3px] w-2/3 relative rounded-full z-0"
-                style={{ backgroundColor: "#6B7280" }} // gray-500
+          {/* ADDED STATS SECTION TITLE INSIDE THE CARD */}
+          <h3 className="mb-4 font-semibold text-lg sm:text-2xl md:text-3xl text-gray-700 text-center"
               >
-                <span
-                  className="absolute top-1/2 -translate-y-1/2 right-0 translate-x-1/2 w-3 h-3 border-t-[4px] border-r-[4px] rotate-45 z-10"
-                  style={{ borderColor: "#6B7280" }} // gray-500
-                />
+              {stats.title || 'Enhanced Methane Storage Efficiency'}
+          </h3>
+
+          <div className="w-full flex flex-col md:flex-row items-center justify-between gap-6 md:gap-0">
+            <motion.img
+              src={getImage('why_ball_left')}
+              alt="ball left"
+              className="w-24 h-24 sm:w-28 sm:h-28 md:w-36 md:h-36 object-contain"
+              variants={zoomIn}
+            />
+
+            <div className="flex-1 flex flex-col items-center justify-center text-center px-2 md:px-8">
+           
+              <p className="font-semibold text-lg sm:text-xl md:text-2xl mb-1 leading-tight"
+                style={{ color: "var(--title-color)" }}>
+                {stats.methane_text || '100–170 Nm³ methane / m³'}
+              </p>
+
+
+              <div className="flex items-center justify-center w-full mt-2 relative">
+                <div
+                  className="flex-grow min-h-[3px] w-2/3 relative rounded-full z-0"
+                  style={{ backgroundColor: "#6B7280" }} 
+                >
+                  <span
+                    className="absolute top-1/2 -translate-y-1/2 right-0 translate-x-1/2 w-3 h-3 border-t-[4px] border-r-[4px] rotate-45 z-10"
+                    style={{ borderColor: "#6B7280" }} 
+                  />
+                </div>
               </div>
+
+
+           
+              <p className="font-medium text-lg sm:text-xl md:text-2xl mt-2"
+                style={{ color: "var(--title-color)" }}>
+                {stats.brand_text || 'ClathraEnergies™'}
+              </p>
             </div>
 
-
-            {/* TEXT: Set to var(--title-color) */}
-            <p className="font-medium text-lg sm:text-xl md:text-2xl mt-2"
-              style={{ color: "var(--title-color)" }}>
-              {stats.brand_text || 'ClathraEnergies™'}
-            </p>
+            <motion.img
+              src={getImage('why_ball_right')}
+              alt="ball right"
+              className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 object-contain"
+              variants={zoomIn}
+            />
           </div>
-
-          <motion.img
-            src={getImage('why_ball_right')}
-            alt="ball right"
-            className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 object-contain"
-            variants={zoomIn}
-          />
         </motion.div>
+        
+        {/* REMOVED the separate stats title here */}
 
 
         {/* ------------------ TEMP + SAFE GRID ------------------ */}
@@ -81,15 +91,21 @@ const WhyContent = ({ page = {}, images = {} }) => {
           {/* Left Temps Card */}
           <motion.div
             variants={zoomIn}
-            className="bg-white shadow-[8px_8px_20px_rgba(0,0,0,0.15)] 
-                        p-8 md:p-10 border-2 border-[var(--primary-green)] border-r-[var(--primary-blue)] 
-                        flex flex-col items-center justify-center w-full"
+            className="bg-white shadow-[8px_8px_20px_rgba(0,0,0,0.15)]
+                       p-8 md:p-10 border-2 border-[var(--primary-green)] border-r-[var(--primary-blue)]
+                       flex flex-col items-center justify-center w-full"
           >
+            {/* TEMP SECTION TITLE  */}
+            <h3 className="mb-4 font-semibold text-lg sm:text-2xl md:text-3xl text-gray-700 text-center"
+              >
+                {temps.title || 'Temperature Advantage of ClathraEnergies™'}
+            </h3>
+
             <div className="grid grid-cols-2 gap-8 md:gap-16 w-full place-items-center">
 
               {/* Left Temp */}
               <div className="flex flex-col items-center w-full">
-                {/* TEXT: Set to var(--subtitle-color) */}
+
                 <span className="font-semibold text-base md:text-lg mb-4 text-center translate-x-10"
                   style={{ color: "var(--subtitle-color)" }}>
                   {temps.left_label || 'ClathraEnergies™'}
@@ -104,7 +120,7 @@ const WhyContent = ({ page = {}, images = {} }) => {
                     <img src={getImage('why_temp_hot')}
                       className="w-16 md:w-20 h-56 md:h-64 object-contain"
                       alt="hot thermometer" />
-                    {/* TEXT: Set to var(--subtitle-color) */}
+    
                     <span className="mt-3 text-base md:text-lg font-medium"
                       style={{ color: "var(--subtitle-color)" }}>
                       {temps.left_temp || '-20°C'}
@@ -115,7 +131,7 @@ const WhyContent = ({ page = {}, images = {} }) => {
 
               {/* Right Temp */}
               <div className="flex flex-col items-center w-full">
-                {/* TEXT: Set to var(--subtitle-color) */}
+
                 <span className="font-semibold text-base md:text-lg mb-4 text-center translate-x-10 md:translate-x-12"
                   style={{ color: "var(--subtitle-color)" }}>
                   {temps.right_label || 'BML'}
@@ -130,7 +146,7 @@ const WhyContent = ({ page = {}, images = {} }) => {
                     <img src={getImage('why_temp_cold')}
                       className="w-16 md:w-20 h-56 md:h-64 object-contain"
                       alt="cold thermometer" />
-                    {/* TEXT: Set to var(--subtitle-color) */}
+    
                     <span className="mt-3 text-base md:text-lg font-medium"
                       style={{ color: "var(--subtitle-color)" }}>
                       {temps.right_temp || '-162°C'}
@@ -142,22 +158,25 @@ const WhyContent = ({ page = {}, images = {} }) => {
             </div>
           </motion.div>
 
-          {/* Safe Tech */}
+          {/* Safe Tech Card */}
           <motion.div
             variants={zoomIn}
             whileHover={{ scale: 1.05 }}
-            className="bg-white shadow-[8px_8px_20px_rgba(0,0,0,0.15)] 
-                        p-8 md:p-10 border-2 border-[var(--primary-green)] border-r-[var(--primary-blue)] 
-                        flex flex-col items-center justify-center w-full"
+            className="bg-white shadow-[8px_8px_20px_rgba(0,0,0,0.15)]
+                       p-8 md:p-10 border-2 border-[var(--primary-green)] border-r-[var(--primary-blue)]
+                       flex flex-col items-center justify-center w-full"
           >
+            <h3 className="mb-4 font-semibold text-lg sm:text-2xl md:text-3xl text-gray-700 text-center"
+                >
+                {safe.title || 'Safe and Environmentally Friendly Technology'}
+            </h3>
+
             <img src={getImage('why_green_safe')}
               className="w-52 h-52 md:w-60 md:h-60 object-contain"
               alt="safe" />
-
-            {/* TEXT: Set to var(--subtitle-color) */}
             <p className="mt-6 font-medium text-xl md:text-2xl text-center"
               style={{ color: "var(--subtitle-color)" }}>
-              {safe.title || 'Safe and Green Technology'}
+              {safe.card_label || 'Safe and Green Technology'}
             </p>
           </motion.div>
         </motion.div>
@@ -169,39 +188,45 @@ const WhyContent = ({ page = {}, images = {} }) => {
           whileInView="visible"
           viewport={viewportSettings}
           variants={fadeUp()}
-          className="bg-white shadow-[8px_8px_20px_rgba(0,0,0,0.15)] 
-                    p-8 md:p-12 flex flex-col md:flex-row items-center justify-between 
-                    border-2 border-[var(--primary-green)] border-r-[var(--primary-blue)]"
+          className="bg-white shadow-[8px_8px_20px_rgba(0,0,0,0.15)]
+                     p-8 md:p-12 flex flex-col items-center justify-between
+                     border-2 border-[var(--primary-green)] border-r-[var(--primary-blue)]"
         >
-          <div className="flex gap-10 md:gap-14 items-center justify-center w-full md:w-1/2">
-            <motion.img src={getImage('why_money')}
-              className="w-32 h-32 md:w-40 md:h-40 object-contain"
-              alt="money" variants={zoomIn} />
+          <h3 className="mb-4 font-semibold text-lg sm:text-2xl md:text-3xl text-gray-700 text-center"
+              >
+              {econ.title || 'Reduced CAPEX and OPEX Costs'}
+          </h3>
 
-            <motion.img src={getImage('why_growth')}
-              className="w-32 h-32 md:w-40 md:h-40 object-contain"
-              alt="growth" variants={zoomIn} />
-          </div>
+          <div className="flex flex-col md:flex-row items-center justify-between w-full">
+            <div className="flex gap-10 md:gap-14 items-center justify-center w-full md:w-1/2">
+              <motion.img src={getImage('why_money')}
+                className="w-32 h-32 md:w-40 md:h-40 object-contain"
+                alt="money" variants={zoomIn} />
 
-          <div className="flex items-center justify-center w-full md:w-1/2 mt-8 md:mt-0 space-x-6">
-            {/* TEXT: Set to var(--subtitle-color) */}
-            <div className="flex flex-col items-start space-y-3 text-lg md:text-2xl font-medium"
-              style={{ color: "var(--subtitle-color)" }}>
-              <p>{econ.capex_text || '25 - 50 % CAPEX'}</p>
-              <p>{econ.opex_text || '18 - 25 % OPEX'}</p>
+              <motion.img src={getImage('why_growth')}
+                className="w-32 h-32 md:w-40 md:h-40 object-contain"
+                alt="growth" variants={zoomIn} />
             </div>
 
-          <div className="flex flex-col items-center ml-4 md:ml-6">
-  <div className="h-20 md:h-24 w-1 relative rounded-full"
-       style={{ backgroundColor: "#6B7280" }}> {/* gray-500 */}
-    <span
-      className="absolute bottom-0 translate-y-1/2 left-1/2 -translate-x-1/2 
-                 w-3 h-3 border-b-[4px] border-r-[4px] rotate-45"
-      style={{ borderColor: "#6B7280" }} // gray-500
-    />
-  </div>
-</div>
+            <div className="flex items-center justify-center w-full md:w-1/2 mt-8 md:mt-0 space-x-6">
+              <div className="flex flex-col items-start space-y-3 text-lg md:text-2xl font-medium"
+                style={{ color: "var(--subtitle-color)" }}>
+                <p>{econ.capex_text || '25 - 50 % CAPEX'}</p>
+                <p>{econ.opex_text || '18 - 25 % OPEX'}</p>
+              </div>
 
+              <div className="flex flex-col items-center ml-4 md:ml-6">
+                <div className="h-20 md:h-24 w-1 relative rounded-full"
+                  style={{ backgroundColor: "#6B7280" }}> 
+                  <span
+                    className="absolute bottom-0 translate-y-1/2 left-1/2 -translate-x-1/2
+                              w-3 h-3 border-b-[4px] border-r-[4px] rotate-45"
+                    style={{ borderColor: "#6B7280" }}
+                  />
+                </div>
+              </div>
+
+            </div>
           </div>
         </motion.div>
 
