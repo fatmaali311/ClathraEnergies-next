@@ -12,8 +12,8 @@ const WhyContent = ({ page = {}, images = {} }) => {
   const getImage = (key) => getImageUrl(images?.[key] || '')
 
   return (
-    <section className="w-full py-14 md:py-20 flex flex-col items-center bg-white">
-      <div className="w-full max-w-6xl flex flex-col gap-12 px-4 md:px-6 lg:px-8">
+    <section className="w-full  flex flex-col items-center bg-white">
+      <div className="w-full max-w-6xl flex flex-col gap-12 px-4 md:px-6 lg:px-8 mb-10">
 
         {/* ------------------ TOP BOX (STATS) ------------------ */}
         <motion.div

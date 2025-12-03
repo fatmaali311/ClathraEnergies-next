@@ -5,6 +5,7 @@ import BorderLines from '../src/components/common/BorderLines'
 import WhyHero from '../src/components/why/WhyHero'
 import WhyContent from '../src/components/why/WhyContent'
 import { processImageUrls } from '../src/utils/imageUtils'
+import SolutionsCards from '../src/components/why/SolutionsCards'
 
 export default function WhyTechnology({ config, page, apiBase }) {
   const cfg = config?.configObj || {}
@@ -24,12 +25,19 @@ export default function WhyTechnology({ config, page, apiBase }) {
 
       <WhyHero hero={pageObj.hero_section || {}} images={images} config={cfg} />
 
-      <div className="relative pt-12">
+      {/* Solutions  */}
+      <div className="relative">
         <BorderLines position="right" />
         <div className="md:pr-10">
-          <WhyContent page={pageObj} images={images} />
+        
+          <SolutionsCards page={pageObj} />
         </div>
-      </div>
+
+        {/* <div className="md:pr-10"> */}
+          <WhyContent page={pageObj} images={images} />
+        {/* </div> */}
+        </div>
+     
     </MainLayout>
   )
 }

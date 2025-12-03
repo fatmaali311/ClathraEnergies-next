@@ -46,8 +46,14 @@ const OurContent = ({ page = {}, images = {} }) => {
         {/* ===== DESKTOP & TABLET ===== */}
         <div className="hidden md:flex relative w-full max-w-5xl mx-auto h-[500px] lg:h-[650px] items-center justify-center">
 
-          {/* Cycle Image */}
-          <div className="absolute flex items-center justify-center p-24 lg:p-32">
+          {/* Cycle Image - Animated on Scroll */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="absolute flex items-center justify-center p-24 lg:p-32"
+          >
             {cycleImage && (
               <img
                 src={cycleImage}
@@ -55,16 +61,18 @@ const OurContent = ({ page = {}, images = {} }) => {
                 className="w-[280px] h-[280px] md:w-[320px] md:h-[320px] lg:w-[500px] lg:h-[500px] object-contain"
               />
             )}
-          </div>
+          </motion.div>
 
-          {/* Steps */}
+          {/* Steps - Sequential Animation */}
           {steps.map((step, index) => (
             <motion.div
               key={step.id}
               custom={index}
               variants={stepVar}
               initial="hidden"
-              animate="visible"
+              whileInView="visible"
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.2 }}
               className={`absolute 
                 ${mdPositions[index] || mdPositions[0]} 
                 ${lgPositions[index] || lgPositions[0]}
@@ -104,13 +112,19 @@ const OurContent = ({ page = {}, images = {} }) => {
         <div className="md:hidden mt-0 mb-10 px-4">
 
           {/* Cycle Image */}
-          <div className="relative flex items-center justify-center w-60 h-60 mb-6 mx-auto">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.7 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.9, ease: "easeOut" }}
+            className="relative flex items-center justify-center w-60 h-60 mb-6 mx-auto"
+          >
             <img
               src={cycleImage}
               alt="Cycle"
               className="absolute inset-0 w-full h-full object-contain"
             />
-          </div>
+          </motion.div>
 
           {/* Steps */}
           <div className="space-y-3 max-w-sm mx-auto">
@@ -120,7 +134,8 @@ const OurContent = ({ page = {}, images = {} }) => {
                 custom={index}
                 variants={stepVar}
                 initial="hidden"
-                animate="visible"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
                 className="flex flex-col items-center gap-1"
               >
                 {/* Number */}

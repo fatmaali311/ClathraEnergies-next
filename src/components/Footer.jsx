@@ -8,7 +8,7 @@ import { MdEmail } from 'react-icons/md'
 import { FaPhone, FaLocationDot } from 'react-icons/fa6'
 
 export default function Footer({ config = {}, images = {} }) {
-  // Defensive: ensure config is an object and configObj exists
+  //  ensure config is an object and configObj exists
   if (!config || typeof config !== 'object') config = {}
   const safeConfig = config || {}
   const configObj = (safeConfig && typeof safeConfig === 'object' && safeConfig.configObj) ? safeConfig.configObj : {}
