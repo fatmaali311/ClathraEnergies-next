@@ -12,32 +12,39 @@ const OurGasSeparation = ({ page = {}, images = {} }) => {
 
   return (
     <section className="w-full max-w-6xl mx-auto p-4 ">
-      {/* Title */}
-      <motion.div
-        className="text-center mb-6 w-full mt-4"
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-      >
-        <motion.h2
-          className="text-3xl md:text-4xl font-extrabold text-slate-800 mb-4 tracking-tight"
-          initial={{ opacity: 0, y: 30 }}
+      
+      {/* Title (remove all spacing if no title or subtitle) */}
+      {(gasSection.title || gasSection.sub_title) && (
+        <motion.div
+          className="text-center mb-6 w-full mt-4"
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.2 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
         >
-          {gasSection.title || 'Cryogenic Gas Separation'}
-        </motion.h2>
+          {gasSection.title && (
+            <motion.h2
+              className="text-3xl md:text-4xl font-extrabold text-slate-800 mb-4 tracking-tight"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.2 }}
+            >
+              {gasSection.title}
+            </motion.h2>
+          )}
 
-        <motion.p
-          className="text-slate-500 text-sm md:text-lg max-w-2xl mx-auto"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.4 }}
-        >
-          {gasSection.sub_title || ''}
-        </motion.p>
-      </motion.div>
+          {gasSection.sub_title && (
+            <motion.p
+              className="text-slate-500 text-sm md:text-lg max-w-2xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.4 }}
+            >
+              {gasSection.sub_title}
+            </motion.p>
+          )}
+        </motion.div>
+      )}
 
       {/* Big Arrow */}
       <div className="relative w-full mb-6">
@@ -103,9 +110,20 @@ const OurGasSeparation = ({ page = {}, images = {} }) => {
 
       {/* Cylinders */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-4 w-full justify-items-center mt-2">
-        {(gases.length ? gases : [ { name: 'CH4', color: '#e14b2c' }, { name: 'CO2', color: '#f5a623' }, { name: 'H2', color: '#6bbf59' } ]).map((gas, i) => (
-          <motion.div key={i} className="flex flex-col items-center w-3/4 max-w-[200px] md:w-full" initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.6 }}>
-
+        {(gases.length ? gases : [
+          { name: 'CH4', color: '#e14b2c' },
+          { name: 'CO2', color: '#f5a623' },
+          { name: 'H2', color: '#6bbf59' }
+        ]).map((gas, i) => (
+          <motion.div
+            key={i}
+            className="flex flex-col items-center w-3/4 max-w-[200px] md:w-full"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6 }}
+          >
+            
             <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.5 }}>
               <svg className="w-14 h-28 md:w-16 md:h-36 z-10" viewBox="0 0 50 100">
                 <rect x="13" y="0" width="24" height="75" fill={gas.color} rx="4" />
@@ -128,9 +146,9 @@ const OurGasSeparation = ({ page = {}, images = {} }) => {
             </motion.div>
 
             <motion.div initial={{ opacity: 0, scale: 0.8 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.6 }}>
-              {images[`gases[${i}]`] ? (
+              {images[`gases[${i}]`] && (
                 <img src={getImageUrl(images[`gases[${i}]`])} className="w-full drop-shadow-xl relative z-0" alt={`${gas.name} cylinder`} />
-              ) : null}
+              )}
             </motion.div>
 
           </motion.div>
