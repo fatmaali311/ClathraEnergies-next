@@ -20,7 +20,7 @@ export default function OurGasSeparation({ page = {}, images = {} }) {
       {/* ================= TITLE ================= */}
       {(gasSection.title || gasSection.sub_title) && (
         <motion.div
-          className="text-center mb-14 w-full mt-14 px-4"
+          className="text-center mb-14 w-full  px-4"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
