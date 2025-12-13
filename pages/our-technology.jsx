@@ -3,8 +3,8 @@ import MainLayout from '../src/components/layout/MainLayout'
 import SEO from '../src/components/SEO'
 import BorderLines from '../src/components/common/BorderLines'
 import OurHero from '../src/components/our/OurHero'
-import OurContent from '../src/components/our/OurContent'
 import OurGasSeparation from '../src/components/our/OurGasSeparation'
+import SolutionsCards from '../src/components/why/SolutionsCards'
 import { processImageUrls } from '../src/utils/imageUtils'
 
 export default function OurTechnology({ config, page, apiBase }) {
@@ -27,10 +27,10 @@ export default function OurTechnology({ config, page, apiBase }) {
 
       <div className="relative pt-12">
         <BorderLines position="right" />
+         <OurGasSeparation page={pageObj} images={images} />
         <div className="md:pr-10">
-          <OurGasSeparation page={pageObj} images={images} />
-          <OurContent page={pageObj} images={images} config={config} />
-          
+         
+          <SolutionsCards page={pageObj} />
         </div>
       </div>
     </MainLayout>

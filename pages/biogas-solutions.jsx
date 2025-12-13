@@ -1,12 +1,11 @@
-import React from 'react';
+import React from 'react'
 import MainLayout from '../src/components/layout/MainLayout'
 import SEO from '../src/components/SEO'
-import BorderLines from '../src/components/common/BorderLines'
-import WhyHero from '../src/components/why/WhyHero'
-import WhyContent from '../src/components/why/WhyContent'
+import BiogasHero from '../src/components/biogas/BiogasHero'
+import BiogasCycle from '../src/components/biogas/BiogasCycle'
 import { processImageUrls } from '../src/utils/imageUtils'
 
-export default function WhyTechnology({ config, page, apiBase }) {
+export default function BiogasSolutions({ config, page, apiBase }) {
   const cfg = config?.configObj || {}
   const pageObj = page?.pageObj || {}
   const images = page?.images || config?.images || {}
@@ -14,28 +13,21 @@ export default function WhyTechnology({ config, page, apiBase }) {
   return (
     <MainLayout config={config} page={page}>
       <SEO
-        title={`Why`}
+        title={`Biogas Solutions`}
         description={pageObj.hero_section?.sub_title || cfg.name}
         keywords={(page?.meta?.keywords || config?.configObj?.metaKeywords || [])}
-        url={`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/why-technology`}
-        image={images?.why_hero_image || config?.images?.main_logo}
+        url={`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/biogas-solutions`}
+        image={images?.biogas_hero_image || config?.images?.main_logo}
         config={cfg}
       />
 
-      <WhyHero hero={pageObj.hero_section || {}} images={images} config={cfg} />
+      <BiogasHero hero={pageObj.hero_section || {}} images={images} config={config} />
 
-      {/* Solutions  */}
-      <div className="relative">
-        <BorderLines position="right" />
+      <div className="relative pt-12">
         <div className="md:pr-10">
-        
+          <BiogasCycle page={pageObj} images={images} />
         </div>
-
-        {/* <div className="md:pr-10"> */}
-          <WhyContent page={pageObj} images={images} />
-        {/* </div> */}
-        </div>
-     
+      </div>
     </MainLayout>
   )
 }
@@ -45,10 +37,9 @@ export async function getServerSideProps() {
 
   const [configRes, pageRes] = await Promise.all([
     fetch(`${API_BASE}/config`).then(r => r.json()).catch(() => null),
-    fetch(`${API_BASE}/pages/why-technology`).then(r => r.json()).catch(() => null),
+    fetch(`${API_BASE}/pages/biogas-solutions`).then(r => r.json()).catch(() => null),
   ])
 
-  // Process image URLs to ensure they have full paths
   const config = processImageUrls(configRes)
   const page = processImageUrls(pageRes)
 

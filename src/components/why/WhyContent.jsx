@@ -9,10 +9,16 @@ const WhyContent = ({ page = {}, images = {} }) => {
   const safe = page.safe_section || {}
   const econ = page.economics_section || {}
 
-  const getImage = (key) => getImageUrl(images?.[key] || '')
+
+  // If the image key doesn't exist,  return null.
+
+  const getImage = (key) => {
+    const imgPath = images?.[key];
+    return imgPath ? getImageUrl(imgPath) : null;
+  }
 
   return (
-    <section className="w-full  flex flex-col items-center bg-white">
+    <section className="w-full py-14 md:py-20 flex flex-col items-center  ">
       <div className="w-full max-w-6xl flex flex-col gap-12 px-4 md:px-6 lg:px-8 mb-10">
 
         {/* ------------------ TOP BOX (STATS) ------------------ */}
@@ -22,9 +28,9 @@ const WhyContent = ({ page = {}, images = {} }) => {
           viewport={viewportSettings}
           variants={fadeUp()}
           className="bg-white shadow-[8px_8px_20px_rgba(0,0,0,0.15)]
-                     p-5 sm:p-6 md:p-12 flex flex-col items-center 
-                     justify-between border-2 border-[var(--primary-green)] border-r-[var(--primary-blue)]
-                     gap-6" 
+                      p-5 sm:p-6 md:p-12 flex flex-col items-center 
+                      justify-between border-2 border-[var(--primary-green)] border-r-[var(--primary-blue)]
+                      gap-6" 
         >
           {/* ADDED STATS SECTION TITLE INSIDE THE CARD */}
           <h3 className="mb-4 font-semibold text-lg sm:text-2xl md:text-3xl text-gray-700 text-center"
@@ -92,8 +98,8 @@ const WhyContent = ({ page = {}, images = {} }) => {
           <motion.div
             variants={zoomIn}
             className="bg-white shadow-[8px_8px_20px_rgba(0,0,0,0.15)]
-                       p-8 md:p-10 border-2 border-[var(--primary-green)] border-r-[var(--primary-blue)]
-                       flex flex-col items-center justify-center w-full"
+                        p-8 md:p-10 border-2 border-[var(--primary-green)] border-r-[var(--primary-blue)]
+                        flex flex-col items-center justify-center w-full"
           >
             {/* TEMP SECTION TITLE  */}
             <h3 className="mb-4 font-semibold text-lg sm:text-2xl md:text-3xl text-gray-700 text-center"
@@ -120,7 +126,7 @@ const WhyContent = ({ page = {}, images = {} }) => {
                     <img src={getImage('why_temp_hot')}
                       className="w-16 md:w-20 h-56 md:h-64 object-contain"
                       alt="hot thermometer" />
-    
+   
                     <span className="mt-3 text-base md:text-lg font-medium"
                       style={{ color: "var(--subtitle-color)" }}>
                       {temps.left_temp || '-20°C'}
@@ -146,7 +152,7 @@ const WhyContent = ({ page = {}, images = {} }) => {
                     <img src={getImage('why_temp_cold')}
                       className="w-16 md:w-20 h-56 md:h-64 object-contain"
                       alt="cold thermometer" />
-    
+   
                     <span className="mt-3 text-base md:text-lg font-medium"
                       style={{ color: "var(--subtitle-color)" }}>
                       {temps.right_temp || '-162°C'}
@@ -163,8 +169,8 @@ const WhyContent = ({ page = {}, images = {} }) => {
             variants={zoomIn}
             whileHover={{ scale: 1.05 }}
             className="bg-white shadow-[8px_8px_20px_rgba(0,0,0,0.15)]
-                       p-8 md:p-10 border-2 border-[var(--primary-green)] border-r-[var(--primary-blue)]
-                       flex flex-col items-center justify-center w-full"
+                        p-8 md:p-10 border-2 border-[var(--primary-green)] border-r-[var(--primary-blue)]
+                        flex flex-col items-center justify-center w-full"
           >
             <h3 className="mb-4 font-semibold text-lg sm:text-2xl md:text-3xl text-gray-700 text-center"
                 >
@@ -189,8 +195,8 @@ const WhyContent = ({ page = {}, images = {} }) => {
           viewport={viewportSettings}
           variants={fadeUp()}
           className="bg-white shadow-[8px_8px_20px_rgba(0,0,0,0.15)]
-                     p-8 md:p-12 flex flex-col items-center justify-between
-                     border-2 border-[var(--primary-green)] border-r-[var(--primary-blue)]"
+                      p-8 md:p-12 flex flex-col items-center justify-between
+                      border-2 border-[var(--primary-green)] border-r-[var(--primary-blue)]"
         >
           <h3 className="mb-4 font-semibold text-lg sm:text-2xl md:text-3xl text-gray-700 text-center"
               >
