@@ -1,3 +1,5 @@
+'use client';
+
 import GButton from '../GButton'
 import BorderLines from '../common/BorderLines'
 import { motion } from 'framer-motion'

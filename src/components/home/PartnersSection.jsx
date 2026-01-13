@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react'
 import { motion } from 'framer-motion'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -7,7 +9,7 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import { containerVariants, itemVariants, viewportSettings } from '../../utils/animations'
 
-export default function PartnersSection({ images = {}, theme = {} }) {
+export default function PartnersSection({ images = {}, theme = {}, title }) {
   const partnerImages = Object.keys(images)
     .filter(key => key.startsWith('partners_section['))
     .sort((a, b) => {
@@ -24,7 +26,7 @@ export default function PartnersSection({ images = {}, theme = {} }) {
 
   return (
     <motion.section
-      className="py-12 px-4 sm:px-8 lg:px-12 bg-white relative overflow-visible" 
+      className="py-12 px-4 sm:px-8 lg:px-12 bg-white relative overflow-visible"
       initial={{ opacity: 0, y: 80 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={viewportSettings}
@@ -89,7 +91,7 @@ export default function PartnersSection({ images = {}, theme = {} }) {
           className="font-semibold tracking-wide uppercase text-3xl sm:text-4xl text-center md:text-left md:whitespace-nowrap"
           style={{ color: titleColor }}
         >
-          Our Partners
+          {title }
         </motion.h2>
 
         {/* Logos */}
@@ -120,11 +122,10 @@ export default function PartnersSection({ images = {}, theme = {} }) {
                     <img
                       src={src}
                       alt={`Partner ${index + 1}`}
-                      className={`object-contain transition-transform duration-300 w-auto mx-auto ${
-                        index === 1
-                          ? 'h-44 md:h-48 lg:h-52 scale-125'
-                          : 'h-32 sm:h-36 md:h-40 lg:h-44'
-                      }`}
+                      className={`object-contain transition-transform duration-300 w-auto mx-auto ${index === 1
+                        ? 'h-44 md:h-48 lg:h-52 scale-125'
+                        : 'h-32 sm:h-36 md:h-40 lg:h-44'
+                        }`}
                     />
                   </div>
                 </SwiperSlide>
@@ -137,11 +138,10 @@ export default function PartnersSection({ images = {}, theme = {} }) {
                   <img
                     src={src}
                     alt={`Partner ${index + 1}`}
-                    className={`object-contain transition-transform duration-300 w-auto mx-auto ${
-                      index === 1
-                        ? 'h-44 md:h-48 lg:h-52 scale-125'
-                        : 'h-32 sm:h-36 md:h-40 lg:h-44'
-                    }`}
+                    className={`object-contain transition-transform duration-300 w-auto mx-auto ${index === 1
+                      ? 'h-44 md:h-48 lg:h-52 scale-125'
+                      : 'h-32 sm:h-36 md:h-40 lg:h-44'
+                      }`}
                   />
                 </div>
               ))}

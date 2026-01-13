@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react'
 import { motion } from 'framer-motion'
 import { slideUp } from '../../utils/animations'
@@ -15,20 +17,20 @@ export default function ServicesHero({ hero = {}, images = {} }) {
       <div className="absolute inset-0" style={{ background: 'linear-gradient(to left, var(--primary-green), var(--primary-green), var(--primary-blue))', opacity: 'var(--hero-gradient-opacity)' }} />
 
       {/* Content */}
-         <motion.div
-           initial="hidden"
-           animate="show"
-           variants={slideUp}
-           className="relative z-10 flex flex-col items-center justify-center"
+      <motion.div
+        initial="hidden"
+        animate="show"
+        variants={slideUp}
+        className="relative z-10 flex flex-col items-center justify-center"
       >
         <h1 className="text-white text-3xl md:text-4xl lg:text-5xl font-bold text-center">
           {hero.title || 'Services'}
         </h1>
-           {hero.sub_title && (
-             <p className="mt-3 text-white/90 text-sm md:text-lg leading-relaxed mx-auto text-center" >
-               {hero.sub_title}
-             </p>
-           )}
+        {hero.sub_title && (
+          <p className="mt-3 text-white/90 text-sm md:text-lg leading-relaxed mx-auto text-center" >
+            {hero.sub_title}
+          </p>
+        )}
       </motion.div>
     </section>
   )

@@ -1,15 +1,15 @@
-import Navbar from '../Navbar'
-import Footer from '../Footer'
+import Header from './Header'
+import Footer from './Footer'
 import { processImageUrls } from '../../utils/imageUtils'
 
-export default function MainLayout({ children, config, page }) {
+export default function MainLayout({ children, config, page, dict }) {
   const cfg = config?.configObj || {}
 
   return (
     <>
-      <Navbar config={cfg} images={config?.images} />
+      <Header config={cfg} images={config?.images} dict={dict} />
       <main>{children}</main>
-      <Footer config={config} images={config?.images} />
+      <Footer config={config} images={config?.images} dict={dict} />
     </>
   )
 }

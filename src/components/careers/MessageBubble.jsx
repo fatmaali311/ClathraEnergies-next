@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react'
 import { motion } from 'framer-motion'
 
@@ -17,25 +19,25 @@ const MessageBubble = ({ question, answer, color = 'blue', tail = 'left', icon, 
   const classes = colorClasses[color] || colorClasses.blue
   const bubbleColor = (classes.bg || '').replace('bg-[', '').replace(']', '') || 'var(--primary-blue)'
 
-const bubbleVariants = {
-  hidden: { 
-    opacity: 0, 
-    x: tail === 'left' ? -60 : 60, // only slight slide, not offscreen
-    scale: 0.95 
-  },
-  visible: { 
-    opacity: 1, 
-    x: 0, 
-    scale: 1, 
-    transition: { 
-      duration: 0.6, 
-      ease: 'easeOut', 
-      type: 'spring', 
-      stiffness: 70, 
-      damping: 12 
-    } 
+  const bubbleVariants = {
+    hidden: {
+      opacity: 0,
+      x: tail === 'left' ? -60 : 60, // only slight slide, not offscreen
+      scale: 0.95
+    },
+    visible: {
+      opacity: 1,
+      x: 0,
+      scale: 1,
+      transition: {
+        duration: 0.6,
+        ease: 'easeOut',
+        type: 'spring',
+        stiffness: 70,
+        damping: 12
+      }
+    }
   }
-}
 
 
 
@@ -49,7 +51,7 @@ const bubbleVariants = {
       initial={initial || "hidden"}
       whileInView={whileInView || "visible"}
       // Use the 'animate' prop if it's explicitly passed to override default 'visible' on load
-      animate={animate} 
+      animate={animate}
       viewport={{ once: true, amount: 0.3 }}
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}

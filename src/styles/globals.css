@@ -3,10 +3,17 @@
 @import "slick-carousel/slick/slick-theme.css";
 @layer base {
   :root {
- 
+    --primary-green: #ADD0B3;
+    --primary-blue: #0f766e;
+    --title-color: #111827;
+    --subtitle-color: #4b5563;
+    --text-gray-500: #6b7280;
+    --bg-color: #ffffff;
+    --hero-gradient-opacity: 0.8;
+    --btn-color: #ADD0B3;
+
     --animation-duration: 0.8s;
     --animation-ease: ease-out;
-  
   }
 
   html, body, #__next {
@@ -42,7 +49,7 @@
 .g-button {
   background: linear-gradient(to bottom, var(--primary-green), var(--primary-blue));
   color: #ffffff;
-  border: 2px solid transparent;
+
   transition: all 0.4s ease-in-out;
 }
 

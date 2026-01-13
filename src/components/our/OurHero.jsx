@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react'
 import { motion } from 'framer-motion'
 import { fadeIn, fadeUp, viewportSettings } from '../../utils/animations'
@@ -16,7 +18,7 @@ const OurHero = ({ hero = {}, images = {}, config = {} }) => {
       style={{ backgroundImage: `url(${bg})` }}
     >
       <div className="absolute inset-0" style={{ background: 'linear-gradient(to left, var(--primary-green), var(--primary-green), var(--primary-blue))', opacity: 'var(--hero-gradient-opacity)' }} />
-    <motion.div className="relative z-10 text-center px-4">
+      <motion.div className="relative z-10 text-center px-4">
         <motion.h2
           variants={fadeUp()}
           className="text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-wide"

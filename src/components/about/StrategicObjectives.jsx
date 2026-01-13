@@ -1,7 +1,9 @@
+'use client';
+
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 
-export default function StrategicObjectives({ objectives = [], images = {} }) {
+export default function StrategicObjectives({ objectives = [], images = {}, title }) {
   return (
     <section className="section-container bg-white">
       <motion.h2
@@ -12,7 +14,7 @@ export default function StrategicObjectives({ objectives = [], images = {} }) {
         className="section-title mb-16 text-center sm:mb-24"
         style={{ color: "var(--title-color)" }}
       >
-        Our Strategic Objectives for Impact
+        {title}
       </motion.h2>
 
       <div className="flex flex-col gap-14 sm:gap-20 md:gap-28 lg:gap-32 mb-12">
@@ -67,8 +69,8 @@ export default function StrategicObjectives({ objectives = [], images = {} }) {
                         obj.icon.startsWith("http")
                           ? obj.icon
                           : images[obj.icon] ||
-                            images[`objective_icon_${i + 1}`] ||
-                            obj.icon
+                          images[`objective_icon_${i + 1}`] ||
+                          obj.icon
                       }
                       alt={`${obj.title} icon`}
                       className="mx-auto md:w-16 md:h-16 w-12 h-12"

@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react'
 import { motion } from 'framer-motion'
 import { fadeUp, zoomIn, viewportSettings } from '../../utils/animations'
@@ -30,12 +32,12 @@ const WhyContent = ({ page = {}, images = {} }) => {
           className="bg-white shadow-[8px_8px_20px_rgba(0,0,0,0.15)]
                       p-5 sm:p-6 md:p-12 flex flex-col items-center 
                       justify-between border-2 border-[var(--primary-green)] border-r-[var(--primary-blue)]
-                      gap-6" 
+                      gap-6"
         >
           {/* ADDED STATS SECTION TITLE INSIDE THE CARD */}
           <h3 className="mb-4 font-semibold text-lg sm:text-2xl md:text-3xl text-gray-700 text-center"
-              >
-              {stats.title || 'Enhanced Methane Storage Efficiency'}
+          >
+            {stats.title || 'Enhanced Methane Storage Efficiency'}
           </h3>
 
           <div className="w-full flex flex-col md:flex-row items-center justify-between gap-6 md:gap-0">
@@ -47,7 +49,7 @@ const WhyContent = ({ page = {}, images = {} }) => {
             />
 
             <div className="flex-1 flex flex-col items-center justify-center text-center px-2 md:px-8">
-           
+
               <p className="font-semibold text-lg sm:text-xl md:text-2xl mb-1 leading-tight"
                 style={{ color: "var(--title-color)" }}>
                 {stats.methane_text || '100–170 Nm³ methane / m³'}
@@ -57,17 +59,17 @@ const WhyContent = ({ page = {}, images = {} }) => {
               <div className="flex items-center justify-center w-full mt-2 relative">
                 <div
                   className="flex-grow min-h-[3px] w-2/3 relative rounded-full z-0"
-                  style={{ backgroundColor: "#6B7280" }} 
+                  style={{ backgroundColor: "#6B7280" }}
                 >
                   <span
                     className="absolute top-1/2 -translate-y-1/2 right-0 translate-x-1/2 w-3 h-3 border-t-[4px] border-r-[4px] rotate-45 z-10"
-                    style={{ borderColor: "#6B7280" }} 
+                    style={{ borderColor: "#6B7280" }}
                   />
                 </div>
               </div>
 
 
-           
+
               <p className="font-medium text-lg sm:text-xl md:text-2xl mt-2"
                 style={{ color: "var(--title-color)" }}>
                 {stats.brand_text || 'ClathraEnergies™'}
@@ -82,7 +84,7 @@ const WhyContent = ({ page = {}, images = {} }) => {
             />
           </div>
         </motion.div>
-        
+
         {/* REMOVED the separate stats title here */}
 
 
@@ -103,8 +105,8 @@ const WhyContent = ({ page = {}, images = {} }) => {
           >
             {/* TEMP SECTION TITLE  */}
             <h3 className="mb-4 font-semibold text-lg sm:text-2xl md:text-3xl text-gray-700 text-center"
-              >
-                {temps.title || 'Temperature Advantage of ClathraEnergies™'}
+            >
+              {temps.title || 'Temperature Advantage of ClathraEnergies™'}
             </h3>
 
             <div className="grid grid-cols-2 gap-8 md:gap-16 w-full place-items-center">
@@ -126,7 +128,7 @@ const WhyContent = ({ page = {}, images = {} }) => {
                     <img src={getImage('why_temp_hot')}
                       className="w-16 md:w-20 h-56 md:h-64 object-contain"
                       alt="hot thermometer" />
-   
+
                     <span className="mt-3 text-base md:text-lg font-medium"
                       style={{ color: "var(--subtitle-color)" }}>
                       {temps.left_temp || '-20°C'}
@@ -152,7 +154,7 @@ const WhyContent = ({ page = {}, images = {} }) => {
                     <img src={getImage('why_temp_cold')}
                       className="w-16 md:w-20 h-56 md:h-64 object-contain"
                       alt="cold thermometer" />
-   
+
                     <span className="mt-3 text-base md:text-lg font-medium"
                       style={{ color: "var(--subtitle-color)" }}>
                       {temps.right_temp || '-162°C'}
@@ -173,8 +175,8 @@ const WhyContent = ({ page = {}, images = {} }) => {
                         flex flex-col items-center justify-center w-full"
           >
             <h3 className="mb-4 font-semibold text-lg sm:text-2xl md:text-3xl text-gray-700 text-center"
-                >
-                {safe.title || 'Safe and Environmentally Friendly Technology'}
+            >
+              {safe.title || 'Safe and Environmentally Friendly Technology'}
             </h3>
 
             <img src={getImage('why_green_safe')}
@@ -199,8 +201,8 @@ const WhyContent = ({ page = {}, images = {} }) => {
                       border-2 border-[var(--primary-green)] border-r-[var(--primary-blue)]"
         >
           <h3 className="mb-4 font-semibold text-lg sm:text-2xl md:text-3xl text-gray-700 text-center"
-              >
-              {econ.title || 'Reduced CAPEX and OPEX Costs'}
+          >
+            {econ.title || 'Reduced CAPEX and OPEX Costs'}
           </h3>
 
           <div className="flex flex-col md:flex-row items-center justify-between w-full">
@@ -223,7 +225,7 @@ const WhyContent = ({ page = {}, images = {} }) => {
 
               <div className="flex flex-col items-center ml-4 md:ml-6">
                 <div className="h-20 md:h-24 w-1 relative rounded-full"
-                  style={{ backgroundColor: "#6B7280" }}> 
+                  style={{ backgroundColor: "#6B7280" }}>
                   <span
                     className="absolute bottom-0 translate-y-1/2 left-1/2 -translate-x-1/2
                               w-3 h-3 border-b-[4px] border-r-[4px] rotate-45"

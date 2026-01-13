@@ -1,3 +1,4 @@
+'use client';
 
 import { motion } from "framer-motion";
 import {
@@ -27,14 +28,14 @@ function normalizeServices(services = []) {
   });
 }
 
-export default function ServicesSection({ services = [] }) {
+export default function ServicesSection({ services = [], title }) {
   const list = normalizeServices(services);
   if (!list.length) return null;
 
   return (
     <section className="section-container">
-      <h2 className="section-title text-center md:mb-24 mb-16"  style={{ color: 'var(--title-color)' }}>
-        ClathraEnergies Services
+      <h2 className="section-title text-center md:mb-24 mb-16" style={{ color: 'var(--title-color)' }}>
+        {title }
       </h2>
 
       <motion.div
@@ -107,6 +108,7 @@ export default function ServicesSection({ services = [] }) {
                     to={`/services#service-${service.slug}`}
                     bgColor={service.mainColor}
                     hoverColor={service.mainColor}
+                    ariaLabel={`Learn more about ${service.title}`}
                   />
                 </div>
               </div>

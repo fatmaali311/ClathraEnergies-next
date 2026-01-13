@@ -1,6 +1,8 @@
+'use client';
+
 import React from "react";
 import { motion } from "framer-motion";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 /* ================= Animations ================= */
 const fadeUpCard = {
@@ -31,11 +33,12 @@ const getCardBgStyle = (color) => {
 };
 
 /* ================= Component ================= */
-const SolutionsCards = ({ page = {} }) => {
+const SolutionsCards = ({ page = {}, dict = {} }) => {
   const router = useRouter();
 
   const categories = page.solutions_section || [];
   const sectionTitle = page.solutions_section_title;
+  const learn_more = dict?.common?.learn_more || 'Learn More';
 
   if (!categories.length) return null;
 
@@ -58,7 +61,7 @@ const SolutionsCards = ({ page = {} }) => {
       {/* ===== Cards Grid ===== */}
       <div className="w-full max-w-[1600px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 px-6">
         {categories.map((cat, index) => {
-          const clickable = Boolean(cat.link);
+          const hasLink = Boolean(cat.link);
 
           return (
             <motion.div
@@ -68,12 +71,11 @@ const SolutionsCards = ({ page = {} }) => {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              onClick={() => clickable && router.push(cat.link)}
               className={`
                 rounded-2xl p-5 flex flex-col items-center min-h-[550px]
                 shadow-md border border-[#1b85b816]
                 transition-all duration-300
-                ${clickable ? "cursor-pointer hover:shadow-xl hover:-translate-y-1" : ""}
+                hover:shadow-xl hover:-translate-y-1 group
               `}
               style={{
                 background: `linear-gradient(
@@ -122,6 +124,27 @@ const SolutionsCards = ({ page = {} }) => {
                   );
                 })}
               </div>
+
+              {/* ===== Learn More Button ===== */}
+              {hasLink && (
+                <motion.button
+                  variants={fadeUpItem}
+                  custom={3}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    router.push(cat.link);
+                  }}
+                  className="
+                     px-8 py-3 rounded-full 
+                     bg-white text-gray-800 font-bold text-sm
+                     shadow-lg hover:bg-gray-50 hover:shadow-xl hover:scale-105
+                     active:scale-95 transition-all duration-300
+                     mb-4 border border-gray-100
+                   "
+                >
+                  {learn_more}
+                </motion.button>
+              )}
             </motion.div>
           );
         })}

@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react'
 import { motion } from 'framer-motion'
 import { fadeInUp, stepVariant } from '../../utils/animations'
@@ -143,7 +145,7 @@ const OurContent = ({ page = {}, images = {} }) => {
                   className={`${index < 3
                     ? 'bg-[var(--primary-green)]'
                     : 'bg-[var(--primary-blue)]'
-                  } rounded-full w-10 h-10 flex items-center justify-center shadow-md`}
+                    } rounded-full w-10 h-10 flex items-center justify-center shadow-md`}
                 >
                   <span className="text-white font-bold text-base">
                     {step.id}

@@ -1,3 +1,5 @@
+'use client';
+
 import React from "react";
 import { motion } from "framer-motion";
 import {
@@ -15,7 +17,7 @@ export default function ServicesCards({ services = [] }) {
 
   return (
     <section className="section-container bg-white">
-      <div className="flex flex-col gap-24 mb-12 text-center"> 
+      <div className="flex flex-col gap-24 mb-12 text-center">
 
         {services.map((svc, i) => {
           const obj = svc.data?.serviceObj || {};
@@ -172,6 +174,7 @@ export default function ServicesCards({ services = [] }) {
                     bgColor={buttonBgColor}
                     hoverColor={buttonHoverColor}
                     target="_blank"
+                    ariaLabel={`Learn more about ${svc.title}`}
                   />
                 </div>
               </div>

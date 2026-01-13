@@ -1,4 +1,6 @@
-import React from 'react'
+'use client';
+
+import React, { useState } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import { toast, ToastContainer } from 'react-toastify'
@@ -35,19 +37,23 @@ const withAlpha = (color, alpha = 0.8) => {
   return color
 }
 
-const ContactSchema = Yup.object().shape({
-  fullName: Yup.string().required('Full Name is required.'),
-  company: Yup.string(),
-  email: Yup.string().email('Email is invalid.').required('Email is required.'),
-  interest: Yup.string().required('Please select an area of interest.'),
-  represent: Yup.string().required('Please select who you represent.'),
-  message: Yup.string().required('Message is required.'),
-})
+import { getLocalizedValue } from '../../utils/localizationUtils'
 
-export default function ContactFormFormik({ formConfig = {}, colors = {} }) {
+export default function ContactFormFormik({ formConfig = {}, colors = {}, dict = {}, lang = 'en' }) {
   // prefer camelCase mainColor, fallback to snake_case main_color for older payloads
   const baseColor = colors.mainColor || colors.main_color || 'var(--primary-green)'
   const secondaryColor = colors.secondaryColor || colors.secondary_color || '#afcbe5'
+
+  const v = dict?.validation || {}
+
+  const ContactSchema = Yup.object().shape({
+    fullName: Yup.string().required(v.fullNameRequired || dict?.validation?.fullNameRequired || 'Full Name is required.'),
+    company: Yup.string(),
+    email: Yup.string().email(v.invalidEmail || dict?.validation?.invalidEmail || 'Email is invalid.').required(v.emailRequired || dict?.validation?.emailRequired || 'Email is required.'),
+    interest: Yup.string().required(v.interestRequired || dict?.validation?.interestRequired || 'Please select an area of interest.'),
+    represent: Yup.string().required(v.representRequired || dict?.validation?.representRequired || 'Please select who you represent.'),
+    message: Yup.string().required(v.messageRequired || dict?.validation?.messageRequired || 'Message is required.'),
+  })
 
   const initialValues = {
     fullName: '',
@@ -86,11 +92,11 @@ export default function ContactFormFormik({ formConfig = {}, colors = {} }) {
         return
       }
 
-      toast.success('Your message has been sent successfully!')
+      toast.success(dict?.common?.sentSuccessfully || 'Your message has been sent successfully!')
       resetForm()
     } catch (err) {
       console.error(err)
-      toast.error('Failed to send message. Please try again later.')
+      toast.error(dict?.common?.errorSending || 'Failed to send message. Please try again later.')
     } finally {
       setSubmitting(false)
     }
@@ -107,29 +113,29 @@ export default function ContactFormFormik({ formConfig = {}, colors = {} }) {
           <Form className="p-5 md:p-8 bg-white shadow-[8px_8px_20px_rgba(0,0,0,0.15)] transition-all duration-300 w-full" style={{ border: `2px solid ${borderColor}` }}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mt-3">
               <div className="flex flex-col">
-                <label htmlFor="fullName" className="text-gray-500 font-medium text-lg mb-2">{formConfig.full_name_title || 'Full Name'}</label>
-                <Field name="fullName" className="w-full px-4 py-2.5 md:py-4.5 rounded-md focus:outline-none" style={{ background: bg, color: 'white', border: `1px solid ${borderColor}` }} placeholder="Full Name" />
+                <label htmlFor="fullName" className="text-gray-500 font-medium text-lg mb-2">{getLocalizedValue(formConfig.full_name_title, lang) || dict?.common?.fullName || 'Full Name'}</label>
+                <Field name="fullName" className="w-full px-4 py-2.5 md:py-4.5 rounded-md focus:outline-none" style={{ background: bg, color: 'white', border: `1px solid ${borderColor}` }} placeholder={getLocalizedValue(formConfig.full_name_title, lang) || dict?.common?.fullName || 'Full Name'} />
                 <ErrorMessage name="fullName" component="div" className="text-red-500 text-sm mt-1" />
               </div>
 
               <div className="flex flex-col">
-                <label htmlFor="company" className="text-gray-500 font-medium text-lg mb-2">{formConfig.organization_title || 'Organization / Company'}</label>
-                <Field name="company" className="w-full px-4 py-2.5 md:py-4.5 rounded-md focus:outline-none" style={{ background: bg, color: 'white', border: `1px solid ${borderColor}` }} placeholder="Organization / Company" />
+                <label htmlFor="company" className="text-gray-500 font-medium text-lg mb-2">{getLocalizedValue(formConfig.organization_title, lang) || dict?.common?.organization || 'Organization / Company'}</label>
+                <Field name="company" className="w-full px-4 py-2.5 md:py-4.5 rounded-md focus:outline-none" style={{ background: bg, color: 'white', border: `1px solid ${borderColor}` }} placeholder={getLocalizedValue(formConfig.organization_title, lang) || dict?.common?.organization || 'Organization / Company'} />
               </div>
             </div>
 
             <div className="mt-3 md:mt-5 flex flex-col">
-              <label htmlFor="email" className="text-gray-500 font-medium text-lg mb-2">{formConfig.email_title || 'Email Address'}</label>
-              <Field name="email" type="email" className="w-full px-4 py-2.5 md:py-4.5 rounded-md focus:outline-none" style={{ background: bg, color: 'white', border: `1px solid ${borderColor}` }} placeholder="Email Address" />
+              <label htmlFor="email" className="text-gray-500 font-medium text-lg mb-2">{getLocalizedValue(formConfig.email_title, lang) || dict?.common?.emailAddress || 'Email Address'}</label>
+              <Field name="email" type="email" className="w-full px-4 py-2.5 md:py-4.5 rounded-md focus:outline-none" style={{ background: bg, color: 'white', border: `1px solid ${borderColor}` }} placeholder={dict?.common?.emailPlaceholder || 'Email Address'} />
               <ErrorMessage name="email" component="div" className="text-red-500 text-sm mt-1" />
             </div>
 
             <div className="mt-3 md:mt-5 flex flex-col relative">
-              <label htmlFor="interest" className="text-gray-500 font-medium text-lg mb-2">{formConfig.area_of_interest?.field_title || 'Area of Interest'}</label>
+              <label htmlFor="interest" className="text-gray-500 font-medium text-lg mb-2">{getLocalizedValue(formConfig.area_of_interest?.field_title, lang) || dict?.common?.areaOfInterest || 'Area of Interest'}</label>
               <Field as="select" name="interest" className="w-full px-4 py-2.5 md:py-4.5 rounded-md focus:outline-none appearance-none" style={{ background: bg, color: 'white', border: `1px solid ${borderColor}` }}>
-                <option value="">Select Area of Interest</option>
+                <option value="">{dict?.common?.select || 'Select Area of Interest'}</option>
                 {(formConfig.area_of_interest?.field_menu_points || []).map((p, i) => (
-                  <option key={i} value={p.value}>{p.value}</option>
+                  <option key={i} value={getLocalizedValue(p.value, lang)}>{getLocalizedValue(p.value, lang)}</option>
                 ))}
               </Field>
               <div className="absolute right-4 top-2/3 -translate-y-1/2 pointer-events-none text-white text-3xl">▾</div>
@@ -137,11 +143,11 @@ export default function ContactFormFormik({ formConfig = {}, colors = {} }) {
             </div>
 
             <div className="mt-3 md:mt-5 flex flex-col relative">
-              <label htmlFor="represent" className="text-gray-500 font-medium text-lg mb-2">{formConfig.i_represent_field?.field_title || 'I Represent'}</label>
+              <label htmlFor="represent" className="text-gray-500 font-medium text-lg mb-2">{getLocalizedValue(formConfig.i_represent_field?.field_title, lang) || dict?.common?.iRepresent || 'I Represent'}</label>
               <Field as="select" name="represent" className="w-full px-4 py-2.5 md:py-4.5 rounded-md focus:outline-none appearance-none" style={{ background: bg, color: 'white', border: `1px solid ${borderColor}` }}>
-                <option value="">Select Representation</option>
+                <option value="">{dict?.common?.select || 'Select Representation'}</option>
                 {(formConfig.i_represent_field?.field_menu_points || []).map((p, i) => (
-                  <option key={i} value={p.value}>{p.value}</option>
+                  <option key={i} value={getLocalizedValue(p.value, lang)}>{getLocalizedValue(p.value, lang)}</option>
                 ))}
               </Field>
               <div className="absolute right-4 top-2/3 -translate-y-1/2 pointer-events-none text-white text-3xl">▾</div>
@@ -149,14 +155,14 @@ export default function ContactFormFormik({ formConfig = {}, colors = {} }) {
             </div>
 
             <div className="mt-3 md:mt-5 flex flex-col">
-              <label htmlFor="message" className="text-gray-500 font-medium text-lg mb-2">{formConfig.message_title || 'Message'}</label>
-              <Field as="textarea" name="message" rows="5" className="w-full px-4 py-2.5 md:py-4.5 rounded-md focus:outline-none" style={{ background: bg, color: 'white', border: `1px solid ${borderColor}` }} placeholder="Message" />
+              <label htmlFor="message" className="text-gray-500 font-medium text-lg mb-2">{getLocalizedValue(formConfig.message_title, lang) || dict?.common?.message || 'Message'}</label>
+              <Field as="textarea" name="message" rows="5" className="w-full px-4 py-2.5 md:py-4.5 rounded-md focus:outline-none" style={{ background: bg, color: 'white', border: `1px solid ${borderColor}` }} placeholder={getLocalizedValue(formConfig.message_title, lang) || dict?.common?.message || 'Message'} />
               <ErrorMessage name="message" component="div" className="text-red-500 text-sm mt-1" />
             </div>
 
             <div className="mt-5 md:mt-6 w-full">
               <GButton type="submit" className="w-full" bgColor={`linear-gradient(to bottom, ${baseColor}, ${secondaryColor})`}>
-                {formConfig.submit_button_title || 'Send Inquiry'}
+                {getLocalizedValue(formConfig.submit_button_title, lang) || dict?.common?.submit || 'Send Inquiry'}
               </GButton>
             </div>
           </Form>

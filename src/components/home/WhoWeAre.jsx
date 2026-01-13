@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image'
 import { getImageUrl } from '../../utils/imageUtils'
 import GButton from '../GButton'
@@ -10,7 +12,7 @@ export default function WhoWeAre({ section = {}, images = {} }) {
   return (
     <section className="relative bg-white" aria-labelledby="who-we-are-title">
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-4 block lg:flex justify-center gap-2 items-center relative overflow-hidden">
-        
+
         {/* LEFT SIDE - TEXT */}
         <motion.div
           variants={slideLeft}
@@ -67,6 +69,7 @@ export default function WhoWeAre({ section = {}, images = {} }) {
                 height={650}
                 className="w-full h-auto max-h-[650px] object-cover rounded-lg"
                 loading="lazy"
+                unoptimized
               />
             ) : null}
 
@@ -74,10 +77,10 @@ export default function WhoWeAre({ section = {}, images = {} }) {
               Offices located in France, Egypt, and China.
             </figcaption>
 
-            <div className="grid grid-cols-3 mt-4 w-full text-[var(--text-gray-500)] text-[0.8rem] sm:text-[1rem] font-semibold text-center">
-              <span className="text-left md:pl-4 sm:pl-2">FRANCE</span>
-              <span className="text-center">EGYPT</span>
-              <span className="text-right md:pr-4 sm:pr-2">CHINA</span>
+            <div className="grid grid-cols-3 mt-4 w-full text-[var(--text-gray-500)] text-[0.8rem] sm:text-[1rem] font-semibold text-center uppercase">
+              <span className="text-left md:pl-4 sm:pl-2">{section?.locations?.[0]?.label}</span>
+              <span className="text-center">{section?.locations?.[1]?.label}</span>
+              <span className="text-right md:pr-4 sm:pr-2">{section?.locations?.[2]?.label}</span>
             </div>
           </figure>
         </motion.div>

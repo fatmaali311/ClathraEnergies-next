@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
@@ -11,6 +13,7 @@ const CustomButton = ({
   delay = 0,
   i = 0,
   type = 'button', // forward to native button (use 'submit' when used inside forms)
+  ariaLabel, // New prop
 }) => {
   const baseClasses = `
   w-full h-[55px] sm:h-[75px]
@@ -41,7 +44,7 @@ const CustomButton = ({
 
   if (as === 'link') {
     return (
-      <motion.a href={to} {...motionProps} className={`${baseClasses}`} style={style}>
+      <motion.a href={to} {...motionProps} className={`${baseClasses}`} style={style} aria-label={ariaLabel || text}>
         {text}
       </motion.a>
     )
@@ -50,7 +53,7 @@ const CustomButton = ({
   if (as === 'router') {
     return (
       <motion.div {...motionProps} style={{ width: '100%' }}>
-        <Link href={to} className={`${baseClasses} w-full block`}>
+        <Link href={to} className={`${baseClasses} w-full block`} aria-label={ariaLabel || text}>
           {text}
         </Link>
       </motion.div>
