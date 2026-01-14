@@ -67,6 +67,7 @@ export default async function Home() {
                         <ServicesSection
                             services={Array.isArray(servicesList) ? servicesList : []}
                             title={pageObj.services_section_title}
+                            dict={dict}
                         />
                         <PartnersSection
                             images={page?.images || config?.images || {}}

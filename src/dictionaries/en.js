@@ -19,7 +19,7 @@ export const en = {
     readMore: "Read More",
     applyNow: "Apply Now",
     openApplication: "Open Application",
-    openPositions: "Open Positions",
+    openPositions: "Show available open positions",
     noPositions: "No open positions at the moment.",
     submit: "Submit",
     sending: "Sending...",

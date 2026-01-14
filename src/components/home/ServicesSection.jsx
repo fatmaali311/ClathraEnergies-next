@@ -28,14 +28,14 @@ function normalizeServices(services = []) {
   });
 }
 
-export default function ServicesSection({ services = [], title }) {
+export default function ServicesSection({ services = [], title, dict }) {
   const list = normalizeServices(services);
   if (!list.length) return null;
 
   return (
     <section className="section-container">
       <h2 className="section-title text-center md:mb-24 mb-16" style={{ color: 'var(--title-color)' }}>
-        {title }
+        {title}
       </h2>
 
       <motion.div
@@ -103,7 +103,7 @@ export default function ServicesSection({ services = [], title }) {
               <div className="flex justify-center w-full mt-auto pb-4 sm:pb-2 md:pb-0">
                 <div className="w-[90%] sm:w-[80%] md:w-[70%]">
                   <CustomButton
-                    text="Learn More"
+                    text={dict?.common?.learn_more || "Learn More"}
                     as="link"
                     to={`/services#service-${service.slug}`}
                     bgColor={service.mainColor}
