@@ -43,7 +43,7 @@ export default function ContactClient({ config, page, dict, lang = 'en' }) {
 
             <main className="max-w-6xl mx-auto px-4 py-16 grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <motion.div
-                    className="flex flex-col text-white p-12 justify-between shadow-[8px_8px_20px_rgba(0,0,0,0.15)] transition-all duration-300 rounded-2xl"
+                    className="hidden lg:flex flex-col text-white p-12 justify-between shadow-[8px_8px_20px_rgba(0,0,0,0.15)] transition-all duration-300 rounded-2xl"
                     style={{ backgroundColor: (cfg.mainColor || cfg.main_color || '#ADD0B3'), border: `2px solid ${cfg.mainColor || cfg.main_color || 'transparent'}` }}
                     variants={cardSlideUp}
                     initial="hidden"

@@ -40,7 +40,7 @@ export default function LanguageSwitcher({ align = 'right', mobile = false }) {
     // Mobile-optimized text sizes and padding
     const fontSize = mobile ? 'text-base' : 'text-sm';
     const padding = mobile ? 'px-4 py-2.5' : 'px-3 py-1.5';
-    const iconSize = mobile ? 'text-2xl' : 'text-lg';
+    const iconSize = mobile ? 'text-2xl' : 'text-xl';
 
     return (
         <div className={`relative z-50 ${mobile ? 'w-full' : ''}`} ref={dropdownRef}>
