@@ -7,8 +7,9 @@ export async function fetchAPI(endpoint, options = {}) {
   const { 
     method = 'GET', 
     body, 
-    headers = {}, 
+    headers = {},
     next = { revalidate: CONFIG.DEFAULT_REVALIDATE },
+    cache,
     params = {} 
   } = options;
 
@@ -28,6 +29,7 @@ export async function fetchAPI(endpoint, options = {}) {
       ...headers,
     },
     next,
+    ...(cache && { cache }),
   };
 
   if (body) {
