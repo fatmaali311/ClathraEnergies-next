@@ -7,19 +7,18 @@ const nextConfig = {
   },
 
   images: {
-    domains: ['localhost', '127.0.0.1', 'api.clathraenergies.fr'],
     remotePatterns: [
-      // development
+      // development (allow any port for localhost)
       {
         protocol: 'http',
         hostname: 'localhost',
-        port: '3000',
+        port: '',
         pathname: '/**',
       },
       {
         protocol: 'http',
         hostname: '127.0.0.1',
-        port: '3000',
+        port: '',
         pathname: '/**',
       },
       //  production backend serves images, e.g.:
