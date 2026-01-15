@@ -48,9 +48,9 @@ export default function LanguageSwitcher({ align = 'right', mobile = false }) {
 
     const currentLangObj = CONFIG.LANGUAGES.find(l => l.code === currentLang) || CONFIG.LANGUAGES[0];
 
-    // Mobile-optimized text sizes and padding
-    const fontSize = mobile ? 'text-base' : 'text-sm';
-    const padding = mobile ? 'px-4 py-2.5' : 'px-3 py-1.5';
+    // Mobile-optimized text sizes and padding to match Contact Us button (GButton md)
+    const fontSize = 'text-base';
+    const padding = mobile ? 'px-8 py-4 min-h-[52px]' : 'px-8 min-h-[52px]';
 
     return (
         <div className={`relative z-50 ${mobile ? 'w-full' : ''}`} ref={dropdownRef}>
@@ -61,10 +61,10 @@ export default function LanguageSwitcher({ align = 'right', mobile = false }) {
                 className={`
                     flex items-center ${mobile ? 'justify-between w-full' : 'gap-2'} 
                     ${padding} rounded-full font-medium transition-all duration-300
-                    border
+                    border-2
                     ${isOpen
                         ? 'border-[var(--primary-green)] bg-[var(--primary-green)]/5 text-[var(--primary-green)]'
-                        : 'border-transparent hover:border-[var(--primary-green)]/30 text-gray-700 hover:text-[var(--primary-green)] hover:bg-[var(--primary-green)]/5'
+                        : 'border-[var(--primary-green)] hover:border-[var(--primary-green)] text-gray-700 hover:text-[var(--primary-green)] hover:bg-[var(--primary-green)]/5'
                     }
                     ${fontSize}
                 `}

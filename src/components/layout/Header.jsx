@@ -17,19 +17,19 @@ export default function Header({ config = {}, images = {}, navLinks = null, dict
     const currentPath = usePathname() || ''
 
     return (
-        <header className="bg-white shadow-lg fixed top-0 left-0 right-0 z-50">
+        <header className="bg-white shadow-lg sticky top-0 left-0 right-0 z-50">
             <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-4 py-4 flex items-center justify-between">
                 <Link href="/" className="transition-transform duration-300 hover:scale-105">
                     {images?.main_logo ? (
-                        <img src={getImageUrl(images.main_logo)} alt={config.name || 'Clathra Energies Logo'} className="h-16 md:h-20" />
+                        <img src={getImageUrl(images.main_logo)} alt={config.name || 'Clathra Energies Logo'} className="h-14 md:h-16 lg:h-20" />
                     ) : (
                         <span className="site-name text-[var(--primary-green)]">{config.name || 'ClathraEnergies'}</span>
                     )}
                 </Link>
 
                 {/* Desktop Menu */}
-                <nav className="hidden md:flex flex-1 justify-center text-xl gap-10 text-gray-800 font-medium" aria-label="Main Navigation">
-                    <ul className="flex space-x-10">
+                <nav className="hidden md:flex flex-1 justify-center md:text-sm lg:text-base xl:text-lg md:gap-4 lg:gap-10 text-gray-800 font-medium" aria-label="Main Navigation">
+                    <ul className="flex md:space-x-4 lg:space-x-10">
                         {links.slice(0, -1).map((l, index) => {
                             const isActive = currentPath === l.path || (l.path !== '/' && currentPath.startsWith(l.path))
                             // Map path to dict key
@@ -54,8 +54,13 @@ export default function Header({ config = {}, images = {}, navLinks = null, dict
                     </ul>
                 </nav>
 
-                <div className="hidden md:flex items-center gap-4">
-                    <GButton href="/contact-us" isActive={currentPath === '/contact-us' || currentPath.startsWith('/contact-us')}>
+                <div className="hidden md:flex items-center gap-3 lg:gap-4">
+                    <GButton
+                        href="/contact-us"
+                        size="sm"
+                        className="lg:min-h-[52px] lg:px-8 lg:text-base"
+                        isActive={currentPath === '/contact-us' || currentPath.startsWith('/contact-us')}
+                    >
                         {dict?.nav?.contact || 'Contact Us'}
                     </GButton>
                     <LanguageSwitcher />

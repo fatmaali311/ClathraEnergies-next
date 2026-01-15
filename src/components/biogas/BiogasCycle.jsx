@@ -20,28 +20,30 @@ const BiogasCycle = ({ page = {}, images = {} }) => {
     'bg-[var(--primary-blue)]',
   ]
 
+  // Adjusted Tablet Positions (md) to give more room for text
   const mdPositions = [
-    'md:top-[8%] md:left-[14%]',
-    'md:top-[40%] md:left-[0%]',
-    'md:bottom-[0%] md:left-[14%]',
-    'md:bottom-[0%] md:right-[14%]',
-    'md:top-[40%] md:right-[0%]',
-    'md:top-[8%] md:right-[14%]',
+    'md:top-[5%] md:left-[12%]',
+    'md:top-[40%] md:left-[2%]',
+    'md:bottom-[0%] md:left-[12%]',
+    'md:bottom-[0%] md:right-[12%]',
+    'md:top-[40%] md:right-[2%]',
+    'md:top-[5%] md:right-[12%]',
   ]
 
+  // Adjusted Desktop Positions (lg) to spread points further
   const lgPositions = [
-    'lg:top-[8%] lg:left-[10%]',
-    'lg:top-[40%] lg:left-[0%]',
-    'lg:bottom-[0%] lg:left-[10%]',
-    'lg:bottom-[0%] lg:right-[10%]',
-    'lg:top-[40%] lg:right-[0%]',
-    'lg:top-[8%] lg:right-[10%]',
+    'lg:top-[5%] lg:left-[8%]',
+    'lg:top-[40%] lg:left-[1%]',
+    'lg:bottom-[-2%] lg:left-[8%]',
+    'lg:bottom-[-2%] lg:right-[8%]',
+    'lg:top-[40%] lg:right-[1%]',
+    'lg:top-[5%] lg:right-[8%]',
   ]
 
   return (
     <section className="w-full pb-10 md:pb-14 flex flex-col items-center bg-white">
       <div className="w-full">
-        <div className="hidden md:flex relative w-full max-w-5xl mx-auto h-[500px] lg:h-[650px] items-center justify-center">
+        <div className="hidden md:flex relative w-full max-w-6xl mx-auto h-[550px] lg:h-[700px] items-center justify-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -53,7 +55,7 @@ const BiogasCycle = ({ page = {}, images = {} }) => {
               <img
                 src={cycleImage}
                 alt="Cycle"
-                className="w-[280px] h-[280px] md:w-[320px] md:h-[320px] lg:w-[500px] lg:h-[500px] object-contain"
+                className="w-[280px] h-[280px] md:w-[330px] md:h-[330px] lg:w-[520px] lg:h-[520px] object-contain"
               />
             )}
           </motion.div>
@@ -85,7 +87,7 @@ const BiogasCycle = ({ page = {}, images = {} }) => {
         </div>
 
         <div className="md:hidden mt-0 mb-10 px-4">
-          <motion.div initial={{ opacity: 0, scale: 0.7 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.9, ease: 'easeOut' }} className="relative flex items-center justify-center w-60 h-60 mb-6 mx-auto">
+          <motion.div initial={{ opacity: 0, scale: 0.7 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.9, ease: 'easeOut' }} className="relative flex items-center justify-center w-72 h-72 mb-6 mx-auto">
             <img src={cycleImage} alt="Cycle" className="absolute inset-0 w-full h-full object-contain" />
           </motion.div>
 

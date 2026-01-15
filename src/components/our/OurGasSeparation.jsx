@@ -150,10 +150,11 @@ export default function OurGasSeparation({ page = {}, images = {} }) {
                 </svg>
 
                 {/* Label */}
-                <div className="my-3 bg-white/80 px-4 py-1 rounded-full shadow-sm">
-                  <span className="text-xl font-bold" style={{ color: gas.color }}>
-                    {gas.name.slice(0, -1)}
-                    <sub>{gas.name.slice(-1)}</sub>
+                <div className="my-3 bg-white/80 px-4 py-2 rounded-full shadow-sm min-h-[50px] flex items-center justify-center text-center">
+                  <span className="text-lg md:text-xl font-bold leading-tight" style={{ color: gas.color }}>
+                    {gas.name.split(/(\d+)/).map((part, index) =>
+                      /\d/.test(part) ? <sub key={index} className="text-sm border-0">{part}</sub> : part
+                    )}
                   </span>
                 </div>
 
