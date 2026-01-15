@@ -21,14 +21,14 @@ export default function Header({ config = {}, images = {}, navLinks = null, dict
             <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-4 py-4 flex items-center justify-between">
                 <Link href="/" className="transition-transform duration-300 hover:scale-105">
                     {images?.main_logo ? (
-                        <img src={getImageUrl(images.main_logo)} alt={config.name || 'Clathra Energies Logo'} className="h-14 md:h-16 lg:h-20" />
+                        <img src={getImageUrl(images.main_logo)} alt={config.name || 'Clathra Energies Logo'} className="h-12 md:h-14 lg:h-16" />
                     ) : (
                         <span className="site-name text-[var(--primary-green)]">{config.name || 'ClathraEnergies'}</span>
                     )}
                 </Link>
 
                 {/* Desktop Menu */}
-                <nav className="hidden md:flex flex-1 justify-center md:text-sm lg:text-base xl:text-lg md:gap-4 lg:gap-10 text-gray-800 font-medium" aria-label="Main Navigation">
+                <nav className="hidden md:flex flex-1 justify-center md:text-md lg:text-lg xl:text-xl md:gap-4 lg:gap-10 text-gray-800 font-medium" aria-label="Main Navigation">
                     <ul className="flex md:space-x-4 lg:space-x-10">
                         {links.slice(0, -1).map((l, index) => {
                             const isActive = currentPath === l.path || (l.path !== '/' && currentPath.startsWith(l.path))
@@ -57,8 +57,7 @@ export default function Header({ config = {}, images = {}, navLinks = null, dict
                 <div className="hidden md:flex items-center gap-3 lg:gap-4">
                     <GButton
                         href="/contact-us"
-                        size="sm"
-                        className="lg:min-h-[52px] lg:px-8 lg:text-base"
+                        className="min-h-[38px] px-4 md:text-xs lg:min-h-[52px] lg:px-8 lg:text-base"
                         isActive={currentPath === '/contact-us' || currentPath.startsWith('/contact-us')}
                     >
                         {dict?.nav?.contact || 'Contact Us'}

@@ -48,9 +48,9 @@ export default function LanguageSwitcher({ align = 'right', mobile = false }) {
 
     const currentLangObj = CONFIG.LANGUAGES.find(l => l.code === currentLang) || CONFIG.LANGUAGES[0];
 
-    // Mobile-optimized text sizes and padding to match Contact Us button (GButton md)
-    const fontSize = 'text-base';
-    const padding = mobile ? 'px-8 py-4 min-h-[52px]' : 'px-8 min-h-[52px]';
+    // Mobile-optimized text sizes and padding to match Contact Us button
+    const fontSize = mobile ? 'text-base' : 'text-xs lg:text-base';
+    const padding = mobile ? 'px-8 py-4 min-h-[52px]' : 'px-3 lg:px-8 min-h-[38px] lg:min-h-[52px]';
 
     return (
         <div className={`relative z-50 ${mobile ? 'w-full' : ''}`} ref={dropdownRef}>
