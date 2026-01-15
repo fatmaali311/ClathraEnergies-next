@@ -6,6 +6,8 @@ import { CONFIG } from '../../config';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HiGlobeAlt, HiChevronDown, HiCheck } from 'react-icons/hi';
 
+import { GB, FR, CN } from 'country-flag-icons/react/3x2';
+
 export default function LanguageSwitcher({ align = 'right', mobile = false }) {
     const router = useRouter();
     const [currentLang, setCurrentLang] = useState(CONFIG.DEFAULT_LANG);
@@ -35,12 +37,20 @@ export default function LanguageSwitcher({ align = 'right', mobile = false }) {
         router.refresh();
     };
 
+    const getFlagComponent = (code) => {
+        switch (code) {
+            case 'en': return <GB title="United Kingdom" className="w-6 h-4 rounded shadow-sm" />;
+            case 'fr': return <FR title="France" className="w-6 h-4 rounded shadow-sm" />;
+            case 'zh': return <CN title="China" className="w-6 h-4 rounded shadow-sm" />;
+            default: return <GB title="United Kingdom" className="w-6 h-4 rounded shadow-sm" />;
+        }
+    };
+
     const currentLangObj = CONFIG.LANGUAGES.find(l => l.code === currentLang) || CONFIG.LANGUAGES[0];
 
     // Mobile-optimized text sizes and padding
     const fontSize = mobile ? 'text-base' : 'text-sm';
     const padding = mobile ? 'px-4 py-2.5' : 'px-3 py-1.5';
-    const iconSize = mobile ? 'text-2xl' : 'text-xl';
 
     return (
         <div className={`relative z-50 ${mobile ? 'w-full' : ''}`} ref={dropdownRef}>
@@ -62,7 +72,9 @@ export default function LanguageSwitcher({ align = 'right', mobile = false }) {
                 aria-expanded={isOpen}
             >
                 <div className="flex items-center gap-2">
-                    <span className={`${iconSize} filter drop-shadow-sm`}>{currentLangObj.flag}</span>
+                    <span className="flex items-center justify-center filter drop-shadow-sm">
+                        {getFlagComponent(currentLangObj.code)}
+                    </span>
                     <span className="uppercase tracking-wider font-semibold text-xs">{currentLangObj.code}</span>
                 </div>
                 <motion.div
@@ -103,7 +115,9 @@ export default function LanguageSwitcher({ align = 'right', mobile = false }) {
                                         `}
                                     >
                                         <div className="flex items-center gap-3">
-                                            <span className="text-xl filter drop-shadow-sm">{lang.flag}</span>
+                                            <span className="flex items-center justify-center filter drop-shadow-sm">
+                                                {getFlagComponent(lang.code)}
+                                            </span>
                                             <span>{lang.name}</span>
                                         </div>
                                         {isActive && (
