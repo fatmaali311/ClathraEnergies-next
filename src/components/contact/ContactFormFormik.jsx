@@ -65,6 +65,7 @@ export default function ContactFormFormik({ formConfig = {}, colors = {}, dict =
   }
 
   const onSubmit = async (values, { setSubmitting, resetForm }) => {
+    const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || process.env.API_BASE_URL || 'http://localhost:3000'
     try {
       // Send to API endpoint using the backend's expected property names (camelCase)
       const payload = {
@@ -76,24 +77,29 @@ export default function ContactFormFormik({ formConfig = {}, colors = {}, dict =
         message: values.message,
       }
 
-      const res = await fetch((process.env.API_BASE_URL || 'http://localhost:3000') + '/contact-us', {
+      const res = await fetch(`${API_BASE}/contact-us`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       })
 
-      if (!res.ok) {
-        // try to read JSON body for error details
-        let errBody = null
-        try { errBody = await res.json() } catch (e) { /* ignore */ }
-        console.error('Contact submit failed', res.status, errBody)
-        const msg = errBody?.message || (errBody && JSON.stringify(errBody)) || `Request failed with status ${res.status}`
-        toast.error(msg)
-        return
-      }
+      if (res.ok) {
+        toast.success(dict?.common?.sentSuccessfully || 'Your message has been sent successfully!')
+        resetForm()
+      } else {
+        const err = await res.json().catch(() => null)
+        console.error('Contact submit failed', res.status, err)
 
-      toast.success(dict?.common?.sentSuccessfully || 'Your message has been sent successfully!')
-      resetForm()
+        let errorMsg = `Submission failed: ${res.status}`
+        if (err?.message) {
+          if (Array.isArray(err.message)) {
+            errorMsg = err.message.join(' | ')
+          } else {
+            errorMsg = err.message
+          }
+        }
+        toast.error(errorMsg)
+      }
     } catch (err) {
       console.error(err)
       toast.error(dict?.common?.errorSending || 'Failed to send message. Please try again later.')
