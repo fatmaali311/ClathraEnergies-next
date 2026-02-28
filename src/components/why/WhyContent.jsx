@@ -87,7 +87,7 @@ const WhyContent = ({ page = {}, images = {} }) => {
           whileInView="visible"
           viewport={viewportSettings}
           variants={fadeUp()}
-          className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-20"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-20"
         >
 
           {/* ------------------ TEMPERATURE CARD ------------------ */}

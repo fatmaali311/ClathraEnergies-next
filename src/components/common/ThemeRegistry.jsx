@@ -8,10 +8,10 @@ export default function ThemeRegistry({ config = {} }) {
 
     useEffect(() => {
         if (!cfg) return;
-        const main = cfg.mainColor || cfg.main_color || '#ADD0B3';
-        const secondary = cfg.secondaryColor || cfg.secondary_color || '#0f766e';
-        const title = cfg.titleColor || cfg.title_color || '#111827';
-        const subtitle = cfg.subtitleColor || cfg.subtitle_color || '#4b5563';
+        const main = cfg.mainColor || cfg.main_color ;
+        const secondary = cfg.secondaryColor || cfg.secondary_color ;
+        const title = cfg.titleColor || cfg.title_color ;
+        const subtitle = cfg.subtitleColor || cfg.subtitle_color ;
 
         const root = document.documentElement;
         root.style.setProperty('--primary-green', main);

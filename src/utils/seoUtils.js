@@ -106,8 +106,8 @@ export function constructMetadata({
           images: [metaImage],
       },
       icons: {
-          icon: config?.images?.main_logo || '/favicon.ico', // Use dynamic logo if available
-          apple: config?.images?.main_logo || '/apple-touch-icon.png',
+          icon: config?.images?.main_logo || '/logo.png', // Use dynamic logo if available
+          apple: config?.images?.main_logo || '/logo.png',
       },
   };
 }

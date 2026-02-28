@@ -51,7 +51,7 @@ export default async function RootLayout({ children }) {
     let config = {};
 
     try {
-        const res = await fetch(`${API_BASE}/config`, { next: { revalidate: 3600 } });
+        const res = await fetch(`${API_BASE}/config`, { next: { revalidate: 0 } });
         if (res.ok) {
             config = await res.json();
         }
