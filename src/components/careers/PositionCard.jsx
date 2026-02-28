@@ -167,18 +167,16 @@ export default function PositionCard({ p, mainColor = 'var(--primary-green)', di
                   </strong>
                   <div className="flex-1">
                     {section.isSkills ? (
-                      <div className="mt-2 space-y-2">
-                        {section.content?.length ? section.content : <div>{dict?.common?.notAvailable || 'N/A'}</div>}
-                      </div>
+                      <div className="mt-2 space-y-2 prose max-w-none text-gray-800"
+                        dangerouslySetInnerHTML={{ __html: getLocalizedValue(p.skills, lang) || '<div>N/A</div>' }} />
                     ) : (
-                      <p
-                        className={`leading-relaxed ${section.color === 'white'
+                      <div
+                        className={`leading-relaxed prose max-w-none ${section.color === 'white'
                           ? 'text-gray-700'
-                          : 'text-white'
+                          : 'text-white prose-invert'
                           }`}
-                      >
-                        {section.content}
-                      </p>
+                        dangerouslySetInnerHTML={{ __html: section.content }}
+                      />
                     )}
                   </div>
                 </motion.div>
