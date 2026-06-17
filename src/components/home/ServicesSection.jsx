@@ -65,7 +65,7 @@ export default function ServicesSection({ services = [], title, dict }) {
               }}
             >
               {/* Number Badge */}
-              <div
+              {/* <div
                 className="absolute top-6 left-6 flex items-center justify-center rounded-full text-white w-12 h-12 sm:w-14 sm:h-14 md:w-18 md:h-18 lg:w-20 lg:h-20 text-2xl sm:text-3xl md:text-4xl transition-shadow duration-200"
                 style={{
                   backgroundColor: service.mainColor,
@@ -73,7 +73,7 @@ export default function ServicesSection({ services = [], title, dict }) {
                 }}
               >
                 {service.number}
-              </div>
+              </div> */}
 
               {/* Image */}
               <div className="flex flex-col items-center gap-6 mt-12 md:mt-20">

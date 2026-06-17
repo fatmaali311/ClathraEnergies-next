@@ -128,17 +128,7 @@ export default function ContactClient({ config, page, dict, lang = 'en' }) {
                 </motion.div>
             </main>
 
-            <section className="relative z-10 h-[450px] w-full mb-8 overflow-hidden shadow-inner">
-                <iframe
-                    src={pageObj.gps_location || config?.maps_embed || ''}
-                    title="Location"
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    allowFullScreen
-                    loading="lazy"
-                />
-            </section>
+          
         </>
     )
 }

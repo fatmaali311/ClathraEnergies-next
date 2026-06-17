@@ -38,7 +38,7 @@ export default function ServicesCards({ services = [] }) {
               whileInView={i !== 0 ? "show" : undefined}
               viewport={{ once: true, amount: 0.2 }}
               whileHover={{ y: -12, scale: 1.01 }}
-              className={`relative bg-white cursor-pointer
+              className={`relative bg-white 
                 flex flex-col items-center text-center
                 w-full max-w-6xl mx-auto p-8 sm:p-12 md:p-16 pt-24
                 shadow-[8px_8px_20px_rgba(0,0,0,0.15)]
@@ -47,7 +47,7 @@ export default function ServicesCards({ services = [] }) {
               id={`service-${svc.slug || svc._id}`}
             >
               {/* Number Badge */}
-              <motion.div
+              {/* <motion.div
                 variants={fadeUp(i, 0.2)}
                 initial="hidden"
                 animate={i === 0 ? "visible" : undefined}
@@ -61,7 +61,7 @@ export default function ServicesCards({ services = [] }) {
                 style={{ background: mainColor }}
               >
                 {i + 1}
-              </motion.div>
+              </motion.div> */}
 
               {/* Title + Subtitle + Paragraph */}
               <motion.div
@@ -139,12 +139,12 @@ export default function ServicesCards({ services = [] }) {
 
                       {/* Points */}
                       {points.length > 0 && (
-                        <motion.ol
+                        <motion.ul
                           variants={listContainer}
                           initial="hidden"
                           whileInView="show"
                           viewport={{ once: true, amount: 0.2 }}
-                          className="list-decimal w-full space-y-2 text-left max-w-xs
+                          className="list-disc w-full space-y-2 text-left max-w-xs
                             pl-6 sm:pl-8 md:pl-10 lg:pl-14
                             text-sm sm:text-base md:text-lg text-gray-600"
                         >
@@ -157,7 +157,7 @@ export default function ServicesCards({ services = [] }) {
                               {p}
                             </motion.li>
                           ))}
-                        </motion.ol>
+                        </motion.ul>
                       )}
                     </motion.div>
                   );

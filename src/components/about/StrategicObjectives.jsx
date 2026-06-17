@@ -41,12 +41,12 @@ export default function StrategicObjectives({ objectives = [], images = {}, titl
                 p-6 sm:p-8 md:p-12 pt-16 sm:pt-20
                 min-h-[260px] sm:min-h-[300px] md:min-h-[340px]
                 w-full max-w-xl sm:max-w-2xl md:max-w-3xl lg:max-w-5xl xl:max-w-6xl
-                mx-auto cursor-pointer 
+                mx-auto 
                 shadow-[8px_8px_20px_rgba(0,0,0,0.15)] transition-all duration-300`}
               style={{ borderColor: color }}
             >
               {/* Number Badge */}
-              <motion.div
+              {/* <motion.div
                 initial={{ scale: 0 }}
                 animate={{ scale: isInView ? 1 : 0 }}
                 transition={{ delay: i * 0.3, type: "spring", stiffness: 150 }}
@@ -58,7 +58,7 @@ export default function StrategicObjectives({ objectives = [], images = {}, titl
                 style={{ backgroundColor: color }}
               >
                 {displayNumber}
-              </motion.div>
+              </motion.div> */}
 
               {/* Content */}
               <div className="text-center px-2 sm:px-6 md:px-12">

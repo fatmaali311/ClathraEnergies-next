@@ -103,7 +103,7 @@ function AboutDetails({ details, pageImages }) {
                 return (
                     <div
                         key={d.id ?? i}
-                        className={`pt-16 p-10 text-white ${useClass ? colorVal : ''} flex flex-col items-center text-center cursor-pointer w-full max-w-lg mx-auto min-h-[380px] border-none shadow-lg`}
+                        className={`pt-16 p-10 text-white ${useClass ? colorVal : ''} flex flex-col items-center text-center  w-full max-w-lg mx-auto min-h-[380px] border-none shadow-lg`}
                         style={{ ...cardStyle, borderRadius: 0 }}
                     >
                         <h3 className="text-4xl font-bold flex items-center justify-center mb-4">
