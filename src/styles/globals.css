@@ -140,3 +140,30 @@ footer a:hover {
   box-shadow: 0 10px 20px rgba(0,0,0,0.15);
   border-radius: 1rem;
 }
+
+
+/* 1. Absolute global disable for all DOM elements, pseudo-elements, and SVGs */
+*, *::before, *::after {
+  transition-property: none !important;
+  transition-duration: 0s !important;
+  transition-delay: 0s !important;
+  animation-name: none !important;
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  animation-iteration-count: 1 !important;
+  transform: none !important;
+}
+
+/* 2. FIXED: Target ONLY elements explicitly hidden (opacity: 0) by animation states */
+[style*="opacity: 0"], 
+[style*="opacity:0"],
+[style*="opacity:  0"] {
+  opacity: 1 !important;
+}
+
+/* 3. Disable layout-shifting hover micro-interactions (e.g., hover:-translate-y-1) */
+.group:hover, 
+div:hover, 
+section:hover {
+  transform: none !important;
+}
