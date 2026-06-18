@@ -1,154 +1,70 @@
 'use client';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { containerVariants, itemVariants, viewportSettings } from '../../utils/animations';
 
-import React from 'react'
-import { motion } from 'framer-motion'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation, Pagination, Autoplay } from 'swiper/modules'
-import 'swiper/css'
-import 'swiper/css/navigation'
-import 'swiper/css/pagination'
-import { containerVariants, itemVariants, viewportSettings } from '../../utils/animations'
-
-export default function PartnersSection({ images = {}, theme = {}, title }) {
+export default function PartnersSection({ images = {}, title = "Our Partners" }) {
+  // Extract and sort partner images cleanly
   const partnerImages = Object.keys(images)
-    .filter(key => key.startsWith('partners_section['))
+    .filter((key) => key.startsWith('partners_section['))
     .sort((a, b) => {
-      const indexA = parseInt(a.match(/\[(\d+)\]/)?.[1] || 0)
-      const indexB = parseInt(b.match(/\[(\d+)\]/)?.[1] || 0)
-      return indexA - indexB
+      const indexA = parseInt(a.match(/\[(\d+)\]/)?.[1] || '0', 10);
+      const indexB = parseInt(b.match(/\[(\d+)\]/)?.[1] || '0', 10);
+      return indexA - indexB;
     })
-    .map(key => images[key])
-    .filter(Boolean)
+    .map((key) => images[key])
+    .filter(Boolean);
 
-  const titleColor = 'var(--title-color)'
-  const accentColor = theme?.accentColor || '#1e90ff'
-  const showSlider = partnerImages.length > 6
+  if (partnerImages.length === 0) return null;
+
+  const titleColor = 'var(--title-color, #0f172a)';
 
   return (
     <motion.section
-      className="py-12 px-4 sm:px-8 lg:px-12 bg-white relative overflow-visible"
-      initial={{ opacity: 0, y: 80 }}
+      className="py-16 sm:py-20 bg-white border-y border-slate-100"
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={viewportSettings}
-      transition={{ duration: 0.8, ease: 'easeOut' }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
     >
-      <style>{`
-        .swiper-button-prev,
-        .swiper-button-next {
-          color: ${accentColor};
-          width: 38px;
-          height: 38px;
-          border-radius: 50%;
-          background: rgba(255, 255, 255, 0.9);
-          box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-          transition: all 0.3s ease;
-          top: 50%;
-          transform: translateY(-50%);
-        }
-
-        .swiper-button-prev { left: 0; }
-        .swiper-button-next { right: 0; }
-
-        @media (min-width: 768px) {
-          .swiper-button-prev { left: -12px; }
-          .swiper-button-next { right: -12px; }
-        }
-
-        .swiper-button-prev:hover,
-        .swiper-button-next:hover {
-          background: ${accentColor};
-          color: #fff;
-        }
-
-        @media (max-width: 640px) {
-          .swiper-button-prev,
-          .swiper-button-next {
-            width: 32px;
-            height: 32px;
-            display: none !important;
-          }
-        }
-
-        .swiper-pagination-bullet {
-          background: rgba(0, 0, 0, 0.2);
-          opacity: 1;
-        }
-        .swiper-pagination-bullet-active {
-          background: ${accentColor};
-        }
-      `}</style>
-
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="show"
-        viewport={viewportSettings}
-        className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-center gap-8 md:gap-20 lg:gap-24"
-      >
-        {/* Title */}
-        <motion.h2
-          variants={itemVariants}
-          className="font-semibold tracking-wide uppercase text-3xl sm:text-4xl text-center md:text-left md:whitespace-nowrap"
-          style={{ color: titleColor }}
-        >
-          {title }
-        </motion.h2>
-
-        {/* Logos */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          variants={itemVariants}
-          className={`flex-1 w-full ${showSlider ? 'max-w-6xl overflow-visible' : 'max-w-none'} mt-8 md:mt-12 lg:mt-16`}
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={viewportSettings}
+          className="flex flex-col lg:flex-row lg:items-center gap-12 xl:gap-16"
         >
-          {showSlider ? (
-            <Swiper
-              modules={[Navigation, Pagination, Autoplay]}
-              spaceBetween={20}
-              slidesPerView={1}
-              breakpoints={{
-                480: { slidesPerView: 1 },
-                640: { slidesPerView: 3 },
-                768: { slidesPerView: 4 },
-                1024: { slidesPerView: 6 },
-              }}
-              navigation
-              pagination={{ clickable: true }}
-              autoplay={{ delay: 2500 }}
-              loop
-              className="pb-12"
+          {/* Section Title */}
+          <motion.div variants={itemVariants} className="shrink-0 text-center lg:text-left">
+            <h2
+              className="text-2xl sm:text-3xl font-extrabold tracking-tight uppercase"
+              style={{ color: titleColor }}
             >
+              {title}
+            </h2>
+          </motion.div>
+
+          {/* Slightly Tighter Visual Balance Grid */}
+          <motion.div variants={itemVariants} className="flex-1 w-full">
+            <div className="flex flex-wrap justify-center lg:justify-start items-center gap-x-12 gap-y-12">
               {partnerImages.map((src, index) => (
-                <SwiperSlide key={index}>
-                  <div className="flex justify-center items-center py-6">
-                    <img
-                      src={src}
-                      alt={`Partner ${index + 1}`}
-                      className={`object-contain transition-transform duration-300 w-auto mx-auto ${index === 1
-                        ? 'h-44 md:h-48 lg:h-52 scale-125'
-                        : 'h-32 sm:h-36 md:h-40 lg:h-44'
-                        }`}
-                    />
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          ) : (
-            <div className="flex flex-col md:flex-row flex-wrap justify-center md:justify-start items-center gap-10 sm:gap-16 mt-4 w-full">
-              {partnerImages.map((src, index) => (
-                <div key={index} className="flex justify-center items-center w-full md:w-auto">
+                <div
+                  key={index}
+                  className="h-24 sm:h-32 xl:h-36 min-w-[120px] max-w-[260px] flex items-center justify-center "
+                >
                   <img
                     src={src}
-                    alt={`Partner ${index + 1}`}
-                    className={`object-contain transition-transform duration-300 w-auto mx-auto ${index === 1
-                      ? 'h-44 md:h-48 lg:h-52 scale-125'
-                      : 'h-32 sm:h-36 md:h-40 lg:h-44'
-                      }`}
+                    alt={`Partner Corporate Logo ${index + 1}`}
+                    className="max-h-full max-w-full object-contain aspect-auto mix-blend-multiply"
+                    loading="lazy"
                   />
                 </div>
               ))}
             </div>
-          )}
+          </motion.div>
         </motion.div>
-      </motion.div>
+      </div>
     </motion.section>
-  )
+  );
 }
