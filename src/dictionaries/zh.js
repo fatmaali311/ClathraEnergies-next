@@ -4,7 +4,12 @@ export const zh = {
     about: "关于我们",
     services: "服务产品与服务",
     careers: "职业发展",
-    contact: "联系我们"
+    products: "我们的产品",
+    contact: "联系我们",
+    discover_technology: "探索我们的技术",
+    why_technology: "为什么选择ClathraEnergies技术？",
+    our_solutions: "我们的解决方案",
+    biogas_solution: "沼气解决方案"
   },
   common: {
     loading: "加载中...",

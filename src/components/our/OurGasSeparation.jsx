@@ -42,7 +42,7 @@ export default function OurGasSeparation({ page = {}, images = {} }) {
       )}
 
       {/* ================= BACKGROUND ================= */}
-      <div className="relative pt-8 pb-20">
+      <div className="relative pt-8 pb-36">
 
         {/* Background image */}
         {bgImage && (

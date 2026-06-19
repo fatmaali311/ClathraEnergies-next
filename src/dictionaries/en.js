@@ -6,7 +6,12 @@ export const en = {
     biogas: "Biogas Solutions",
     careers: "Careers",
     technology: "Our Technology",
-    contact: "Contact Us"
+    products: "Our Products",
+    contact: "Contact Us",
+    discover_technology: "Discover Our Technology",
+    why_technology: "Why ClathraEnergies Technology?",
+    our_solutions: "Our Solutions",
+    biogas_solution: "Biogas Solution"
   },
   countries: {
     france: "FRANCE",

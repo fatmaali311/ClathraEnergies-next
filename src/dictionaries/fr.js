@@ -4,7 +4,12 @@ export const fr = {
     about: "À propos",
     services: "Produits & Services",
     careers: "Carrières",
-    contact: "Contact"
+    products: "Nos Produits",
+    contact: "Contact",
+    discover_technology: "Découvrir notre technologie",
+    why_technology: "Pourquoi la technologie ClathraEnergies ?",
+    our_solutions: "Nos Solutions",
+    biogas_solution: "Solutions de Biogaz"
   },
   common: {
     loading: "Chargement...",
