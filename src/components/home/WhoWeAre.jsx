@@ -52,7 +52,7 @@ export default function WhoWeAre({ section = {}, images = {} }) {
           )}
         </motion.div>
 
-        {/* RIGHT SIDE - IMAGE */}
+        {/* RIGHT SIDE - IMAGE & LABELS BELOW IT */}
         <motion.div
           variants={slideRight}
           initial="hidden"
@@ -60,27 +60,49 @@ export default function WhoWeAre({ section = {}, images = {} }) {
           viewport={viewportSettings}
           className="w-full lg:w-7/12 p-4 rounded-xl flex flex-col items-center relative mt-8 lg:mt-0"
         >
-          <figure className="relative w-full">
+          <figure className="w-full max-w-[620px] mx-auto">
             {img ? (
               <Image
                 src={img}
                 alt={section.title || 'About image'}
                 width={1200}
                 height={650}
-                className="w-full h-auto max-h-[650px] object-cover rounded-lg"
+                className="w-full h-auto block rounded-lg mx-auto"
                 loading="lazy"
                 unoptimized
               />
             ) : null}
 
             <figcaption className="sr-only">
-              Offices located in France, Egypt, and China.
+              Offices located in France and Egypt.
             </figcaption>
 
-            <div className="grid grid-cols-3 mt-4 w-full text-[var(--text-gray-500)] text-[0.8rem] sm:text-[1rem] font-semibold text-center uppercase">
-              <span className="text-left md:pl-4 sm:pl-2">{section?.locations?.[0]?.label}</span>
-              <span className="text-center">{section?.locations?.[1]?.label}</span>
-              <span className="text-right md:pr-4 sm:pr-2">{section?.locations?.[2]?.label}</span>
+            {/* FLEXBOX TIMELINE LABELS */}
+            <div className="w-full flex mt-2 text-[var(--text-gray-500)] text-[0.75rem] sm:text-[0.9rem] font-semibold uppercase tracking-wider select-none">
+              
+              {/* 1. LEFT GUTTER */}
+              <div style={{ flexGrow: 408 }} />
+
+              {/* FRANCE */}
+              <div className="flex justify-center w-0 min-w-max">
+                <span className="text-center">
+                  {section?.locations?.[0]?.label || 'France'}
+                </span>
+              </div>
+
+              {/* 2. MIDDLE GAP */}
+              <div style={{ flexGrow: 260 }} />
+
+              {/* EGYPT */}
+              <div className="flex justify-center w-0 min-w-max">
+                <span className="text-center">
+                  {section?.locations?.[1]?.label || 'Egypt'}
+                </span>
+              </div>
+
+              {/* 3. RIGHT GUTTER */}
+              <div style={{ flexGrow: 380 }} />
+              
             </div>
           </figure>
         </motion.div>
