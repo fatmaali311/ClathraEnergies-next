@@ -34,7 +34,7 @@ export default function ServicesSection({ services = [], title, dict }) {
 
   return (
     <section className="section-container">
-      <h2 className="section-title text-center md:mb-24 mb-16" style={{ color: 'var(--title-color)' }}>
+      <h2 className="section-title text-center md:mb-24 mb-16 text-4xl md:text-5xl lg:text-6xl" style={{ color: 'var(--title-color)' }}>
         {title}
       </h2>
 
@@ -74,7 +74,7 @@ export default function ServicesSection({ services = [], title, dict }) {
               >
                 {service.number}
               </div> */}
-
+ 
               {/* Image */}
               <div className="flex flex-col items-center gap-6 mt-12 md:mt-20">
                 <div className="flex items-center justify-center overflow-hidden w-30 h-30 sm:w-36 sm:h-36 md:w-44 md:h-44">
@@ -93,7 +93,7 @@ export default function ServicesSection({ services = [], title, dict }) {
 
               {/* Title */}
               <h3
-                className={`mb-4 md:mb-2 mt-4 md:mt-2 font-medium text-center ${service.titleColor} text-lg sm:text-xl md:text-2xl`}
+                className={`mb-4 md:mb-2 mt-4 md:mt-2 font-medium text-center ${service.titleColor} text-xl sm:text-2xl md:text-3xl`}
                 style={{ color: service.mainColor }}
               >
                 {service.title}

@@ -72,18 +72,18 @@ export default function ServicesCards({ services = [] }) {
                 viewport={{ once: true, amount: 0.2 }}
                 className="px-4 sm:px-12 mb-12 mx-auto text-center"
               >
-                <h3 className="text-2xl sm:text-4xl md:text-5xl font-semibold mb-6 text-gray-700">
+                <h3 className="text-xl sm:text-3xl md:text-4xl font-semibold mb-6 text-gray-700">
                   {svc.title}
                 </h3>
 
                 {obj.sub_title && (
-                  <p className="text-gray-600 text-base sm:text-lg md:text-xl mb-4 leading-relaxed">
+                  <p className="text-gray-600 text-lg sm:text-xl md:text-2xl mb-4 leading-relaxed">
                     {obj.sub_title}
                   </p>
                 )}
 
                 {obj.paragraph && (
-                  <p className="text-gray-700 text-base sm:text-lg md:text-xl leading-relaxed">
+                  <p className="text-gray-700 text-lg sm:text-xl md:text-2xl leading-relaxed">
                     {obj.paragraph}
                   </p>
                 )}
@@ -144,9 +144,9 @@ export default function ServicesCards({ services = [] }) {
                           initial="hidden"
                           whileInView="show"
                           viewport={{ once: true, amount: 0.2 }}
-                          className="list-disc w-full space-y-2 text-left max-w-xs
+                          className="list-disc w-full space-y-2 text-left max-w-sm
                             pl-6 sm:pl-8 md:pl-10 lg:pl-14
-                            text-sm sm:text-base md:text-lg text-gray-600"
+                            text-base sm:text-lg md:text-xl text-gray-600"
                         >
                           {points.map((p, k) => (
                             <motion.li

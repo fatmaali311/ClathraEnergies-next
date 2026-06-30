@@ -83,7 +83,7 @@ function AboutHeading({ title, subtitle }) {
             <h2 className="section-title mb-12 text-center" style={{ color: 'var(--title-color)' }}>
                 {title}
             </h2>
-            <div className="text-base md:text-lg leading-relaxed text-center mx-auto max-w-5xl" style={{ color: 'var(--subtitle-color)' }}>
+            <div className="text-lg sm:text-xl md:text-2xl leading-relaxed text-center mx-auto max-w-5xl" style={{ color: 'var(--subtitle-color)' }}>
                 {subtitle}
             </div>
         </>
@@ -110,7 +110,7 @@ function AboutDetails({ details, pageImages }) {
                             {iconSrc ? <img src={iconSrc} alt={`${d.title} Icon`} className="md:w-16 md:h-16 w-12 h-12 mr-2" /> : null}
                             {d.title}
                         </h3>
-                        <p className="text-sm md:text-base leading-relaxed">
+                        <p className="text-base md:text-lg leading-relaxed">
                             {d.sub_title || d.text}
                         </p>
                     </div>

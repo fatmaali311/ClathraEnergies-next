@@ -60,7 +60,7 @@ export default function FeaturesSection({ features = [], images = {} }) {
                 </h3>
 
                 <p
-                  className="text-base sm:text-lg leading-relaxed"
+                  className="text-lg sm:text-xl leading-relaxed"
                   style={{ color: 'var(--subtitle-color)' }}
                 >
                   {feature.sub_title}

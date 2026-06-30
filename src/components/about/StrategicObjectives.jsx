@@ -85,7 +85,7 @@ export default function StrategicObjectives({ objectives = [], images = {}, titl
                   {obj.title}
                 </h3>
 
-                <p className="text-gray-600 text-base sm:text-lg md:text-xl leading-relaxed">
+                <p className="text-gray-600 text-lg sm:text-xl md:text-2xl leading-relaxed">
                   {obj.sub_title || obj.text}
                 </p>
               </div>
