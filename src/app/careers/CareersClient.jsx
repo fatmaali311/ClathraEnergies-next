@@ -78,10 +78,10 @@ export default function CareersClient({ config, page, positions, pageObj, images
                 style={{ backgroundImage: `url(${getImageUrl(images?.career_hero_image || '')})` }}
             >
                 <div className="absolute inset-0" style={{ background: 'linear-gradient(to left, var(--primary-green), var(--primary-green), var(--primary-blue))', opacity: 'var(--hero-gradient-opacity)' }} />
-                <motion.h1 variants={slideUp} initial="hidden" whileInView="show" viewport={viewportSettings} className="relative text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+                <motion.h1 variants={slideUp} initial="hidden" whileInView="show" viewport={viewportSettings} className="relative text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
                     {getLocalizedValue(pageObj.hero_section?.title, lang) || 'Careers'}
                 </motion.h1>
-                <motion.p variants={fadeUp} initial="hidden" whileInView="show" viewport={viewportSettings} className="relative text-white/90 text-sm md:text-lg max-w-2xl mx-auto px-4">
+                <motion.p variants={fadeUp} initial="hidden" whileInView="show" viewport={viewportSettings} className="relative text-white/90 text-base md:text-xl max-w-2xl mx-auto px-4">
                     {getLocalizedValue(pageObj.hero_section?.sub_title, lang) || 'We are always looking for passionate individuals to join us.'}
                 </motion.p>
             </section>

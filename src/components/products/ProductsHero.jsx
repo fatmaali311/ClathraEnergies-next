@@ -21,12 +21,12 @@ const ProductsHero = ({ hero = {}, images = {}, config = {} }) => {
       <motion.div className="relative z-10 text-center px-4">
         <motion.h2
           variants={fadeUp()}
-          className="text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-wide"
+          className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-wide"
         >
           {hero.title || 'Our Products'}
         </motion.h2>
         {hero.sub_title && (
-          <motion.p variants={fadeIn} className="mt-3 text-white/90 text-sm md:text-lg leading-relaxed mx-auto" style={{ color: 'var(--subtitle-color)' }}>
+          <motion.p variants={fadeIn} className="mt-3 text-white/90 text-base md:text-xl leading-relaxed mx-auto" style={{ color: 'var(--subtitle-color)' }}>
             {hero.sub_title}
           </motion.p>
         )}

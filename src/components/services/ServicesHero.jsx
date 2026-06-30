@@ -23,11 +23,11 @@ export default function ServicesHero({ hero = {}, images = {} }) {
         variants={slideUp}
         className="relative z-10 flex flex-col items-center justify-center"
       >
-        <h1 className="text-white text-3xl md:text-4xl lg:text-5xl font-bold text-center">
+        <h1 className="text-white text-4xl md:text-5xl lg:text-6xl font-bold text-center">
           {hero.title || 'Services'}
         </h1>
         {hero.sub_title && (
-          <p className="mt-3 text-white/90 text-sm md:text-lg leading-relaxed mx-auto text-center" >
+          <p className="mt-3 text-white/90 text-base md:text-xl leading-relaxed mx-auto text-center" >
             {hero.sub_title}
           </p>
         )}

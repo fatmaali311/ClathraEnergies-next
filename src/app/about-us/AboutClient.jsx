@@ -27,10 +27,10 @@ export default function AboutClient({ pageObj, pageImages, cfg }) {
                 variants={fadeUp}
                 className="relative z-10 text-center px-4 max-w-3xl"
             >
-                <h1 className="text-white text-3xl md:text-5xl font-bold mb-4">
+                <h1 className="text-white text-4xl md:text-6xl font-bold mb-4">
                     {pageObj.hero_section?.title || pageObj.title || cfg.name}
                 </h1>
-                <p className="text-white/90 text-sm md:text-lg leading-relaxed mx-auto">
+                <p className="text-white/90 text-base md:text-xl leading-relaxed mx-auto">
                     {pageObj.hero_section?.sub_title}
                 </p>
             </motion.div>
