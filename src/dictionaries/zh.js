@@ -9,7 +9,8 @@ export const zh = {
     discover_technology: "探索我们的技术",
     why_technology: "为什么选择ClathraEnergies技术？",
     our_solutions: "我们的解决方案",
-    biogas_solution: "沼气解决方案"
+    biogas_solution: "沼气解决方案",
+    valorisation_solutions: "增值解决方案"
   },
   common: {
     loading: "加载中...",

@@ -30,7 +30,8 @@ export default function Header({ config = {}, images = {}, dict = {} }) {
             defaultLabel: 'Services',
             items: [
                 { path: '/our-products', dictKey: 'products', defaultLabel: 'Our Products' },
-                { path: '/biogas-solutions', dictKey: 'biogas_solution', defaultLabel: 'Biogas Solution' }
+                { path: '/biogas-solutions', dictKey: 'biogas_solution', defaultLabel: 'Biogas Solution' },
+                { path: '/valorisation-solutions', dictKey: 'valorisation_solutions', defaultLabel: 'Valorisation Solutions' }
             ]
         },
         {

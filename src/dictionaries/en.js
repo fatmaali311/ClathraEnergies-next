@@ -11,7 +11,8 @@ export const en = {
     discover_technology: "Discover Our Technology",
     why_technology: "Why ClathraEnergies Technology?",
     our_solutions: "Our Solutions",
-    biogas_solution: "Biogas Solution"
+    biogas_solution: "Biogas Solution",
+    valorisation_solutions: "Valorisation Solutions"
   },
   countries: {
     france: "FRANCE",
