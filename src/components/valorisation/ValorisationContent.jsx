@@ -5,6 +5,75 @@ import { motion } from 'framer-motion'
 import { getImageUrl } from '../../utils/imageUtils'
 import { fadeUp, viewportSettings } from '../../utils/animations'
 
+
+const IMAGE_SIZES = {
+  dome: 'h-[150px] sm:h-[180px] md:h-[210px] lg:h-[clamp(290px,22vw,390px)]',
+  truck: 'h-[150px] sm:h-[180px] md:h-[210px] lg:h-[clamp(290px,22vw,390px)]',
+  station: 'h-[150px] sm:h-[180px] md:h-[210px] lg:h-[clamp(290px,22vw,390px)]',
+  pipe: 'h-[80%] sm:h-[82%] md:h-[82%] lg:h-[92%]',
+}
+
+
+const IMAGE_WIDTHS = {
+  dome: 'flex-[1.3]',
+  truck: 'flex-[2.2]',
+  station: 'flex-[1.2]',
+}
+
+const PIPE_OFFSET = 'right-[-40%] sm:right-[-43%] md:right-[-50%]'
+
+const FlowArrow = ({ direction }) => {
+  const isLeft = direction === 'left'
+
+  return (
+<div className="pointer-events-none mt-[-55px] h-4 w-full overflow-visible sm:mt-[-54px] md:mt-[-73] lg:mt-[-120px]">      <svg className="h-full w-full overflow-visible" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker
+            id={`arrow-head-${direction}`}
+            viewBox="0 0 10 10"
+            refX="6"
+            refY="5"
+            markerWidth="4.5"
+            markerHeight="4.5"
+            orient="auto-start-reverse"
+          >
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="#4B5563" />
+          </marker>
+        </defs>
+
+        <line
+          x1={isLeft ? '14%' : '86%'}
+          y1="50%"
+          x2={isLeft ? '86%' : '14%'}
+          y2="50%"
+          stroke="#4B5563"
+          strokeWidth="1.75"
+          strokeDasharray="5 4"
+          strokeLinecap="round"
+          markerEnd={`url(#arrow-head-${direction})`}
+        />
+      </svg>
+    </div>
+  )
+}
+
+const DiagramAsset = ({ src, alt, variant, pipeSrc, isStation = false }) => {
+  return (
+    <div className={`relative z-10 flex  items-end ${IMAGE_WIDTHS[variant]} ${IMAGE_SIZES[variant]}`}>
+      <img src={src} alt={alt} className="h-full w-full object-contain md:scale-120 lg:scale-150
+      " loading="lazy" />
+      {isStation && pipeSrc && (
+        <img
+          src={pipeSrc}
+          alt="Injection pipe"
+          className={`pointer-events-none absolute bottom-0 ${PIPE_OFFSET} ${IMAGE_SIZES.pipe} w-auto object-contain z-20`}
+          loading="lazy"
+        />
+      )}
+    </div>
+  )
+}
+
 // ============================================================
 // CompositeDiagram
 // Renders the animated flow diagram for the "producers" section:
@@ -14,14 +83,9 @@ import { fadeUp, viewportSettings } from '../../utils/animations'
 const CompositeDiagram = ({ images, type = 'left' }) => {
   const isLeft = type === 'left'
 
-  // Responsive height applied to every icon in the diagram
-  const assetHeight = 'h-[95px] sm:h-[120px] md:h-[145px] lg:h-[165px] xl:h-[185px]'
-
-  // Resolve image URLs from the images object (CMS-driven assets)
   const domeImg = getImageUrl(images?.producers_biogas_dome_image || '')
   const stationImg = getImageUrl(images?.producers_injection_station_image || '')
 
-  // Truck and pipe images differ between the left and right diagrams
   const truckImg = isLeft
     ? getImageUrl(images?.producers_left_truck_image || '')
     : getImageUrl(images?.producers_right_truck_image || '')
@@ -29,105 +93,43 @@ const CompositeDiagram = ({ images, type = 'left' }) => {
     ? getImageUrl(images?.producers_left_pipe_image || '')
     : getImageUrl(images?.producers_right_pipe_image || '')
 
-  // Don't render anything if none of the core images are available
   if (!domeImg && !stationImg && !truckImg) return null
 
+  const diagramItems = isLeft
+    ? [
+        { key: 'dome', src: domeImg, alt: 'Biogas dome', variant: 'dome' },
+        { key: 'truck', src: truckImg, alt: 'Transport truck', variant: 'truck' },
+        {
+          key: 'station',
+          src: stationImg,
+          alt: 'Injection station',
+          variant: 'station',
+          pipeSrc: pipeImg,
+          isStation: true,
+        },
+      ]
+    : [
+        { key: 'truck', src: truckImg, alt: 'Transport truck', variant: 'truck' },
+        { key: 'dome', src: domeImg, alt: 'Biogas dome', variant: 'dome' },
+        {
+          key: 'station',
+          src: stationImg,
+          alt: 'Injection station',
+          variant: 'station',
+          pipeSrc: pipeImg,
+          isStation: true,
+        },
+      ]
+
   return (
-    <div className="w-full flex items-end justify-center select-none overflow-visible">
-      <div className="relative flex items-end justify-center w-full max-w-[420px] sm:max-w-[520px] md:max-w-[620px] lg:max-w-[700px] gap-3.5 overflow-visible pr-20 pb-2">
-
-        {/* --- Dashed arrow overlay showing direction of flow --- */}
-        <div className="absolute inset-y-0 left-0 right-20 pointer-events-none z-30 overflow-visible">
-          <svg className="w-full h-full overflow-visible" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              {/* Arrowhead marker, unique id per diagram type to avoid collisions */}
-              <marker
-                id={`arrow-head-${type}`}
-                viewBox="0 0 10 10"
-                refX="6"
-                refY="5"
-                markerWidth="4.5"
-                markerHeight="4.5"
-                orient="auto-start-reverse"
-              >
-                <path d="M 0 1 L 10 5 L 0 9 z" fill="#4B5563" />
-              </marker>
-            </defs>
-
-            {/* Left diagram: arrow points right. Right diagram: arrow points left. */}
-            {isLeft ? (
-              <line
-                x1="16%"
-                y1="68%"
-                x2="88%"
-                y2="68%"
-                stroke="#4B5563"
-                strokeWidth="1.75"
-                strokeDasharray="5 4"
-                strokeLinecap="round"
-                markerEnd={`url(#arrow-head-${type})`}
-              />
-            ) : (
-              <line
-                x1="84%"
-                y1="68%"
-                x2="12%"
-                y2="68%"
-                stroke="#4B5563"
-                strokeWidth="1.75"
-                strokeDasharray="5 4"
-                strokeLinecap="round"
-                markerEnd={`url(#arrow-head-${type})`}
-              />
-            )}
-          </svg>
+    <div className="w-full select-none overflow-visible">
+      <div className="mx-auto flex w-full max-w-[460px] flex-col items-center gap-1 overflow-visible pb-0 sm:max-w-[560px] sm:gap-2 md:max-w-[680px] md:gap-3 lg:max-w-[1150px] xl:max-w-[1350px]">
+        <div className="flex w-full items-end justify-center gap-0 overflow-visible sm:gap-0 md:gap-1 lg:gap-2 xl:gap-3">
+          {diagramItems.map(({ key, ...itemProps }) => (
+            <DiagramAsset key={key} {...itemProps} />
+          ))}
         </div>
-
-        {/* --- Icon order flips depending on diagram type --- */}
-        {isLeft ? (
-          <>
-            {/* Left version: dome -> truck -> station */}
-            <div className={`${assetHeight} w-[32%] flex items-end flex-shrink-0 relative z-10`}>
-              <img src={domeImg} alt="Biogas dome" className="h-full w-full object-contain" loading="lazy" />
-            </div>
-            <div className={`${assetHeight} w-[50%] flex items-end flex-shrink-0 relative z-10`}>
-              <img src={truckImg} alt="Transport truck" className="h-full w-full object-contain" loading="lazy" />
-            </div>
-            <div className={`relative ${assetHeight} w-[30%] flex items-end flex-shrink-0 overflow-visible z-10`}>
-              <img src={stationImg} alt="Injection station" className="h-full w-full object-contain relative z-10" loading="lazy" />
-              {/* Pipe overlay is absolutely positioned so it can extend past the station icon's bounds */}
-              {pipeImg && (
-                <img
-                  src={pipeImg}
-                  alt="Injection pipe"
-                  className="absolute bottom-0 right-0 h-[75%] w-auto object-contain z-20 pointer-events-none transform translate-x-[43%]"
-                  loading="lazy"
-                />
-              )}
-            </div>
-          </>
-        ) : (
-          <>
-            {/* Right version: truck -> dome -> station (mirrored layout) */}
-            <div className={`${assetHeight} w-[50%] flex items-end flex-shrink-0 relative z-10`}>
-              <img src={truckImg} alt="Transport truck" className="h-full w-full object-contain" loading="lazy" />
-            </div>
-            <div className={`${assetHeight} w-[32%] flex items-end flex-shrink-0 relative z-10`}>
-              <img src={domeImg} alt="Biogas dome" className="h-full w-full object-contain" loading="lazy" />
-            </div>
-            <div className={`relative ${assetHeight} w-[30%] flex items-end flex-shrink-0 overflow-visible z-10`}>
-              <img src={stationImg} alt="Injection station" className="h-full w-full object-contain relative z-10" loading="lazy" />
-              {pipeImg && (
-                <img
-                  src={pipeImg}
-                  alt="Injection pipe"
-                  className="absolute bottom-0 right-0 h-[75%] w-auto object-contain z-20 pointer-events-none transform translate-x-[48%]"
-                  loading="lazy"
-                />
-              )}
-            </div>
-          </>
-        )}
+        <FlowArrow direction={type} />
       </div>
     </div>
   )
@@ -149,61 +151,59 @@ const ValorisationContent = ({ page = {}, images = {} }) => {
   const operatorsImg = getImageUrl(images?.operators_image || '')
 
   return (
-    <section className="w-full bg-transparent py-6 md:py-8 overflow-hidden antialiased">
+    <section className="w-full overflow-hidden bg-transparent py-5 antialiased sm:py-6 md:py-7">
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-
         {/* ================= PRODUCERS SECTION ================= */}
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={viewportSettings}
           variants={fadeUp()}
-          className="mb-0" // no bottom margin; spacing to next section handled by operators' pt-*
+          className="mb-0"
         >
-          {/* Section heading */}
-          <div className="mb-6 md:mb-8 text-center">
+          <div className="mb-3 text-center sm:mb-4 md:mb-5">
             <h3 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl lg:text-4xl">
               {producers.title || 'Valorisation solutions for producers'}
             </h3>
           </div>
 
-          {/* Row containing left diagram, center divider/badge, right diagram */}
-          <div className="flex flex-col lg:flex-row items-center lg:items-stretch justify-center gap-8 lg:gap-0 relative">
-
-            {/* --- Left diagram + caption --- */}
-            <div className="flex flex-col items-center text-center w-full lg:w-[48%] px-4">
-              <div className="mb-4 w-full">
+          <div className="relative flex flex-col items-center justify-center gap-4 lg:flex-row lg:items-stretch lg:gap-3">
+            <div className="flex w-full flex-col items-center px-1 text-center lg:flex-1 lg:px-0 ">
+              <div className="mb-1 w-full">
                 <CompositeDiagram images={images} type="left" />
               </div>
-              <p className="max-w-md text-lg sm:text-xl md:text-2xl font-normal leading-relaxed" style={{ color: 'var(--subtitle-color)' }}>
+              <p
+                className="max-w-md text-lg font-normal leading-relaxed sm:text-xl md:text-2xl"
+                style={{ color: 'var(--subtitle-color)' }}
+              >
                 {producers.left_text || 'Injection of biomethane or biogas without a grid connection'}
               </p>
             </div>
 
-            {/* --- Vertical divider with badge label (desktop only) --- */}
-            {/* items-stretch on parent row lets this line match sibling height instead of a fixed min-height */}
-            <div className="hidden lg:flex flex-col items-center justify-start w-[4%] select-none">
+            <div className="hidden lg:flex min-w-fit select-none flex-col items-center justify-start">
               {producers.badge && (
-                <span className="text-xl lg:text-2xl font-bold text-[var(--primary-blue)] mb-3 tracking-widest block uppercase text-center">
+                <span className="mb-2 block whitespace-nowrap text-center text-2xl font-bold tracking-widest text-[var(--primary-blue)] lg:text-3xl">
                   {producers.badge}
                 </span>
               )}
-              <div className="w-[3px] bg-slate-200/90 rounded-full flex-grow" />
+              <div className="w-[3px] flex-grow rounded-full bg-slate-200/90" />
             </div>
 
-            {/* --- Badge label only, shown above content on mobile/tablet --- */}
-            <div className="lg:hidden flex justify-center order-first mb-4">
+            <div className="order-first mb-2 flex justify-center lg:hidden">
               {producers.badge && (
-                <span className="text-lg sm:text-xl font-bold text-[var(--primary-blue)] uppercase tracking-wider text-center">{producers.badge}</span>
+                <span className="whitespace-nowrap text-center text-lg font-bold uppercase tracking-wider text-[var(--primary-blue)] sm:text-xl">
+                  {producers.badge}
+                </span>
               )}
             </div>
-
-            {/* --- Right diagram + caption --- */}
-            <div className="flex flex-col items-center text-center w-full lg:w-[48%] px-4">
-              <div className="mb-4 w-full">
+            <div className="flex w-full flex-col items-center px-2 text-center lg:flex-1 lg:px-0">
+              <div className="mb-1 w-full">
                 <CompositeDiagram images={images} type="right" />
               </div>
-              <p className="max-w-md text-lg sm:text-xl md:text-2xl font-normal leading-relaxed" style={{ color: 'var(--subtitle-color)' }}>
+              <p
+                className="max-w-md text-lg font-normal leading-relaxed sm:text-xl md:text-2xl"
+                style={{ color: 'var(--subtitle-color)' }}
+              >
                 {producers.right_text || 'Storage solution in the event of network saturation (biomethane)'}
               </p>
             </div>
@@ -216,12 +216,11 @@ const ValorisationContent = ({ page = {}, images = {} }) => {
           whileInView="visible"
           viewport={viewportSettings}
           variants={fadeUp()}
-          className="pt-4" 
+          className="pt-2 md:pt-3"
         >
-          {/* --- Desktop/tablet layout: text | image | text --- */}
-          <div className="hidden md:grid md:grid-cols-[1fr_auto_1fr] gap-6 lg:gap-12 items-center mb-2">
-            <div className="text-right pr-6">
-              <p className="text-lg md:text-xl lg:text-2xl font-normal leading-relaxed" style={{ color: 'var(--subtitle-color)' }}>
+          <div className="hidden items-center gap-3 md:grid md:grid-cols-[1fr_auto_1fr] lg:gap-6">
+            <div className="pr-4 text-right">
+              <p className="text-lg font-normal leading-relaxed md:text-xl lg:text-2xl" style={{ color: 'var(--subtitle-color)' }}>
                 {operators.left_text || 'Green maintenance'}
               </p>
             </div>
@@ -231,30 +230,29 @@ const ValorisationContent = ({ page = {}, images = {} }) => {
                 <img
                   src={operatorsImg}
                   alt="Operators solution"
-                  className="max-h-[190px] lg:max-h-[300px] w-auto object-contain"
+                  className="w-auto max-h-[250px] object-contain lg:max-h-[390px]"
                   loading="lazy"
                 />
               )}
             </div>
 
-            <div className="text-left pl-6">
-              <p className="text-lg md:text-xl lg:text-2xl font-normal leading-relaxed" style={{ color: 'var(--subtitle-color)' }}>
+            <div className="pl-4 text-left">
+              <p className="text-lg font-normal leading-relaxed md:text-xl lg:text-2xl" style={{ color: 'var(--subtitle-color)' }}>
                 {operators.right_text || 'Reduce saturation'}
               </p>
             </div>
           </div>
 
-          {/* --- Mobile layout: image on top, two text columns below --- */}
-          <div className="md:hidden flex flex-col items-center gap-4 mb-2">
+          <div className="mb-2 flex flex-col items-center gap-2 md:hidden">
             {operatorsImg && (
               <img
                 src={operatorsImg}
                 alt="Operators solution"
-                className="w-full max-h-[170px] object-contain"
+                className="w-full max-h-[200px] object-contain"
                 loading="lazy"
               />
             )}
-            <div className="grid grid-cols-2 w-full gap-4 text-center px-2">
+            <div className="grid w-full grid-cols-2 gap-4 px-2 text-center">
               <div>
                 <p className="text-base font-normal leading-snug" style={{ color: 'var(--subtitle-color)' }}>
                   {operators.left_text || 'Green maintenance'}
@@ -268,9 +266,8 @@ const ValorisationContent = ({ page = {}, images = {} }) => {
             </div>
           </div>
 
-          {/* --- Operators section heading, sits directly under the image/text row --- */}
-          <div className="mt-1 text-center">
-            <h3 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl lg:text-4xl">
+          <div className="text-center">
+            <h3 className="text-2xl md:-mt-6 font-bold tracking-tight text-slate-900 sm:text-3xl lg:text-4xl">
               {operators.title || 'For gas network operators'}
             </h3>
           </div>
