@@ -8,6 +8,7 @@ export const fr = {
     contact: "Contact",
     discover_technology: "Découvrir notre technologie",
     why_technology: "Pourquoi la technologie ClathraEnergies ?",
+    our_technology: "Avantages de notre technologie",
     our_solutions: "Nos Solutions",
     biogas_solution: "Solutions de Biogaz",
     valorisation_solutions: "Solutions de Valorisation"

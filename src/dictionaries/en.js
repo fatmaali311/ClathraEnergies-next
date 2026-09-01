@@ -10,6 +10,7 @@ export const en = {
     contact: "Contact Us",
     discover_technology: "Discover Our Technology",
     why_technology: "Why ClathraEnergies Technology?",
+    our_technology: "Our Technology Advantages",
     our_solutions: "Our Solutions",
     biogas_solution: "Biogas Solution",
     valorisation_solutions: "Valorisation Solutions"

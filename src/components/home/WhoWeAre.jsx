@@ -86,7 +86,7 @@ export default function WhoWeAre({ section = {}, images = {} }) {
               {/* FRANCE */}
               <div className="flex justify-center w-0 min-w-max">
                 <span className="text-center">
-                  {section?.locations?.[0]?.label || 'France'}
+                  {section?.locations?.[0]?.label }
                 </span>
               </div>
 
@@ -96,7 +96,7 @@ export default function WhoWeAre({ section = {}, images = {} }) {
               {/* EGYPT */}
               <div className="flex justify-center w-0 min-w-max">
                 <span className="text-center">
-                  {section?.locations?.[1]?.label || 'Egypt'}
+                  {section?.locations?.[1]?.label }
                 </span>
               </div>
 

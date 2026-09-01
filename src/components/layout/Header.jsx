@@ -20,8 +20,9 @@ export default function Header({ config = {}, images = {}, dict = {} }) {
             dictKey: 'discover_technology',
             defaultLabel: 'Discover Our Technology',
             items: [
-                { path: '/why-technology', dictKey: 'why_technology', defaultLabel: 'Why ClathraEnergies Technology?' },
-                { path: '/our-technology', dictKey: 'our_solutions', defaultLabel: 'Our Solutions' }
+                { path: '/why-technology', dictKey: 'why_technology', defaultLabel: 'Why ClathraEnergies' },
+                { path: '/our-technology', dictKey: 'our_technology', defaultLabel: 'Our Technology Advantages' },
+                { path: '/services', dictKey: 'our_solutions', defaultLabel: 'Our Solutions' }
             ]
         },
         {
