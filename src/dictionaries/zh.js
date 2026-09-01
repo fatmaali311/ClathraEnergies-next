@@ -7,7 +7,7 @@ export const zh = {
     products: "我们的产品",
     contact: "联系我们",
     discover_technology: "探索我们的技术",
-    why_technology: "为什么选择ClathraEnergies技术？",
+    why_technology: "为什么选择ClathraEnergies",
     our_technology: "我们的技术优势",
     our_solutions: "我们的解决方案",
     biogas_solution: "沼气解决方案",
