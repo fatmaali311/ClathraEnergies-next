@@ -4,9 +4,13 @@ import React from "react";
 import { motion } from "framer-motion";
 import { getImageUrl } from "../../utils/imageUtils";
 
-export default function OurGasSeparation({ page = {}, images = {} }) {
+export default function OurGasSeparation({ page = {}, images = {}, services = [] }) {
   const gasSection = page.gas_separation || {};
   const gases = gasSection.gases || [];
+
+  const solidifiedService = services.find(
+    (s) => s.slug === 'solidified-gas-storage' || s.title?.toLowerCase().includes('solidified')
+  );
 
   const bgImage = getImageUrl(images?.gas_bg_image);
   const fireImg = getImageUrl(images?.floating_fire_image);
@@ -22,24 +26,93 @@ export default function OurGasSeparation({ page = {}, images = {} }) {
       {/* ================= TITLE ================= */}
       {(gasSection.title || gasSection.sub_title) && (
         <motion.div
-          className="text-center mb-14 w-full  px-4"
+          className="text-center mb-10 w-full px-4"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
           {gasSection.title && (
-            <h2 className="text-3xl md:text-5xl font-extrabold text-slate-800 mb-6">
+            <h2 className="text-3xl md:text-5xl font-extrabold text-slate-800 mb-4">
               {gasSection.title}
             </h2>
           )}
 
           {gasSection.sub_title && (
-            <p className="text-slate-500 text-sm md:text-lg max-w-2xl mx-auto">
+            <p className="text-gray-600 text-lg sm:text-2xl md:text-3xl font-semibold max-w-4xl mx-auto leading-relaxed">
               {gasSection.sub_title}
             </p>
           )}
         </motion.div>
       )}
+
+      {/* ================= SOLIDIFIED GAS STORAGE CARD ================= */}
+      {solidifiedService && (() => {
+        const obj = solidifiedService.data?.serviceObj || {};
+        const svcImages = solidifiedService.data?.images || {};
+        const mainColor = obj.main_color || "var(--primary-green)";
+
+        return (
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="w-full max-w-6xl mx-auto mb-14 px-4 relative z-30"
+          >
+            <div
+              className="relative bg-white flex flex-col items-center text-center w-full p-6 sm:p-10 md:p-12 shadow-[8px_8px_20px_rgba(0,0,0,0.15)] transition-all duration-300"
+              style={{ border: `3px solid ${mainColor}` }}
+            >
+              <h3 className="text-xl sm:text-3xl md:text-4xl font-semibold mb-4 text-gray-700">
+                {solidifiedService.title}
+              </h3>
+
+              {obj.sub_title && (
+                <p className="text-gray-600 text-lg sm:text-xl md:text-2xl mb-3 leading-relaxed">
+                  {obj.sub_title}
+                </p>
+              )}
+
+              {obj.paragraph && (
+                <p className="text-gray-700 text-base sm:text-lg md:text-xl mb-8 max-w-4xl leading-relaxed">
+                  {obj.paragraph}
+                </p>
+              )}
+
+              {/* Inner Boxes */}
+              <div className="grid gap-8 w-full grid-cols-1 sm:grid-cols-2 justify-items-center items-stretch">
+                {(obj.details || []).map((box, j) => {
+                  const points = box.points ? Object.values(box.points) : [];
+                  const iconUrl = getImageUrl(svcImages[box.icon] || "");
+
+                  return (
+                    <div
+                      key={j}
+                      className="flex flex-col items-center text-center w-full p-6 sm:p-8 bg-white shadow-[0_10px_15px_-5px_rgba(0,0,0,0.15)] transition-all duration-300"
+                      style={{ border: `2px solid ${mainColor}` }}
+                    >
+                      {iconUrl && (
+                        <div className="flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 mb-4">
+                          <img src={iconUrl} alt={box.title} className="object-contain w-3/4 h-3/4" />
+                        </div>
+                      )}
+                      <h4 className="mb-4 font-semibold text-lg sm:text-xl md:text-2xl text-gray-700">
+                        {box.title}
+                      </h4>
+                      {points.length > 0 && (
+                        <ul className="list-disc w-full space-y-2 text-left pl-6 sm:pl-8 text-sm sm:text-base md:text-lg text-gray-600">
+                          {points.map((p, k) => (
+                            <li key={k} className="leading-relaxed">{p}</li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </motion.div>
+        );
+      })()}
 
       {/* ================= BACKGROUND ================= */}
       <div className="relative pt-8 pb-36">

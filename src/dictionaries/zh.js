@@ -74,6 +74,7 @@ export const zh = {
     required: "必填",
     invalidEmail: "无效的电子邮件地址",
     fullNameRequired: "必须填写全名",
+    organizationRequired: "组织 / 公司为必填项",
     emailRequired: "必须填写电子邮件",
     interestRequired: "请选择感兴趣的领域",
     representRequired: "请选择您代表的身份",

@@ -5,14 +5,12 @@ import { motion } from 'framer-motion'
 import { getImageUrl } from '../../utils/imageUtils'
 import { fadeUp, viewportSettings } from '../../utils/animations'
 
-
 const IMAGE_SIZES = {
   dome: 'h-[150px] sm:h-[180px] md:h-[210px] lg:h-[clamp(290px,22vw,390px)]',
   truck: 'h-[150px] sm:h-[180px] md:h-[210px] lg:h-[clamp(290px,22vw,390px)]',
   station: 'h-[150px] sm:h-[180px] md:h-[210px] lg:h-[clamp(290px,22vw,390px)]',
   pipe: 'h-[80%] sm:h-[82%] md:h-[82%] lg:h-[92%]',
 }
-
 
 const IMAGE_WIDTHS = {
   dome: 'flex-[1.3]',
@@ -26,7 +24,8 @@ const FlowArrow = ({ direction }) => {
   const isLeft = direction === 'left'
 
   return (
-<div className="pointer-events-none mt-[-55px] h-4 w-full overflow-visible sm:mt-[-54px] md:mt-[-73] lg:mt-[-120px]">      <svg className="h-full w-full overflow-visible" xmlns="http://www.w3.org/2000/svg">
+    <div className="pointer-events-none mt-[-55px] h-4 w-full overflow-visible sm:mt-[-54px] md:mt-[-73px] lg:mt-[-120px]">
+      <svg className="h-full w-full overflow-visible" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <marker
             id={`arrow-head-${direction}`}
@@ -59,9 +58,13 @@ const FlowArrow = ({ direction }) => {
 
 const DiagramAsset = ({ src, alt, variant, pipeSrc, isStation = false }) => {
   return (
-    <div className={`relative z-10 flex  items-end ${IMAGE_WIDTHS[variant]} ${IMAGE_SIZES[variant]}`}>
-      <img src={src} alt={alt} className="h-full w-full object-contain md:scale-120 lg:scale-150
-      " loading="lazy" />
+    <div className={`relative z-10 flex items-end ${IMAGE_WIDTHS[variant]} ${IMAGE_SIZES[variant]}`}>
+      <img
+        src={src}
+        alt={alt}
+        className="h-full w-full object-contain md:scale-120 lg:scale-150"
+        loading="lazy"
+      />
       {isStation && pipeSrc && (
         <img
           src={pipeSrc}
@@ -76,9 +79,6 @@ const DiagramAsset = ({ src, alt, variant, pipeSrc, isStation = false }) => {
 
 // ============================================================
 // CompositeDiagram
-// Renders the animated flow diagram for the "producers" section:
-// dome -> truck -> injection station (left), or reversed (right).
-// A dashed arrow (SVG) connects the icons to show the flow direction.
 // ============================================================
 const CompositeDiagram = ({ images, type = 'left' }) => {
   const isLeft = type === 'left'
@@ -122,7 +122,7 @@ const CompositeDiagram = ({ images, type = 'left' }) => {
       ]
 
   return (
-    <div className="w-full select-none overflow-visible">
+    <div className="w-full select-none overflow-visible px-4 sm:px-6">
       <div className="mx-auto flex w-full max-w-[460px] flex-col items-center gap-1 overflow-visible pb-0 sm:max-w-[560px] sm:gap-2 md:max-w-[680px] md:gap-3 lg:max-w-[1150px] xl:max-w-[1350px]">
         <div className="flex w-full items-end justify-center gap-0 overflow-visible sm:gap-0 md:gap-1 lg:gap-2 xl:gap-3">
           {diagramItems.map(({ key, ...itemProps }) => (
@@ -137,13 +137,6 @@ const CompositeDiagram = ({ images, type = 'left' }) => {
 
 // ============================================================
 // ValorisationContent
-// Main section combining:
-//   1. Producers subsection — two side-by-side flow diagrams with
-//      a vertical divider/badge between them.
-//   2. Operators subsection — a central image flanked by two
-//      supporting text callouts, with a title beneath it.
-// Content (titles, text, badge) is CMS-driven via the `page` prop,
-// with sensible fallback copy if fields are missing.
 // ============================================================
 const ValorisationContent = ({ page = {}, images = {} }) => {
   const producers = page.producers_section || {}
@@ -167,8 +160,8 @@ const ValorisationContent = ({ page = {}, images = {} }) => {
             </h3>
           </div>
 
-          <div className="relative flex flex-col items-center justify-center gap-4 lg:flex-row lg:items-stretch lg:gap-3">
-            <div className="flex w-full flex-col items-center px-1 text-center lg:flex-1 lg:px-0 ">
+          <div className="relative flex flex-col items-center justify-center gap-12 lg:flex-row lg:items-stretch lg:gap-8">
+            <div className="flex w-full flex-col items-center px-1 text-center lg:flex-1 lg:px-0">
               <div className="mb-1 w-full">
                 <CompositeDiagram images={images} type="left" />
               </div>
@@ -180,22 +173,10 @@ const ValorisationContent = ({ page = {}, images = {} }) => {
               </p>
             </div>
 
-            <div className="hidden lg:flex min-w-fit select-none flex-col items-center justify-start">
-              {producers.badge && (
-                <span className="mb-2 block whitespace-nowrap text-center text-2xl font-bold tracking-widest text-[var(--primary-blue)] lg:text-3xl">
-                  {producers.badge}
-                </span>
-              )}
-              <div className="w-[3px] flex-grow rounded-full bg-slate-200/90" />
+            <div className="hidden lg:flex min-w-fit select-none flex-col items-center justify-center px-2">
+              <div className="w-[3px] h-full min-h-[220px] rounded-full bg-slate-200/90" />
             </div>
 
-            <div className="order-first mb-2 flex justify-center lg:hidden">
-              {producers.badge && (
-                <span className="whitespace-nowrap text-center text-lg font-bold uppercase tracking-wider text-[var(--primary-blue)] sm:text-xl">
-                  {producers.badge}
-                </span>
-              )}
-            </div>
             <div className="flex w-full flex-col items-center px-2 text-center lg:flex-1 lg:px-0">
               <div className="mb-1 w-full">
                 <CompositeDiagram images={images} type="right" />
@@ -216,8 +197,14 @@ const ValorisationContent = ({ page = {}, images = {} }) => {
           whileInView="visible"
           viewport={viewportSettings}
           variants={fadeUp()}
-          className="pt-2 md:pt-3"
+          className="pt-6 md:pt-8"
         >
+          <div className="mb-2 text-center ">
+            <h3 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl lg:text-4xl">
+              {operators.title || 'For gas network operators'}
+            </h3>
+          </div>
+
           <div className="hidden items-center gap-3 md:grid md:grid-cols-[1fr_auto_1fr] lg:gap-6">
             <div className="pr-4 text-right">
               <p className="text-lg font-normal leading-relaxed md:text-xl lg:text-2xl" style={{ color: 'var(--subtitle-color)' }}>
@@ -243,7 +230,7 @@ const ValorisationContent = ({ page = {}, images = {} }) => {
             </div>
           </div>
 
-          <div className="mb-2 flex flex-col items-center gap-2 md:hidden">
+          <div className="flex flex-col items-center gap-2 md:hidden">
             {operatorsImg && (
               <img
                 src={operatorsImg}
@@ -264,12 +251,6 @@ const ValorisationContent = ({ page = {}, images = {} }) => {
                 </p>
               </div>
             </div>
-          </div>
-
-          <div className="text-center">
-            <h3 className="text-2xl md:-mt-6 font-bold tracking-tight text-slate-900 sm:text-3xl lg:text-4xl">
-              {operators.title || 'For gas network operators'}
-            </h3>
           </div>
         </motion.div>
       </div>

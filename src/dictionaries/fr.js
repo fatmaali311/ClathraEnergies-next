@@ -74,6 +74,7 @@ export const fr = {
     required: "Requis",
     invalidEmail: "Adresse email invalide",
     fullNameRequired: "Le nom complet est requis",
+    organizationRequired: "L'organisation / l'entreprise est requise",
     emailRequired: "L'email est requis",
     interestRequired: "Veuillez sélectionner un domaine d'intérêt",
     representRequired: "Veuillez indiquer qui vous représentez",

@@ -48,7 +48,7 @@ export default function ContactFormFormik({ formConfig = {}, colors = {}, dict =
 
   const ContactSchema = Yup.object().shape({
     fullName: Yup.string().required(v.fullNameRequired || dict?.validation?.fullNameRequired || 'Full Name is required.'),
-    company: Yup.string(),
+    company: Yup.string().required(v.organizationRequired || dict?.validation?.organizationRequired || 'Organization / Company is required.'),
     email: Yup.string().email(v.invalidEmail || dict?.validation?.invalidEmail || 'Email is invalid.').required(v.emailRequired || dict?.validation?.emailRequired || 'Email is required.'),
     interest: Yup.string().required(v.interestRequired || dict?.validation?.interestRequired || 'Please select an area of interest.'),
     represent: Yup.string().required(v.representRequired || dict?.validation?.representRequired || 'Please select who you represent.'),
@@ -127,6 +127,7 @@ export default function ContactFormFormik({ formConfig = {}, colors = {}, dict =
               <div className="flex flex-col">
                 <label htmlFor="company" className="text-gray-500 font-medium text-lg mb-2">{getLocalizedValue(formConfig.organization_title, lang) || dict?.common?.organization || 'Organization / Company'}</label>
                 <Field name="company" className="w-full px-4 py-2.5 md:py-4.5 rounded-md focus:outline-none" style={{ background: bg, color: 'white', border: `1px solid ${borderColor}` }} placeholder={getLocalizedValue(formConfig.organization_title, lang) || dict?.common?.organization || 'Organization / Company'} />
+                <ErrorMessage name="company" component="div" className="text-red-500 text-sm mt-1" />
               </div>
             </div>
 

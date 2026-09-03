@@ -81,6 +81,7 @@ export const en = {
     required: "Required",
     invalidEmail: "Invalid email address",
     fullNameRequired: "Full Name is required",
+    organizationRequired: "Organization / Company is required",
     emailRequired: "Email is required",
     interestRequired: "Please select an area of interest",
     representRequired: "Please select who you represent",

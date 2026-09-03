@@ -11,16 +11,19 @@ import { pageService } from '../../services/pageService'
 
 import { getDictionary } from '../../dictionaries'
 
+import { serviceService } from '../../services/serviceService'
+
 async function getData() {
     const cookieStore = await cookies()
     const lang = cookieStore.get('NEXT_LOCALE')?.value || 'en'
 
-    const [config, page] = await Promise.all([
+    const [config, page, servicesData] = await Promise.all([
         configService.getGlobalConfig(lang),
-        pageService.getPage('our-technology', lang)
+        pageService.getPage('our-technology', lang),
+        serviceService.getServices({ limit: 10, page: 1, lang })
     ])
     const dict = getDictionary(lang)
-    return { config, page, dict }
+    return { config, page, services: servicesData?.services || [], dict }
 }
 
 export async function generateMetadata() {
@@ -36,7 +39,7 @@ export async function generateMetadata() {
 }
 
 export default async function OurTechnologyPage() {
-    const { config, page, dict } = await getData()
+    const { config, page, services, dict } = await getData()
     const cfg = config?.configObj || {}
     const pageObj = page?.pageObj || {}
     const images = page?.images || config?.images || {}
@@ -47,7 +50,7 @@ export default async function OurTechnologyPage() {
             <OurHero hero={pageObj.hero_section || {}} images={images} config={config} />
             <div className="relative pt-12">
                 <BorderLines position="right" />
-                <OurGasSeparation page={pageObj} images={images} />
+                <OurGasSeparation page={pageObj} images={images} services={services} />
             </div>
         </MainLayout>
     )

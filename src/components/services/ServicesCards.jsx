@@ -13,13 +13,17 @@ import CustomButton from "../common/CustomButton";
 import { getImageUrl } from '../../utils/imageUtils'
 
 export default function ServicesCards({ services = [] }) {
-  if (!services?.length) return null;
+  const filteredServices = services.filter(
+    (svc) => svc.slug !== 'solidified-gas-storage' && !svc.title?.toLowerCase().includes('solidified')
+  );
+
+  if (!filteredServices?.length) return null;
 
   return (
     <section className="section-container bg-white">
       <div className="flex flex-col gap-24 mb-12 text-center">
 
-        {services.map((svc, i) => {
+        {filteredServices.map((svc, i) => {
           const obj = svc.data?.serviceObj || {};
           const images = svc.data?.images || {};
 
