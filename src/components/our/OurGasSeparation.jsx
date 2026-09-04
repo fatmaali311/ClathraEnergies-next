@@ -104,7 +104,7 @@ export default function OurGasSeparation({ page = {}, images = {}, services = []
                         {box.title}
                       </h4>
                       {points.length > 0 && (
-                        <ul className="list-disc w-full space-y-2 text-left pl-6 sm:pl-8 text-sm sm:text-base md:text-lg text-gray-600">
+                        <ul className="list-disc w-full space-y-2 text-left max-w-sm mx-auto pl-6 sm:pl-8 md:pl-10 lg:pl-14 text-sm sm:text-base md:text-lg text-gray-600">
                           {points.map((p, k) => (
                             <li key={k} className="leading-relaxed">{p}</li>
                           ))}
