@@ -20,24 +20,24 @@ const BiogasCycle = ({ page = {}, images = {} }) => {
     'bg-[var(--primary-blue)]',
   ]
 
-  // Adjusted Tablet Positions (md) to give more room for text
+  // Adjusted Tablet Positions (md) to give more room for text - Clockwise starting from Top-Right
   const mdPositions = [
-    'md:top-[5%] md:left-[12%]',
-    'md:top-[40%] md:left-[2%]',
-    'md:bottom-[0%] md:left-[12%]',
-    'md:bottom-[0%] md:right-[12%]',
-    'md:top-[40%] md:right-[2%]',
     'md:top-[5%] md:right-[12%]',
+    'md:top-[40%] md:right-[2%]',
+    'md:bottom-[0%] md:right-[12%]',
+    'md:bottom-[0%] md:left-[12%]',
+    'md:top-[40%] md:left-[2%]',
+    'md:top-[5%] md:left-[12%]',
   ]
 
-  // Adjusted Desktop Positions (lg) to spread points further
+  // Adjusted Desktop Positions (lg) to spread points further - Clockwise starting from Top-Right
   const lgPositions = [
-    'lg:top-[5%] lg:left-[8%]',
-    'lg:top-[40%] lg:left-[1%]',
-    'lg:bottom-[-2%] lg:left-[8%]',
-    'lg:bottom-[-2%] lg:right-[8%]',
-    'lg:top-[40%] lg:right-[1%]',
     'lg:top-[5%] lg:right-[8%]',
+    'lg:top-[40%] lg:right-[1%]',
+    'lg:bottom-[-2%] lg:right-[8%]',
+    'lg:bottom-[-2%] lg:left-[8%]',
+    'lg:top-[40%] lg:left-[1%]',
+    'lg:top-[5%] lg:left-[8%]',
   ]
 
   return (

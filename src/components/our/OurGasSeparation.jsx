@@ -83,11 +83,16 @@ export default function OurGasSeparation({ page = {}, images = {}, services = []
                 {(obj.details || []).map((box, j) => {
                   const points = box.points ? Object.values(box.points) : [];
                   const iconUrl = getImageUrl(svcImages[box.icon] || "");
+                  const isLastOdd =
+                    (obj.details || []).length % 2 !== 0 &&
+                    j === (obj.details || []).length - 1;
 
                   return (
                     <div
                       key={j}
-                      className="flex flex-col items-center text-center w-full p-6 sm:p-8 bg-white shadow-[0_10px_15px_-5px_rgba(0,0,0,0.15)] transition-all duration-300"
+                      className={`flex flex-col items-center text-center w-full p-6 sm:p-8 bg-white shadow-[0_10px_15px_-5px_rgba(0,0,0,0.15)] transition-all duration-300 ${
+                        isLastOdd ? "sm:col-span-2 sm:w-1/2 mx-auto" : ""
+                      }`}
                       style={{ border: `2px solid ${mainColor}` }}
                     >
                       {iconUrl && (
